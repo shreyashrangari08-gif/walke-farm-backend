@@ -104,21 +104,22 @@
     }
     .thumb-360-row img.active { border-color: var(--primary); }
 
-    /* INTERACTIVE MAP GRID */
+    /* FIXED INTERACTIVE PLOT LAYOUT MAP */
     .map-box {
       background: #1e293b; border-radius: 12px; padding: 14px; margin: 12px 0 16px 0; color: white;
     }
-    .map-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; font-weight: 600; }
+    .map-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 12px; font-weight: 600; }
     .plot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    
     .plot-box {
-      background: #334155; border-radius: 8px; padding: 10px 4px; text-align: center; cursor: pointer; transition: all 0.2s; border: 2px solid transparent;
+      background: #334155; border-radius: 8px; padding: 10px 4px; text-align: center; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; user-select: none;
     }
-    .plot-box:hover { transform: scale(1.02); }
-    .plot-box.Available { border-color: #22c55e; background: rgba(34, 197, 94, 0.15); }
-    .plot-box.Booked { border-color: #ef4444; background: rgba(239, 68, 68, 0.15); opacity: 0.7; }
-    .plot-box.On-Hold { border-color: #f59e0b; background: rgba(245, 158, 11, 0.15); }
-    .plot-box strong { font-size: 12px; display: block; }
-    .plot-box span { font-size: 9px; display: block; opacity: 0.85; margin-top: 2px; }
+    .plot-box:active { transform: scale(0.95); }
+    .plot-box.available { border-color: #22c55e; background: rgba(34, 197, 94, 0.2); }
+    .plot-box.booked { border-color: #ef4444; background: rgba(239, 68, 68, 0.2); opacity: 0.7; }
+    .plot-box.hold { border-color: #f59e0b; background: rgba(245, 158, 11, 0.2); }
+    .plot-box strong { font-size: 12px; display: block; color: white; }
+    .plot-box span { font-size: 9px; display: block; opacity: 0.9; margin-top: 2px; }
 
     /* DETAILED PLOT CARDS */
     .plot-item {
@@ -153,17 +154,6 @@
     /* Gallery Grid */
     .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .gallery-grid img { width: 100%; height: 125px; object-fit: cover; border-radius: 10px; border: 1px solid #e5e7eb; cursor: pointer; }
-
-    /* Lightbox Modal */
-    .image-modal { display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); justify-content: center; align-items: center; flex-direction: column; }
-    .image-modal img { max-width: 92%; max-height: 75%; border-radius: 8px; box-shadow: 0 0 25px rgba(255,255,255,0.2); }
-    .modal-controls { display: flex; gap: 20px; margin-top: 15px; }
-    .modal-btn { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 14px; }
-    .close-modal { position: absolute; top: 20px; right: 25px; color: white; font-size: 32px; cursor: pointer; }
-
-    /* CRM Cards */
-    .crm-card { background: white; border-radius: 10px; padding: 12px; margin-bottom: 10px; border: 1px solid #e5e7eb; box-shadow: 0 2px 5px rgba(0,0,0,0.04); }
-    .crm-stage-select { width: 100%; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid #cbd5e1; margin-top: 8px; outline: none; }
 
     /* Forms */
     .form-group { margin-bottom: 12px; }
@@ -215,11 +205,8 @@
         <img src="farm1.jpg" class="slide-welcome active" alt="Degma Farmland">
         <img src="resort1.jpg" class="slide-welcome" alt="Strawberry Resort">
         <img src="mind1.jpg" class="slide-welcome" alt="Mind Game">
-        <img src="resort2.jpg" class="slide-welcome" alt="Resort Pool">
-        <img src="farm10.jpg" class="slide-welcome" alt="Degma Gazebo">
       </div>
 
-      <!-- LIVE EMI & OFFICIAL PDF QUOTATION GENERATOR -->
       <div class="calc-card">
         <h4 style="font-size:13px; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-calculator"></i> Live EMI & Quotation Generator</h4>
         <div style="font-size:11px; color:var(--text-muted); display:flex; justify-content:space-between;">
@@ -260,12 +247,11 @@
     <div id="home" class="screen active">
       <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--text-main);">Available Projects (3)</h3>
 
-      <!-- PROJECT 1: DEGMA -->
+      <!-- DEGMA -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="farm1.jpg" class="slide-degma active" alt="Degma 1">
           <img src="farm2.jpg" class="slide-degma" alt="Degma 2">
-          <img src="farm3.jpg" class="slide-degma" alt="Degma 3">
         </div>
         <div class="project-body">
           <h2>Degma Farmland</h2>
@@ -274,7 +260,7 @@
             <div class="stat-box">Area<strong>122 Acres</strong></div>
             <div class="stat-box">Rate<strong>₹450 / sq.ft.</strong></div>
             <div class="stat-box">EMI<strong>0% Interest (24M)</strong></div>
-            <div class="stat-box">360° Views<strong>10 Photos</strong></div>
+            <div class="stat-box">Grid<strong>Interactive</strong></div>
           </div>
           <div style="display:flex; gap:8px;">
             <button class="btn-main" onclick="showScreen('degma_detail')"><i class="fa-solid fa-map-location-dot"></i> Plots & Layout</button>
@@ -283,12 +269,11 @@
         </div>
       </div>
 
-      <!-- PROJECT 2: STRAWBERRY RESORT -->
+      <!-- STRAWBERRY -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="resort1.jpg" class="slide-strawberry active" alt="Resort 1">
           <img src="resort2.jpg" class="slide-strawberry" alt="Resort 2">
-          <img src="resort4.jpg" class="slide-strawberry" alt="Resort 4">
         </div>
         <div class="project-body">
           <h2>Strawberry Resort (Muniya Farm)</h2>
@@ -306,7 +291,7 @@
         </div>
       </div>
 
-      <!-- PROJECT 3: MIND GAME -->
+      <!-- MIND GAME -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="mind1.jpg" class="slide-mindgame active" alt="Mind 1">
@@ -329,7 +314,7 @@
       </div>
     </div>
 
-    <!-- 3. DEGMA DETAILS (FULL DETAILS + PLOTS RESTORED) -->
+    <!-- 3. DEGMA DETAILS (FIXED CLICKABLE GRID) -->
     <div id="degma_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Degma Farmland</h2>
@@ -342,28 +327,29 @@
         Welcome to Degma Farm, a peaceful destination nestled in the heart of nature, perfect for investment, weekend homes, or future development.
       </p>
 
+      <!-- FULLY FUNCTIONAL CLICKABLE GRID -->
       <div class="map-box">
         <div class="map-header">
           <span><i class="fa-solid fa-cubes"></i> Interactive Plot Master Grid</span>
           <span style="font-size:10px; color:#94a3b8;">Tap plot to select</span>
         </div>
         <div class="plot-grid">
-          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-01 (3,000 sq.ft. - ₹13,00,000)')">
+          <div class="plot-box available" onclick="selectPlot('Degma Farmland', 'Plot P-01 (3,000 sq.ft. - ₹13,00,000)')">
             <strong>P-01</strong><span>3,000 sqft</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box Booked" onclick="alert('This plot is already BOOKED.')">
+          <div class="plot-box booked" onclick="alert('Notice: Plot P-02 is already BOOKED.')">
             <strong>P-02</strong><span>3,000 sqft</span><span>🔴 Booked</span>
           </div>
-          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-03 (6,000 sq.ft. - ₹27,00,000)')">
+          <div class="plot-box available" onclick="selectPlot('Degma Farmland', 'Plot P-03 (6,000 sq.ft. - ₹27,00,000)')">
             <strong>P-03</strong><span>6,000 sqft</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box On-Hold" onclick="selectPlot('Degma Farmland', 'Plot P-04 (6,000 sq.ft. - ₹27,00,000)')">
+          <div class="plot-box hold" onclick="selectPlot('Degma Farmland', 'Plot P-04 (6,000 sq.ft. - ₹27,00,000)')">
             <strong>P-04</strong><span>6,000 sqft</span><span>🟡 On Hold</span>
           </div>
-          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-05 (11,000 sq.ft. - ₹49,00,000)')">
+          <div class="plot-box available" onclick="selectPlot('Degma Farmland', 'Plot P-05 (11,000 sq.ft. - ₹49,00,000)')">
             <strong>P-05</strong><span>11,000 sqft</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-06 (22,000 sq.ft. - ₹99,00,000)')">
+          <div class="plot-box available" onclick="selectPlot('Degma Farmland', 'Plot P-06 (22,000 sq.ft. - ₹99,00,000)')">
             <strong>P-06</strong><span>22,000 sqft</span><span>🟢 Available</span>
           </div>
         </div>
@@ -374,7 +360,6 @@
         <li><i class="fa-solid fa-check"></i> Near 17 Picnic Spot</li>
         <li><i class="fa-solid fa-check"></i> Close to Bor Tiger Safari</li>
         <li><i class="fa-solid fa-check"></i> Adjacent to Degma Waterfall</li>
-        <li><i class="fa-solid fa-check"></i> High growth tourism & scenic landscape</li>
       </ul>
 
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">📐 Available Plot Sizes & Detailed 0% EMI Plans</h4>
@@ -413,7 +398,7 @@
       </div>
     </div>
 
-    <!-- 4. STRAWBERRY DETAILS (FULL COTTAGES & PLOT SIZES RESTORED) -->
+    <!-- 4. STRAWBERRY DETAILS (FIXED CLICKABLE GRID) -->
     <div id="strawberry_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Strawberry Resort</h2>
@@ -427,16 +412,17 @@
 
       <div class="map-box">
         <div class="map-header">
-          <span><i class="fa-solid fa-house"></i> Cottages & Farm Layout</span>
+          <span><i class="fa-solid fa-house"></i> Cottages & Farm Layout Grid</span>
+          <span style="font-size:10px; color:#94a3b8;">Tap cottage to select</span>
         </div>
         <div class="plot-grid">
-          <div class="plot-box Available" onclick="selectPlot('Strawberry Resort', 'Furnished Cottage C-01 (₹24 Lakh)')">
+          <div class="plot-box available" onclick="selectPlot('Strawberry Resort', 'Furnished Luxury Cottage C-01 (₹24 Lakh)')">
             <strong>C-01</strong><span>Furnished</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box Booked" onclick="alert('Cottage C-02 is already booked.')">
+          <div class="plot-box booked" onclick="alert('Notice: Cottage C-02 is already BOOKED.')">
             <strong>C-02</strong><span>Furnished</span><span>🔴 Booked</span>
           </div>
-          <div class="plot-box Available" onclick="selectPlot('Strawberry Resort', 'Farm Plot (1,000 sq.ft. - ₹14 Lakh)')">
+          <div class="plot-box available" onclick="selectPlot('Strawberry Resort', 'Farm Plot P-01 (1,000 sq.ft. - ₹14 Lakh)')">
             <strong>P-01</strong><span>1,000 sqft</span><span>🟢 Available</span>
           </div>
         </div>
@@ -445,13 +431,9 @@
       <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">✨ Resort Amenities</h4>
       <ul class="features-list">
         <li><i class="fa-solid fa-person-swimming"></i> Swimming Pool & 🍔 Salad Story Restaurant</li>
-        <li><i class="fa-solid fa-mountain"></i> Machan, Jungle View & 🎪 Adventure Area</li>
-        <li><i class="fa-solid fa-headphones"></i> Sound System, Indoor & Outdoor Games</li>
-        <li><i class="fa-solid fa-shield-halved"></i> 24 Hrs Security & 🚘 Dedicated Parking Space</li>
-        <li><i class="fa-solid fa-house"></i> 36 Total Cottages (7 AC, 23 Non-AC, 2 Available for Sale)</li>
+        <li><i class="fa-solid fa-house"></i> 36 Total Cottages (Furnished Units Available for Sale)</li>
       </ul>
 
-      <!-- FULL DETAILED COTTAGES & PLOTS -->
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">🏡 Available Cottages & Plots</h4>
 
       <div class="plot-item" style="border-left-color: #E91E63;" onclick="selectPlot('Strawberry Resort', 'Full Furnished Luxury Cottage - ₹24,00,000')">
@@ -491,7 +473,7 @@
       </div>
     </div>
 
-    <!-- 5. MIND GAME DETAILS (FULL HIGHWAY PLOTS RESTORED) -->
+    <!-- 5. MIND GAME DETAILS (FIXED CLICKABLE GRID) -->
     <div id="mindgame_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Mind Game Plots</h2>
@@ -500,60 +482,44 @@
         </a>
       </div>
       <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-        🌟 <strong>Prime Highway Touch Plots</strong> on S.H 262 — Total 4 Acres Project. Ideal for residential, commercial, and semi-commercial use.
+        🌟 <strong>Prime Highway Touch Plots</strong> on S.H 262 — Total 4 Acres Project.
       </p>
 
       <div class="map-box">
-        <div class="map-header"><span><i class="fa-solid fa-road"></i> Highway Touch Layout</span></div>
+        <div class="map-header"><span><i class="fa-solid fa-road"></i> Highway Touch Commercial Layout</span></div>
         <div class="plot-grid">
-          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-01 (1,000 sq.ft. - ₹14 Lakh)')">
+          <div class="plot-box available" onclick="selectPlot('Mind Game Plots', 'Plot M-01 (1,000 sq.ft. - ₹14 Lakh)')">
             <strong>M-01</strong><span>1,000 sqft</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-02 (2,000 sq.ft. - ₹28 Lakh)')">
+          <div class="plot-box available" onclick="selectPlot('Mind Game Plots', 'Plot M-02 (2,000 sq.ft. - ₹28 Lakh)')">
             <strong>M-02</strong><span>2,000 sqft</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-03 Prime Commercial (5,000 sq.ft. - ₹70 Lakh)')">
+          <div class="plot-box available" onclick="selectPlot('Mind Game Plots', 'Plot M-03 Prime Commercial (5,000 sq.ft. - ₹70 Lakh)')">
             <strong>M-03</strong><span>5,000 sqft</span><span>🟢 Commercial</span>
           </div>
         </div>
       </div>
 
-      <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">📍 Prime Location Highlights</h4>
-      <ul class="features-list">
-        <li><i class="fa-solid fa-road"></i> Highway touch property directly on S.H 262</li>
-        <li><i class="fa-solid fa-gas-pump"></i> Opposite Petrol Pump – High visibility & direct access</li>
-        <li><i class="fa-solid fa-train"></i> Just 6 KM from Butibori Metro Station</li>
-        <li><i class="fa-solid fa-certificate"></i> NMRDA Sanctioned Project</li>
-      </ul>
-
-      <!-- FULL DETAILED COMMERCIAL & RESIDENTIAL PLOTS -->
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">📐 Available Plot Sizes & 0% EMI Plans</h4>
 
       <div class="plot-item" onclick="selectPlot('Mind Game Plots', 'Plot 1,000 sq.ft. - ₹14,00,000')">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>1,000 Sq.ft. Plot</h3><div class="plot-price">₹14,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong><br>Usage: <strong>Residential / Office Space</strong></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
       </div>
 
       <div class="plot-item" onclick="selectPlot('Mind Game Plots', 'Plot 2,000 sq.ft. - ₹28,00,000')">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>2,000 Sq.ft. Plot</h3><div class="plot-price">₹28,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong><br>Usage: <strong>Semi-Commercial / Dream Home</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
-      </div>
-
-      <div class="plot-item" onclick="selectPlot('Mind Game Plots', 'Plot 3,000 sq.ft. - ₹42,00,000')">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹42,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong><br>Usage: <strong>Commercial Shops / Showroom / Offices</strong></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
       </div>
 
       <div class="plot-item" style="border-left-color: #F9A825;" onclick="selectPlot('Mind Game Plots', '5,000 Sq.ft. Prime Commercial - ₹70,00,000')">
         <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Prime Commercial</span>
         <div class="plot-header"><h3>5,000 Sq.ft. Prime Commercial</h3><div class="plot-price">₹70,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong><br>Usage: <strong>Highway Frontage Prime Commercial Zone</strong></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong></div>
         <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> High Return Commercial Asset | 0% EMI</div>
       </div>
 
@@ -563,17 +529,15 @@
       </div>
     </div>
 
-    <!-- 6. UNIVERSAL 360° VIRTUAL TOUR SCREEN (WITH THUMBNAIL SELECTOR) -->
+    <!-- 6. 360° VIRTUAL TOUR SCREEN -->
     <div id="tour_360_screen" class="screen">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
         <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
         <h3 id="tour360Title" style="color: var(--primary);">360° Virtual Tour</h3>
       </div>
-      <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Drag on screen to rotate. Tap any image below to load in 360°:</p>
+      <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Drag on screen to rotate. Tap any image below:</p>
       
       <div id="panorama-360"></div>
-
-      <!-- HORIZONTAL THUMBNAIL SELECTOR FOR ALL IMAGES -->
       <div class="thumb-360-row" id="thumb360Row"></div>
 
       <div style="display:flex; gap:8px; margin-top:10px;">
@@ -581,16 +545,7 @@
       </div>
     </div>
 
-    <!-- 7. GALLERY SCREEN -->
-    <div id="gallery" class="screen">
-      <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
-        <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
-        <h3 id="galleryTitle" style="color: var(--primary);">Site Gallery</h3>
-      </div>
-      <div class="gallery-grid" id="galleryContainer"></div>
-    </div>
-
-    <!-- 8. USER LOGIN SCREEN -->
+    <!-- 7. USER LOGIN SCREEN -->
     <div id="login" class="screen">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
         <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
@@ -603,7 +558,7 @@
       </form>
     </div>
 
-    <!-- 9. HIDDEN ADMIN LOGIN SCREEN -->
+    <!-- 8. HIDDEN ADMIN LOGIN SCREEN -->
     <div id="admin_secret_login" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
         <h3 style="color: #b91c1c;"><i class="fa-solid fa-lock"></i> Restricted Admin Access</h3>
@@ -616,7 +571,7 @@
       </form>
     </div>
 
-    <!-- 10. LEAD CRM PIPELINE DASHBOARD -->
+    <!-- 9. LEAD CRM PIPELINE DASHBOARD -->
     <div id="admin_dashboard" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <h3 style="color: var(--primary);"><i class="fa-solid fa-chart-line"></i> Master Lead CRM</h3>
@@ -632,7 +587,7 @@
       <div id="adminContentPanel">Loading CRM pipeline...</div>
     </div>
 
-    <!-- 11. INSTANT BOOKING PASS SCREEN -->
+    <!-- 10. INSTANT BOOKING PASS SCREEN -->
     <div id="enquiry" class="screen">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
         <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
@@ -669,10 +624,8 @@
     let homeTapCount = 0;
     let homeTapTimer = null;
 
-    // --- MOBILE SWIPE BACK FIX (HISTORY MANAGER) ---
     window.addEventListener('DOMContentLoaded', () => {
       renderHeaderAuth();
-      // Initialize base history state
       history.replaceState({ screen: 'home' }, '');
     });
 
@@ -698,10 +651,22 @@
       window.scrollTo(0, 0);
     }
 
+    // --- DIRECT SELECTION FROM PLOT GRID ---
+    function selectPlot(projectName, plotInfo) {
+      document.getElementById('project_name').value = projectName;
+      document.getElementById('plot_size').value = plotInfo;
+      showScreen('enquiry');
+    }
+
+    function openEnquiry(projectName) {
+      document.getElementById('project_name').value = projectName;
+      document.getElementById('plot_size').value = 'General Site Visit Inquiry';
+      showScreen('enquiry');
+    }
+
     function handleHomeClick() {
       homeTapCount++;
       clearTimeout(homeTapTimer);
-
       if (homeTapCount === 3) {
         homeTapCount = 0;
         if (loggedInUser && loggedInUser.role === 'admin') {
@@ -738,18 +703,6 @@
       }
     }
 
-    function selectPlot(projectName, plotInfo) {
-      document.getElementById('project_name').value = projectName;
-      document.getElementById('plot_size').value = plotInfo;
-      showScreen('enquiry');
-    }
-
-    function openEnquiry(projectName) {
-      document.getElementById('project_name').value = projectName;
-      document.getElementById('plot_size').value = 'General Site Visit Inquiry';
-      showScreen('enquiry');
-    }
-
     function updateCalculator() {
       const val = parseInt(document.getElementById('calcSlider').value);
       document.getElementById('calcPriceLabel').innerText = `₹${(val / 100000).toFixed(1)} Lakh`;
@@ -757,7 +710,6 @@
       document.getElementById('calcEmiResult').innerText = `₹${monthly.toLocaleString('en-IN')} / mo`;
     }
 
-    // --- UNIVERSAL 360° TOUR ---
     function open360Tour(projectType, title) {
       document.getElementById('tour360Title').innerText = title;
       showScreen('tour_360_screen');
@@ -799,17 +751,14 @@
       }, 100);
     }
 
-    // --- INSTANT OFFICIAL PDF QUOTATION GENERATOR ---
     function downloadCustomPDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
-
       const val = parseInt(document.getElementById('calcSlider').value);
       const monthlyEmi = Math.round(val / 24);
       const dateStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
       const clientName = loggedInUser ? loggedInUser.email.split('@')[0] : 'Valued Client';
 
-      // Header Branding
       doc.setFillColor(46, 125, 50);
       doc.rect(0, 0, 210, 35, 'F');
       doc.setTextColor(255, 255, 255);
@@ -820,7 +769,6 @@
       doc.setFont('helvetica', 'normal');
       doc.text('Official Property Investment Quotation & EMI Plan', 14, 26);
 
-      // Meta
       doc.setTextColor(31, 41, 55);
       doc.setFontSize(11);
       doc.setFont('helvetica', 'bold');
@@ -829,7 +777,6 @@
       doc.text(`Date of Issuance: ${dateStr}`, 14, 55);
       doc.text('Authorized Booking Cell: +91 7972306925', 14, 62);
 
-      // Table Box
       doc.setDrawColor(200, 200, 200);
       doc.setFillColor(244, 247, 244);
       doc.roundedRect(14, 72, 182, 95, 3, 3, 'FD');
@@ -870,7 +817,6 @@
       doc.setTextColor(46, 125, 50);
       doc.text(`Rs. ${monthlyEmi.toLocaleString('en-IN')} / Month`, 110, 146);
 
-      // Terms
       doc.setFontSize(9);
       doc.setTextColor(107, 114, 128);
       doc.setFont('helvetica', 'normal');
