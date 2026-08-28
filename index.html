@@ -29,7 +29,7 @@
       background: var(--white); padding: 12px 16px; display: flex; align-items: center;
       justify-content: space-between; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 50;
     }
-    .brand-title { color: var(--primary); font-size: 15px; font-weight: 700; }
+    .brand-title { color: var(--primary); font-size: 15px; font-weight: 700; user-select: none; }
 
     /* Screens */
     .screen { display: none; padding: 14px; padding-bottom: 90px; }
@@ -159,9 +159,8 @@
 <body>
 
   <div class="mobile-frame">
-    <!-- Header -->
     <div class="app-header">
-      <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; font-size:18px; color:var(--primary);">
+      <button onclick="handleHomeClick()" style="border:none; background:none; cursor:pointer; font-size:18px; color:var(--primary); padding: 4px;">
         <i class="fa-solid fa-house"></i>
       </button>
       <div class="brand-title">WALKE FARM WORLD</div>
@@ -172,7 +171,6 @@
       </div>
     </div>
 
-    <!-- 1. WELCOME DASHBOARD SCREEN -->
     <div id="welcome_dashboard" class="screen">
       <div class="welcome-card">
         <div class="welcome-avatar"><i class="fa-solid fa-user-check"></i></div>
@@ -181,11 +179,11 @@
       </div>
 
       <div class="slider-container">
-        <img src="images/farm1.jpg" class="slide-welcome active" alt="Degma Farmland">
-        <img src="images/resort1.jpg" class="slide-welcome" alt="Strawberry Resort Entrance">
-        <img src="images/mind1.jpg" class="slide-welcome" alt="Mind Game Highway Touch">
-        <img src="images/resort2.jpg" class="slide-welcome" alt="Resort Pool View">
-        <img src="images/farm10.jpg" class="slide-welcome" alt="Degma Gazebo">
+        <img src="farm1.jpg" class="slide-welcome active" alt="Degma Farmland">
+        <img src="resort1.jpg" class="slide-welcome" alt="Strawberry Resort Entrance">
+        <img src="mind1.jpg" class="slide-welcome" alt="Mind Game Highway Touch">
+        <img src="resort2.jpg" class="slide-welcome" alt="Resort Pool View">
+        <img src="farm10.jpg" class="slide-welcome" alt="Degma Gazebo">
         <div class="slider-tag" id="welcomeSlideTag">🌿 Featured Property Highlights</div>
       </div>
 
@@ -235,18 +233,16 @@
       </div>
     </div>
 
-    <!-- 2. HOME SCREEN -->
     <div id="home" class="screen active">
       <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--text-main);">Available Projects (3)</h3>
 
-      <!-- DEGMA FARMLAND -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
-          <img src="images/farm1.jpg" class="slide-degma active" alt="Degma 1">
-          <img src="images/farm2.jpg" class="slide-degma" alt="Degma 2">
-          <img src="images/farm3.jpg" class="slide-degma" alt="Degma 3">
-          <img src="images/farm4.jpg" class="slide-degma" alt="Degma 4">
-          <img src="images/farm10.jpg" class="slide-degma" alt="Degma 10">
+          <img src="farm1.jpg" class="slide-degma active" alt="Degma 1">
+          <img src="farm2.jpg" class="slide-degma" alt="Degma 2">
+          <img src="farm3.jpg" class="slide-degma" alt="Degma 3">
+          <img src="farm4.jpg" class="slide-degma" alt="Degma 4">
+          <img src="farm10.jpg" class="slide-degma" alt="Degma 10">
         </div>
         <div class="project-body">
           <h2>Degma Farmland</h2>
@@ -264,13 +260,12 @@
         </div>
       </div>
 
-      <!-- STRAWBERRY RESORT -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
-          <img src="images/resort1.jpg" class="slide-strawberry active" alt="Resort 1">
-          <img src="images/resort2.jpg" class="slide-strawberry" alt="Resort 2">
-          <img src="images/resort4.jpg" class="slide-strawberry" alt="Resort 4">
-          <img src="images/resort5.jpg" class="slide-strawberry" alt="Resort 5">
+          <img src="resort1.jpg" class="slide-strawberry active" alt="Resort 1">
+          <img src="resort2.jpg" class="slide-strawberry" alt="Resort 2">
+          <img src="resort4.jpg" class="slide-strawberry" alt="Resort 4">
+          <img src="resort5.jpg" class="slide-strawberry" alt="Resort 5">
         </div>
         <div class="project-body">
           <h2>Strawberry Resort (Muniya Farm)</h2>
@@ -288,13 +283,12 @@
         </div>
       </div>
 
-      <!-- MIND GAME -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
-          <img src="images/mind1.jpg" class="slide-mindgame active" alt="Mind 1">
-          <img src="images/mind3.jpg" class="slide-mindgame" alt="Mind 3">
-          <img src="images/mind4.jpg" class="slide-mindgame" alt="Mind 4">
-          <img src="images/mind5.jpg" class="slide-mindgame" alt="Mind 5">
+          <img src="mind1.jpg" class="slide-mindgame active" alt="Mind 1">
+          <img src="mind3.jpg" class="slide-mindgame" alt="Mind 3">
+          <img src="mind4.jpg" class="slide-mindgame" alt="Mind 4">
+          <img src="mind5.jpg" class="slide-mindgame" alt="Mind 5">
         </div>
         <div class="project-body">
           <h2>Mind Game (Highway Touch)</h2>
@@ -313,7 +307,6 @@
       </div>
     </div>
 
-    <!-- 3. DEGMA DETAILS -->
     <div id="degma_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Degma Farmland</h2>
@@ -371,7 +364,6 @@
       </div>
     </div>
 
-    <!-- 4. STRAWBERRY DETAILS -->
     <div id="strawberry_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Strawberry Resort</h2>
@@ -434,7 +426,6 @@
       </div>
     </div>
 
-    <!-- 5. MIND GAME DETAILS -->
     <div id="mindgame_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Mind Game Plots</h2>
@@ -443,7 +434,7 @@
         </a>
       </div>
       <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-        🌟 <strong>Premium Highway Touch Plots</strong> on S.H 262 — Total 4 Acres Project. Ideal for residential, commercial, and semi-commercial use.
+        🌟 <strong>Prime Highway Touch Plots</strong> on S.H 262 — Total 4 Acres Project. Ideal for residential, commercial, and semi-commercial use.
       </p>
 
       <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">📍 Prime Location Highlights</h4>
@@ -492,7 +483,6 @@
       </div>
     </div>
 
-    <!-- 6. GALLERY SCREEN -->
     <div id="gallery" class="screen">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
         <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
@@ -502,7 +492,6 @@
       <div class="gallery-grid" id="galleryContainer"></div>
     </div>
 
-    <!-- 7. SIGNUP SCREEN -->
     <div id="signup" class="screen">
       <h3 style="color: var(--primary); margin-bottom: 4px;">Create an Account</h3>
       <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Join Walke Farm World to book and manage visits.</p>
@@ -523,7 +512,6 @@
       </p>
     </div>
 
-    <!-- 8. USER LOGIN SCREEN -->
     <div id="login" class="screen">
       <h3 style="color: var(--primary); margin-bottom: 4px;">Customer Login</h3>
       <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Log in to view personalised plans & bookings.</p>
@@ -544,7 +532,6 @@
       </p>
     </div>
 
-    <!-- 9. HIDDEN ADMIN LOGIN SCREEN (CTRL + SHIFT + A) -->
     <div id="admin_secret_login" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
         <h3 style="color: #b91c1c;"><i class="fa-solid fa-lock"></i> Restricted Admin Access</h3>
@@ -565,7 +552,6 @@
       </form>
     </div>
 
-    <!-- 10. ADMIN CONTROL DASHBOARD -->
     <div id="admin_dashboard" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <h3 style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Master Admin Control</h3>
@@ -581,7 +567,6 @@
       <div id="adminContentPanel">Loading admin records...</div>
     </div>
 
-    <!-- 11. BOOK SITE VISIT -->
     <div id="enquiry" class="screen">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
         <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
@@ -628,16 +613,14 @@
       </form>
     </div>
 
-    <!-- Bottom Actions -->
     <div class="bottom-bar">
       <a href="tel:+917972306925" class="btn-call"><i class="fa-solid fa-phone"></i> Call Booking</a>
       <a href="https://wa.me/917972306925?text=Hello%20Mam%2C%20I%20am%20interested%20in%20booking%20a%20site%20visit." target="_blank" class="btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp Mam</a>
     </div>
   </div>
 
-  <!-- Lightbox Modal -->
   <div id="imageModal" class="image-modal">
-    <span class="close-modal" onclick="closeLightbox()">&times;</span>
+    <span class="close-modal" onclick="closeLightbox()">×</span>
     <img id="lightboxImg" src="" alt="Enlarged View">
     <div class="modal-controls">
       <button class="modal-btn" onclick="prevLightbox()"><i class="fa-solid fa-arrow-left"></i> Prev</button>
@@ -646,7 +629,6 @@
   </div>
 
   <script>
-    // LIVE CLOUD API URL SET (Render Endpoint)
     const API_BASE = 'https://walke-farm-backend.onrender.com/api';
     const MAM_PHONE = '7972306925';
 
@@ -654,20 +636,20 @@
     let loggedInUser = JSON.parse(localStorage.getItem('user')) || null;
 
     const degmaImages = [
-      'images/farm1.jpg', 'images/farm2.jpg', 'images/farm3.jpg',
-      'images/farm4.jpg', 'images/farm5.jpg', 'images/farm6.jpg',
-      'images/farm7.jpg', 'images/farm8.jpg', 'images/farm9.jpg', 'images/farm10.jpg'
+      'farm1.jpg', 'farm2.jpg', 'farm3.jpg',
+      'farm4.jpg', 'farm5.jpg', 'farm6.jpg',
+      'farm7.jpg', 'farm8.jpg', 'farm9.jpg', 'farm10.jpg'
     ];
 
     const strawberryImages = [
-      'images/resort1.jpg', 'images/resort2.jpg', 'images/resort3.jpg',
-      'images/resort4.jpg', 'images/resort5.jpg', 'images/resort6.jpg',
-      'images/resort7.jpg', 'images/resort8.jpg', 'images/resort9.jpg'
+      'resort1.jpg', 'resort2.jpg', 'resort3.jpg',
+      'resort4.jpg', 'resort5.jpg', 'resort6.jpg',
+      'resort7.jpg', 'resort8.jpg', 'resort9.jpg'
     ];
 
     const mindgameImages = [
-      'images/mind1.jpg', 'images/mind2.jpg', 'images/mind3.jpg',
-      'images/mind4.jpg', 'images/mind5.jpg', 'images/mind6.jpg', 'images/mind7.jpg'
+      'mind1.jpg', 'mind2.jpg', 'mind3.jpg',
+      'mind4.jpg', 'mind5.jpg', 'mind6.jpg', 'mind7.jpg'
     ];
 
     const welcomeTags = [
@@ -680,6 +662,30 @@
 
     let currentActiveGallery = [];
     let currentLightboxIdx = 0;
+
+    // --- MOBILE TRIPLE TAP GESTURE FOR HIDDEN ADMIN ACCESS ---
+    let homeTapCount = 0;
+    let homeTapTimer = null;
+
+    function handleHomeClick() {
+      homeTapCount++;
+      clearTimeout(homeTapTimer);
+
+      if (homeTapCount === 3) {
+        homeTapCount = 0;
+        if (loggedInUser && loggedInUser.role === 'admin') {
+          loadAdminPlots();
+          showScreen('admin_dashboard');
+        } else {
+          showScreen('admin_secret_login');
+        }
+      } else {
+        homeTapTimer = setTimeout(() => {
+          homeTapCount = 0;
+          showScreen('home');
+        }, 400);
+      }
+    }
 
     window.addEventListener('DOMContentLoaded', () => {
       renderHeaderAuth();
@@ -705,7 +711,7 @@
       }
     }
 
-    // SECRET KEYBOARD SHORTCUT: Ctrl + Shift + A
+    // Secret Laptop Shortcut: Ctrl + Shift + A
     window.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
         e.preventDefault();
@@ -815,7 +821,7 @@
           alert('Account created! Please log in.');
           showScreen('login');
         } else { alert(data.message); }
-      } catch (err) { alert('Connecting to server...'); }
+      } catch (err) { alert('Server connecting...'); }
     }
 
     async function handleLogin(e) {
@@ -837,10 +843,15 @@
           localStorage.setItem('user', JSON.stringify(data));
           renderHeaderAuth();
 
-          document.getElementById('welcomeUserName').innerText = `Welcome, ${data.email.split('@')[0]}!`;
-          showScreen('welcome_dashboard');
+          if (data.role === 'admin') {
+            loadAdminPlots();
+            showScreen('admin_dashboard');
+          } else {
+            document.getElementById('welcomeUserName').innerText = `Welcome, ${data.email.split('@')[0]}!`;
+            showScreen('welcome_dashboard');
+          }
         } else { alert(data.message); }
-      } catch (err) { alert('Server connecting...'); }
+      } catch (err) { alert('Server error'); }
     }
 
     async function handleAdminLogin(e) {
