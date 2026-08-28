@@ -131,22 +131,30 @@
       background: #dcfce7; color: #15803d;
     }
 
-    /* AI ROI PREDICTOR & VASTU WIDGETS */
+    /* ADVANCED PER-PLOT AI ROI & VASTU WIDGETS */
     .ai-widget-card {
       background: linear-gradient(135deg, #0f172a, #1e293b);
       border-radius: 12px; padding: 14px; color: white; margin: 14px 0; border: 1px solid #334155;
     }
-    .roi-bar-bg { background: #334155; border-radius: 6px; height: 10px; width: 100%; margin: 6px 0; overflow: hidden; }
-    .roi-bar-fill { background: linear-gradient(90deg, #22c55e, #eab308); height: 100%; width: 0%; transition: width 0.8s ease; }
+    .time-toggle-btn {
+      flex: 1; padding: 6px; font-size: 11px; font-weight: 700; border-radius: 6px; border: 1px solid #475569;
+      background: #334155; color: white; cursor: pointer; transition: all 0.2s;
+    }
+    .time-toggle-btn.active {
+      background: #22c55e; border-color: #22c55e; color: #0f172a;
+    }
+
+    .roi-bar-bg { background: #334155; border-radius: 6px; height: 10px; width: 100%; margin: 8px 0; overflow: hidden; }
+    .roi-bar-fill { background: linear-gradient(90deg, #22c55e, #eab308); height: 100%; width: 0%; transition: width 0.6s ease; }
 
     .compass-dial {
       width: 110px; height: 110px; border-radius: 50%; border: 3px dashed #22c55e;
       margin: 10px auto; position: relative; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); background: #0f172a;
     }
     .compass-needle {
       width: 4px; height: 80px; background: linear-gradient(to bottom, #ef4444 50%, #3b82f6 50%);
-      position: absolute; border-radius: 2px; transition: transform 0.3s cubic-bezier(0.1, 1, 0.1, 1);
+      position: absolute; border-radius: 2px; transition: transform 0.6s cubic-bezier(0.1, 1, 0.1, 1);
     }
 
     /* Calculator Widget */
@@ -181,7 +189,7 @@
     /* Admin Cards */
     .admin-plot-item { background: white; border-radius: 8px; padding: 10px; margin-bottom: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
     .crm-card { background: white; border-radius: 10px; padding: 12px; margin-bottom: 10px; border: 1px solid #e5e7eb; }
-    .crm-stage-select { width: 100%; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid #cbd5e1; margin-top: 8px; outline: none; }
+    .crm-stage-select { width: 100%; padding: 7px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid #cbd5e1; margin-top: 8px; outline: none; }
 
     /* Bottom Bar */
     .bottom-bar {
@@ -284,27 +292,55 @@
         </div>
       </div>
 
+      <div class="ai-widget-card" style="border: 2px solid #22c55e;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <h4 style="font-size:13px; color:#4ade80;"><i class="fa-solid fa-cubes"></i> Select Exact Plot for AI & Vastu Analysis:</h4>
+        </div>
+        
+        <select id="masterPlotSelector" onchange="handlePlotSelectionChange()" style="width:100%; padding:10px; border-radius:8px; background:#0f172a; color:#22c55e; border:1px solid #22c55e; font-size:12px; font-weight:700; margin-top:4px;">
+          <option value="degma_3000">🌿 Degma Farm - 3,000 sq.ft. (₹13 Lakh)</option>
+          <option value="degma_6000">🌿 Degma Farm - 6,000 sq.ft. (₹27 Lakh)</option>
+          <option value="degma_11000">🌿 Degma Farm - 11,000 sq.ft. (₹49 Lakh)</option>
+          <option value="degma_22000">🌿 Degma Farm - 22,000 sq.ft. (₹99 Lakh)</option>
+          <option value="resort_cottage">🌸 Strawberry Resort - Luxury Furnished Cottage (₹24 Lakh)</option>
+          <option value="resort_plot">🌸 Strawberry Resort - 1,000 sq.ft. Farm Plot (₹14 Lakh)</option>
+          <option value="mind_1000" selected>🌟 Mind Game - 1,000 sq.ft. Highway Plot (₹14 Lakh)</option>
+          <option value="mind_2000">🌟 Mind Game - 2,000 sq.ft. Commercial (₹28 Lakh)</option>
+          <option value="mind_5000">🌟 Mind Game - 5,000 sq.ft. Prime Commercial (₹70 Lakh)</option>
+          <option value="custom">✏️ Enter Custom Plot Price (₹)...</option>
+        </select>
+
+        <div id="customPriceDiv" style="display:none; margin-top:8px;">
+          <label style="font-size:11px; color:#cbd5e1;">Enter Current Market Value (₹):</label>
+          <input type="number" id="customPlotInput" value="1500000" oninput="handleCustomInputChange()" placeholder="e.g. 1500000" style="width:100%; padding:8px; border-radius:6px; background:#0f172a; color:white; border:1px solid #22c55e; font-size:12px;" />
+        </div>
+      </div>
+
       <div class="ai-widget-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <h4 style="font-size:13px; color:#4ade80;"><i class="fa-solid fa-chart-line"></i> AI Land ROI Predictor (2026 - 2031)</h4>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h4 style="font-size:13px; color:#4ade80;"><i class="fa-solid fa-chart-line"></i> AI Price Valuation (2026 - <span id="targetYearTitle">2031</span>)</h4>
           <span style="font-size:10px; background:#22c55e; color:#0f172a; font-weight:700; padding:2px 6px; border-radius:4px;">14.5% CAGR</span>
         </div>
-        <p style="font-size:11px; opacity:0.85; margin-bottom:8px;">Based on Metro expansion, Highway touch & Eco-Tourism growth:</p>
-        
+
+        <div style="display:flex; gap:6px; margin-bottom:10px;">
+          <button class="time-toggle-btn" id="btn3Yr" onclick="setTimeHorizon(3)">3 Years (2029 Target)</button>
+          <button class="time-toggle-btn active" id="btn5Yr" onclick="setTimeHorizon(5)">5 Years (2031 Target)</button>
+        </div>
+
         <div style="font-size:11px; display:flex; justify-content:space-between;">
           <span>Current Base (2026): <strong id="roiBaseVal">₹14.00 Lakh</strong></span>
-          <span>Expected 2031: <strong id="roiFutureVal" style="color:#facc15;">₹27.55 Lakh</strong></span>
+          <span>Target (<span id="targetYearLabel">2031</span>): <strong id="roiFutureVal" style="color:#facc15;">₹27.55 Lakh</strong></span>
         </div>
-        <div class="roi-bar-bg"><div class="roi-bar-fill" id="roiFill" style="width: 85%;"></div></div>
+        <div class="roi-bar-bg"><div class="roi-bar-fill" id="roiFill" style="width: 95%;"></div></div>
         <div style="font-size:10px; color:#94a3b8; display:flex; justify-content:space-between;">
-          <span>Net Appreciation: <strong id="roiProfit" style="color:#4ade80;">+₹13.55 Lakh</strong></span>
-          <span>Estimated Rental Yield: <strong>8.5%/yr</strong></span>
+          <span>Estimated Profit: <strong id="roiProfit" style="color:#4ade80;">+₹13.55 Lakh</strong></span>
+          <span>Expected Return: <strong id="roiPercent" style="color:#facc15;">+96.8%</strong></span>
         </div>
       </div>
 
       <div class="ai-widget-card" style="text-align:center;">
-        <h4 style="font-size:13px; color:#facc15; margin-bottom:4px;"><i class="fa-solid fa-compass"></i> Live Vastu & Sunlight Analyzer</h4>
-        <p style="font-size:11px; opacity:0.85;">Orientation check for optimal natural light & prosperity</p>
+        <h4 style="font-size:13px; color:#facc15; margin-bottom:2px;"><i class="fa-solid fa-compass"></i> Exact Plot Vastu & Direction Analyzer</h4>
+        <p style="font-size:11px; opacity:0.85;">Precise road facing, sunlight trajectory & Vastu alignment</p>
         
         <div class="compass-dial">
           <div class="compass-needle" id="compassNeedle"></div>
@@ -314,9 +350,11 @@
           <span style="position:absolute; left:6px; font-size:10px; font-weight:700; color:#eab308;">W</span>
         </div>
 
-        <div style="font-size:11px; background:rgba(255,255,255,0.06); padding:8px; border-radius:6px; margin-top:8px; text-align:left;">
-          <p>☀️ <strong>Sunlight Direction:</strong> Morning East Sunrise ➔ Full Day Daylit</p>
-          <p>🌿 <strong>Vastu Harmony:</strong> <span style="color:#4ade80; font-weight:700;">North-East (Ishanya) Blessed</span></p>
+        <div style="font-size:11px; background:rgba(255,255,255,0.06); padding:10px; border-radius:8px; margin-top:8px; text-align:left; line-height: 1.6;">
+          <p>📍 <strong>Road Facing:</strong> <span id="vastuFacing" style="color:#facc15; font-weight:700;">East - North East (Purva-Ishanya)</span></p>
+          <p>☀️ <strong>Sunlight Trajectory:</strong> <span id="vastuSunlight">Direct Morning East Sunrise across garden</span></p>
+          <p>🌿 <strong>Vastu Harmony:</strong> <span id="vastuGrade" style="color:#4ade80; font-weight:700;">⭐⭐⭐⭐⭐ 100% Positive Energy Vastu</span></p>
+          <p>🚪 <strong>Recommended Main Entrance:</strong> <span id="vastuEntrance">North-East Corner for Wealth & Peace</span></p>
         </div>
       </div>
 
@@ -325,7 +363,7 @@
         <div class="launch-info"><h4>🔄 Degma 360° Virtual Tour</h4><span>Explore 10 Views in 360°</span></div>
         <div class="launch-icon"><i class="fa-solid fa-vr-cardboard"></i></div>
       </div>
-      <div class="launch-btn" onclick="open360Tour('strawberry', 'Strawberry Resort 360° View')">
+      <div class="launch-btn" onclick="open360Tour('strawberry', 'Strawberry Resort 360° Tour')">
         <div class="launch-info"><h4>🔄 Strawberry Resort 360° Tour</h4><span>Explore 9 Views in 360°</span></div>
         <div class="launch-icon"><i class="fa-solid fa-vr-cardboard"></i></div>
       </div>
@@ -728,6 +766,85 @@
     let loggedInUser = JSON.parse(localStorage.getItem('user')) || null;
     let pannellumViewer = null;
 
+    let selectedHorizonYears = 5;
+    let currentBaseAmount = 1400000;
+
+    // --- EXACT PLOT SPECIFICATION DATABASE FOR AI & VASTU ---
+    const plotVastuData = {
+      "degma_3000": {
+        price: 1300000,
+        facing: "East Facing (Purva Disha)",
+        sunlight: "Direct Sunrise from 6:30 AM | Naturally Daylit till 3:00 PM",
+        grade: "⭐⭐⭐⭐⭐ Ideal Vastu for Health & Living",
+        entrance: "East Gate (Indra Sthan) brings prosperity",
+        needleAngle: 90
+      },
+      "degma_6000": {
+        price: 2700000,
+        facing: "North-East Facing (Ishanya Kona)",
+        sunlight: "Lush Corner plot with full day soothing sunlight & cool breeze",
+        grade: "⭐⭐⭐⭐⭐ Supreme Vastu Alignment",
+        entrance: "North-East Gate recommended for Spiritual peace",
+        needleAngle: 45
+      },
+      "degma_11000": {
+        price: 4900000,
+        facing: "North Facing (Kuber Sthan)",
+        sunlight: "Forest-touch panoramic natural daylight throughout the day",
+        grade: "⭐⭐⭐⭐⭐ Best for Luxury Farmhouse & Water Bodies",
+        entrance: "North Main Entrance for Wealth & Abundance",
+        needleAngle: 0
+      },
+      "degma_22000": {
+        price: 9900000,
+        facing: "Four-Side Open (All Direction Access)",
+        sunlight: "360° Unrestricted Sunlight & Sunset View",
+        grade: "⭐⭐⭐⭐⭐ Master Estate Layout",
+        entrance: "Grand East-North Double Arch Gate",
+        needleAngle: 30
+      },
+      "resort_cottage": {
+        price: 2400000,
+        facing: "North-East Pool & Garden Facing",
+        sunlight: "Morning Sunlight directly across wooden deck & balcony",
+        grade: "⭐⭐⭐⭐⭐ Holiday Resort Vastu",
+        entrance: "North Gate facing manicured lawn & pool",
+        needleAngle: 50
+      },
+      "resort_plot": {
+        price: 1400000,
+        facing: "East Facing (Resort Inner Avenue)",
+        sunlight: "Morning Golden Hour light, shaded in hot afternoons",
+        grade: "⭐⭐⭐⭐⭐ Peaceful Weekend Retreat Vastu",
+        entrance: "East Facing Porch Entry",
+        needleAngle: 90
+      },
+      "mind_1000": {
+        price: 1400000,
+        facing: "Highway Touch S.H 262 Facing (North-East)",
+        sunlight: "High visibility daylit commercial frontage",
+        grade: "⭐⭐⭐⭐⭐ Commercial High-Growth Vastu",
+        entrance: "Direct Highway Main Frontage",
+        needleAngle: 45
+      },
+      "mind_2000": {
+        price: 2800000,
+        facing: "North-West Dual Road Corner",
+        sunlight: "Dual Frontage with bright natural visibility for showrooms",
+        grade: "⭐⭐⭐⭐ Commercial & Office Vastu",
+        entrance: "Corner Grand Double Entrance",
+        needleAngle: 315
+      },
+      "mind_5000": {
+        price: 7000000,
+        facing: "Prime S.H 262 Highway Frontage (East Facing)",
+        sunlight: "Unblocked High Visibility Sunlight from sunrise to sunset",
+        grade: "⭐⭐⭐⭐⭐ Top Tier Commercial Asset Vastu",
+        entrance: "Wide 60ft Highway Front Commercial Entry",
+        needleAngle: 90
+      }
+    };
+
     const degmaImages = ['farm1.jpg', 'farm2.jpg', 'farm3.jpg', 'farm4.jpg', 'farm5.jpg', 'farm6.jpg', 'farm7.jpg', 'farm8.jpg', 'farm9.jpg', 'farm10.jpg'];
     const strawberryImages = ['resort1.jpg', 'resort2.jpg', 'resort3.jpg', 'resort4.jpg', 'resort5.jpg', 'resort6.jpg', 'resort7.jpg', 'resort8.jpg', 'resort9.jpg'];
     const mindgameImages = ['mind1.jpg', 'mind2.jpg', 'mind3.jpg', 'mind4.jpg', 'mind5.jpg', 'mind6.jpg', 'mind7.jpg'];
@@ -753,7 +870,7 @@
         showScreenDirect('signup');
         renderHeaderAuth();
       }
-      initVastuCompass();
+      handlePlotSelectionChange();
     });
 
     window.addEventListener('popstate', (event) => {
@@ -840,40 +957,71 @@
       }
     }
 
-    // --- DYNAMIC AI ROI CALCULATOR ENGINE ---
     function updateCalculator() {
       const val = parseInt(document.getElementById('calcSlider').value);
       document.getElementById('calcPriceLabel').innerText = `₹${(val / 100000).toFixed(1)} Lakh`;
       const monthly = Math.round(val / 24);
       document.getElementById('calcEmiResult').innerText = `₹${monthly.toLocaleString('en-IN')} / mo`;
-
-      // 5-Year Compounded ROI (14.5% CAGR over 5 years approx ~1.968x)
-      const futureVal = val * 1.968;
-      const profit = futureVal - val;
-      
-      const baseEl = document.getElementById('roiBaseVal');
-      const futureEl = document.getElementById('roiFutureVal');
-      const profitEl = document.getElementById('roiProfit');
-      
-      if (baseEl) baseEl.innerText = `₹${(val / 100000).toFixed(2)} Lakh`;
-      if (futureEl) futureEl.innerText = `₹${(futureVal / 100000).toFixed(2)} Lakh`;
-      if (profitEl) profitEl.innerText = `+₹${(profit / 100000).toFixed(2)} Lakh`;
     }
 
-    // --- LIVE GYRO/VASTU COMPASS SIMULATOR ---
-    function initVastuCompass() {
-      if (window.DeviceOrientationEvent) {
-        window.addEventListener('deviceorientation', (e) => {
-          let heading = e.alpha || 35; // fallback angle
-          const needle = document.getElementById('compassNeedle');
-          if (needle) {
-            needle.style.transform = `rotate(${heading}deg)`;
-          }
-        });
+    // --- EXACT PLOT SELECTION (UPDATES BOTH AI ROI & VASTU PRECISELY) ---
+    function handlePlotSelectionChange() {
+      const selectedKey = document.getElementById('masterPlotSelector').value;
+      const customDiv = document.getElementById('customPriceDiv');
+
+      if (selectedKey === 'custom') {
+        customDiv.style.display = 'block';
+        currentBaseAmount = parseInt(document.getElementById('customPlotInput').value) || 1500000;
+        updateVastuDetails("Custom Plot Orientation", "Sunlight depends on layout facing", "⭐⭐⭐⭐ Standard Residential Vastu", "North or East entry advised", 45);
+      } else {
+        customDiv.style.display = 'none';
+        const data = plotVastuData[selectedKey];
+        currentBaseAmount = data.price;
+        updateVastuDetails(data.facing, data.sunlight, data.grade, data.entrance, data.needleAngle);
+      }
+      recalculateAiFuture();
+    }
+
+    function handleCustomInputChange() {
+      currentBaseAmount = parseInt(document.getElementById('customPlotInput').value) || 1000000;
+      recalculateAiFuture();
+    }
+
+    function updateVastuDetails(facing, sunlight, grade, entrance, needleAngle) {
+      document.getElementById('vastuFacing').innerText = facing;
+      document.getElementById('vastuSunlight').innerText = sunlight;
+      document.getElementById('vastuGrade').innerText = grade;
+      document.getElementById('vastuEntrance').innerText = entrance;
+      
+      const needle = document.getElementById('compassNeedle');
+      if (needle) {
+        needle.style.transform = `rotate(${needleAngle}deg)`;
       }
     }
 
-    // --- AUTOMATIC CAROUSEL ---
+    function setTimeHorizon(years) {
+      selectedHorizonYears = years;
+      document.getElementById('btn3Yr').classList.toggle('active', years === 3);
+      document.getElementById('btn5Yr').classList.toggle('active', years === 5);
+      document.getElementById('targetYearTitle').innerText = (years === 3) ? '2029' : '2031';
+      document.getElementById('targetYearLabel').innerText = (years === 3) ? '2029' : '2031';
+      recalculateAiFuture();
+    }
+
+    function recalculateAiFuture() {
+      const multiplier = (selectedHorizonYears === 3) ? 1.501 : 1.968;
+      const futureVal = currentBaseAmount * multiplier;
+      const profit = futureVal - currentBaseAmount;
+      const percentGain = (selectedHorizonYears === 3) ? '+50.1%' : '+96.8%';
+
+      document.getElementById('roiBaseVal').innerText = `₹${(currentBaseAmount / 100000).toFixed(2)} Lakh`;
+      document.getElementById('roiFutureVal').innerText = `₹${(futureVal / 100000).toFixed(2)} Lakh`;
+      document.getElementById('roiProfit').innerText = `+₹${(profit / 100000).toFixed(2)} Lakh`;
+      document.getElementById('roiPercent').innerText = percentGain;
+      document.getElementById('roiFill').style.width = (selectedHorizonYears === 3) ? '55%' : '95%';
+    }
+
+    // --- CAROUSEL ---
     function startCarousel(className, isWelcome = false) {
       let idx = 0;
       const slides = document.querySelectorAll('.' + className);
@@ -894,7 +1042,7 @@
     startCarousel('slide-mindgame');
     startCarousel('slide-welcome', true);
 
-    // --- 360° TOUR VIEWER FOR ALL IMAGES ---
+    // --- 360° TOUR ---
     function open360Tour(projectType, title) {
       document.getElementById('tour360Title').innerText = title;
       showScreen('tour_360_screen');
@@ -923,9 +1071,7 @@
 
     function load360Image(imageSrc) {
       try {
-        if (pannellumViewer) {
-          pannellumViewer.destroy();
-        }
+        if (pannellumViewer) pannellumViewer.destroy();
         setTimeout(() => {
           pannellumViewer = pannellum.viewer('panorama-360', {
             type: 'equirectangular',
@@ -938,7 +1084,7 @@
       } catch(e){}
     }
 
-    // --- LIGHTBOX GALLERY ---
+    // --- GALLERY ---
     function showGallery(type) {
       const container = document.getElementById('galleryContainer');
       const title = document.getElementById('galleryTitle');
@@ -979,7 +1125,7 @@
       document.getElementById('lightboxImg').src = currentActiveGallery[currentLightboxIdx];
     }
 
-    // --- AUTHENTICATION: SIGNUP & LOGIN WITH DIRECT GATEWAY ---
+    // --- AUTHENTICATION ---
     async function handleSignup(e) {
       e.preventDefault();
       const email = document.getElementById('signup_email').value;
@@ -992,7 +1138,7 @@
         });
         const data = await res.json();
         if (data.status === 'success') {
-          alert('Account created successfully! Please log in with your credentials.');
+          alert('Account created successfully! Please log in.');
           document.getElementById('login_email').value = email;
           showScreenDirect('login');
         } else { alert(data.message); }
@@ -1134,7 +1280,7 @@
       } catch (err) { alert('Status update failed'); }
     }
 
-    // --- ADMIN PANEL: LEAD CRM PIPELINE ---
+    // --- ADMIN PANEL: LEAD CRM PIPELINE WITH CANCEL / REFUND OPTIONS ---
     async function loadAdminEnquiries() {
       try {
         const res = await fetch(`${API_BASE}/admin/enquiries`, {
@@ -1146,7 +1292,7 @@
         
         list.forEach(e => {
           html += `
-            <div class="crm-card">
+            <div class="crm-card" style="${e.status.includes('Cancelled') ? 'border-left: 4px solid #ef4444; background:#fef2f2;' : ''}">
               <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                 <div>
                   <strong style="color:var(--primary); font-size:13px;">${e.name}</strong>
@@ -1163,7 +1309,9 @@
                 <option value="Site Visit Scheduled" ${e.status === 'Site Visit Scheduled' ? 'selected' : ''}>🟡 Site Visit Scheduled</option>
                 <option value="Site Visited" ${e.status === 'Site Visited' ? 'selected' : ''}>🟣 Site Visited</option>
                 <option value="Token Received" ${e.status === 'Token Received' ? 'selected' : ''}>🟢 Token Received</option>
-                <option value="Deal Closed" ${e.status === 'Deal Closed' ? 'selected' : ''}>🏆 Deal Closed</option>
+                <option value="Deal Closed" ${e.status === 'Deal Closed' ? 'selected' : ''}>🏆 Deal Closed / Booked</option>
+                <option value="Booking Cancelled" ${e.status === 'Booking Cancelled' ? 'selected' : ''}>❌ Booking Cancelled / Dropped</option>
+                <option value="Refund Processed" ${e.status === 'Refund Processed' ? 'selected' : ''}>🚫 Token Refunded</option>
               </select>
             </div>
           `;
@@ -1182,6 +1330,9 @@
           body: JSON.stringify({ id: leadId, status: newStatus })
         });
         alert(`Lead status updated to: ${newStatus}`);
+        if (newStatus === 'Booking Cancelled' || newStatus === 'Refund Processed') {
+          alert('💡 Reminder: Agar plot ko dubara sale ke liye kholna hai, toh "Manage Plot Grid" tab me jaakar plot ko 🟢 Available par set kar dein.');
+        }
       } catch (err) { alert('Status update failed'); }
     }
 
