@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walke Farm World - Properties & Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2E7D32;
+      --primary-light: #E8F5E9;
+      --accent: #F9A825;
+      --bg: #F4F7F4;
+      --white: #FFFFFF;
+      --text-main: #1F2937;
+      --text-muted: #6B7280;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { background: #dcdcdc; display: flex; justify-content: center; min-height: 100vh; }
+    
+    .mobile-frame {
+      width: 100%; max-width: 420px; background: var(--bg); min-height: 100vh;
+      display: flex; flex-direction: column; box-shadow: 0 0 25px rgba(0,0,0,0.15); position: relative;
+    }
+
+    /* Header */
+    .app-header {
+      background: var(--white); padding: 12px 16px; display: flex; align-items: center;
+      justify-content: space-between; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 50;
+    }
+    .brand-title { color: var(--primary); font-size: 15px; font-weight: 700; }
+
+    /* Screens */
+    .screen { display: none; padding: 14px; padding-bottom: 90px; }
+    .screen.active { display: block !important; }
+
+    /* Welcome Hero Header */
+    .welcome-card {
+      background: linear-gradient(135deg, #1b5e20, #2E7D32);
+      border-radius: 14px; padding: 16px 14px; color: white; text-align: center;
+      margin-bottom: 14px; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.2);
+    }
+    .welcome-avatar {
+      width: 46px; height: 46px; background: rgba(255,255,255,0.2); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 8px auto; font-size: 20px;
+    }
+    .welcome-card h2 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+    .welcome-card p { font-size: 11px; opacity: 0.9; }
+
+    /* Sliders */
+    .slider-container { position: relative; width: 100%; height: 200px; overflow: hidden; border-radius: 14px; background: #111; margin-bottom: 14px; }
+    .slide-degma, .slide-strawberry, .slide-mindgame, .slide-welcome {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0; transition: opacity 0.8s ease-in-out;
+    }
+    .slide-degma.active, .slide-strawberry.active, .slide-mindgame.active, .slide-welcome.active { opacity: 1; }
+
+    .slider-tag {
+      position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.65);
+      color: white; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Fast Launch Buttons */
+    .launch-btn {
+      background: white; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: space-between;
+      border: 1px solid #e0e0e0; cursor: pointer; transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .launch-btn:active { transform: scale(0.98); }
+    .launch-info h4 { font-size: 13px; color: var(--primary); font-weight: 600; margin-bottom: 2px; }
+    .launch-info span { font-size: 11px; color: var(--text-muted); }
+    .launch-icon { width: 34px; height: 34px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 13px; }
+
+    /* Project Cards */
+    .project-card { background: var(--white); border-radius: 14px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); margin-bottom: 18px; border: 1px solid #e5e7eb; }
+    .project-body { padding: 14px; }
+    .project-body h2 { font-size: 17px; color: var(--primary); margin-bottom: 2px; }
+    .project-tagline { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+    .stat-box { background: var(--primary-light); padding: 8px 10px; border-radius: 8px; font-size: 11px; }
+    .stat-box strong { display: block; font-size: 13px; color: var(--primary); }
+
+    .btn-main {
+      width: 100%; background: var(--primary); color: white; border: none; padding: 10px;
+      border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none;
+    }
+
+    /* Plot Cards & Badges */
+    .plot-item {
+      background: var(--white); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px;
+      border-left: 4px solid var(--primary); border-top: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;
+    }
+    .plot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .plot-header h3 { font-size: 14px; color: var(--text-main); font-weight: 600; }
+    .plot-price { font-size: 14px; font-weight: 700; color: var(--primary); }
+    .plot-meta { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+    .plot-meta strong { color: var(--text-main); }
+    .plot-emi-highlight { color: var(--primary); font-weight: 600; font-size: 11px; margin-top: 3px; }
+
+    .badge-status {
+      display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; margin-bottom: 6px;
+      background: #dcfce7; color: #15803d;
+    }
+
+    /* Calculator Widget */
+    .calc-card {
+      background: white; border-radius: 12px; padding: 14px; border: 1px solid #e5e7eb; margin: 14px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .calc-slider { width: 100%; margin: 8px 0; accent-color: var(--primary); }
+
+    .features-list { list-style: none; margin: 10px 0 14px 0; }
+    .features-list li { font-size: 12px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; color: var(--text-main); }
+    .features-list li i { color: var(--primary); font-size: 13px; }
+
+    /* Gallery Grid */
+    .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .gallery-grid img { width: 100%; height: 125px; object-fit: cover; border-radius: 10px; border: 1px solid #e5e7eb; cursor: pointer; }
+
+    /* Lightbox Modal */
+    .image-modal { display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); justify-content: center; align-items: center; flex-direction: column; }
+    .image-modal img { max-width: 92%; max-height: 75%; border-radius: 8px; box-shadow: 0 0 25px rgba(255,255,255,0.2); }
+    .modal-controls { display: flex; gap: 20px; margin-top: 15px; }
+    .modal-btn { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 14px; }
+    .close-modal { position: absolute; top: 20px; right: 25px; color: white; font-size: 32px; cursor: pointer; }
+
+    /* Forms */
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 13px; outline: none; background: white;
+    }
+
+    /* Admin Cards */
+    .admin-enquiry-card { background: white; border-radius: 8px; padding: 12px; margin-bottom: 10px; border: 1px solid #e5e7eb; border-left: 4px solid var(--accent); }
+    .admin-plot-card { background: white; border-radius: 8px; padding: 10px; margin-bottom: 8px; border: 1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; }
+
+    /* User Profile Pill */
+    .user-pill {
+      display: flex; align-items: center; gap: 6px; background: var(--primary-light);
+      padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; color: var(--primary);
+    }
+    .logout-link { color: #ef4444; margin-left: 4px; cursor: pointer; }
+
+    /* Bottom Bar */
+    .bottom-bar {
+      position: fixed; bottom: 0; width: 100%; max-width: 420px; background: white;
+      padding: 10px 14px; display: flex; gap: 10px; box-shadow: 0 -3px 10px rgba(0,0,0,0.06); z-index: 100;
+    }
+    .btn-call { flex: 1; background: var(--primary); color: white; padding: 10px; border-radius: 8px; text-decoration: none; text-align: center; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn-wa { flex: 1; background: #25D366; color: white; padding: 10px; border-radius: 8px; text-decoration: none; text-align: center; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-frame">
+    <!-- Header -->
+    <div class="app-header">
+      <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; font-size:18px; color:var(--primary);">
+        <i class="fa-solid fa-house"></i>
+      </button>
+      <div class="brand-title">WALKE FARM WORLD</div>
+      <div id="authHeaderBtn">
+        <button onclick="showScreen('login')" style="border:none; background:none; cursor:pointer; font-size:16px; color:var(--primary);">
+          <i class="fa-regular fa-circle-user"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- 1. WELCOME DASHBOARD SCREEN -->
+    <div id="welcome_dashboard" class="screen">
+      <div class="welcome-card">
+        <div class="welcome-avatar"><i class="fa-solid fa-user-check"></i></div>
+        <h2 id="welcomeUserName">Welcome, User!</h2>
+        <p>Your journey to perfect farm land and luxury living starts here.</p>
+      </div>
+
+      <div class="slider-container">
+        <img src="images/farm1.jpg" class="slide-welcome active" alt="Degma Farmland">
+        <img src="images/resort1.jpg" class="slide-welcome" alt="Strawberry Resort Entrance">
+        <img src="images/mind1.jpg" class="slide-welcome" alt="Mind Game Highway Touch">
+        <img src="images/resort2.jpg" class="slide-welcome" alt="Resort Pool View">
+        <img src="images/farm10.jpg" class="slide-welcome" alt="Degma Gazebo">
+        <div class="slider-tag" id="welcomeSlideTag">🌿 Featured Property Highlights</div>
+      </div>
+
+      <div class="calc-card">
+        <h4 style="font-size:13px; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-calculator"></i> Live EMI Calculator</h4>
+        <div style="font-size:11px; color:var(--text-muted); display:flex; justify-content:space-between;">
+          <span>Plot Value: <strong id="calcPriceLabel">₹14,00,000</strong></span>
+          <span>Tenure: <strong>24 Months (0%)</strong></span>
+        </div>
+        <input type="range" min="1000000" max="10000000" step="500000" value="1400000" class="calc-slider" id="calcSlider" oninput="updateCalculator()">
+        <div style="background:var(--primary-light); padding:8px 10px; border-radius:6px; margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:11px;">Est. Monthly Instalment:</span>
+          <strong style="color:var(--primary); font-size:13px;" id="calcEmiResult">₹58,333 / mo</strong>
+        </div>
+      </div>
+
+      <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--text-main);">Quick Project Selection</h3>
+
+      <div class="launch-btn" onclick="showScreen('degma_detail')">
+        <div class="launch-info">
+          <h4>🌿 Degma Farmland</h4>
+          <span>122 Acres | ₹450/sq.ft. | 24M 0% EMI</span>
+        </div>
+        <div class="launch-icon"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+
+      <div class="launch-btn" onclick="showScreen('strawberry_detail')">
+        <div class="launch-info">
+          <h4>🌸 Strawberry Resort (Muniya Farm)</h4>
+          <span>Furnished Cottages ₹24 Lakh | 90% Loan</span>
+        </div>
+        <div class="launch-icon"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+
+      <div class="launch-btn" onclick="showScreen('mindgame_detail')">
+        <div class="launch-info">
+          <h4>🌟 Mind Game (Highway Touch)</h4>
+          <span>SH 262 Butibori | Residential & Commercial</span>
+        </div>
+        <div class="launch-icon"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+
+      <div style="margin-top: 15px;">
+        <button class="btn-main" onclick="showScreen('home')" style="background:#4b5563;">
+          <i class="fa-solid fa-list-check"></i> Browse All Properties Overview
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. HOME SCREEN -->
+    <div id="home" class="screen active">
+      <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--text-main);">Available Projects (3)</h3>
+
+      <!-- DEGMA FARMLAND -->
+      <div class="project-card">
+        <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
+          <img src="images/farm1.jpg" class="slide-degma active" alt="Degma 1">
+          <img src="images/farm2.jpg" class="slide-degma" alt="Degma 2">
+          <img src="images/farm3.jpg" class="slide-degma" alt="Degma 3">
+          <img src="images/farm4.jpg" class="slide-degma" alt="Degma 4">
+          <img src="images/farm10.jpg" class="slide-degma" alt="Degma 10">
+        </div>
+        <div class="project-body">
+          <h2>Degma Farmland</h2>
+          <div class="project-tagline">🌿 Live in the Heart of Nature | Near Bor Safari</div>
+          <div class="stats-grid">
+            <div class="stat-box">Area<strong>122 Acres</strong></div>
+            <div class="stat-box">Amenities<strong>7 Acres</strong></div>
+            <div class="stat-box">Rate<strong>₹450 / sq.ft.</strong></div>
+            <div class="stat-box">EMI<strong>0% Interest</strong></div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-main" onclick="showScreen('degma_detail')"><i class="fa-solid fa-eye"></i> Details</button>
+            <button class="btn-main" onclick="showGallery('degma')" style="background:var(--accent);"><i class="fa-solid fa-image"></i> 10 Photos</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STRAWBERRY RESORT -->
+      <div class="project-card">
+        <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
+          <img src="images/resort1.jpg" class="slide-strawberry active" alt="Resort 1">
+          <img src="images/resort2.jpg" class="slide-strawberry" alt="Resort 2">
+          <img src="images/resort4.jpg" class="slide-strawberry" alt="Resort 4">
+          <img src="images/resort5.jpg" class="slide-strawberry" alt="Resort 5">
+        </div>
+        <div class="project-body">
+          <h2>Strawberry Resort (Muniya Farm)</h2>
+          <div class="project-tagline">🌸 Luxury Cottages & Farmhouse | 20km from Chhatrapati Sq.</div>
+          <div class="stats-grid">
+            <div class="stat-box">Sanction<strong>NMRDA & R1</strong></div>
+            <div class="stat-box">Finance<strong>90% Bank Loan</strong></div>
+            <div class="stat-box">Rate<strong>₹1,400 / sq.ft.</strong></div>
+            <div class="stat-box">Cottage<strong>₹24 Lakh (Furnished)</strong></div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-main" onclick="showScreen('strawberry_detail')"><i class="fa-solid fa-eye"></i> Details</button>
+            <button class="btn-main" onclick="showGallery('strawberry')" style="background:var(--accent);"><i class="fa-solid fa-image"></i> 9 Photos</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MIND GAME -->
+      <div class="project-card">
+        <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
+          <img src="images/mind1.jpg" class="slide-mindgame active" alt="Mind 1">
+          <img src="images/mind3.jpg" class="slide-mindgame" alt="Mind 3">
+          <img src="images/mind4.jpg" class="slide-mindgame" alt="Mind 4">
+          <img src="images/mind5.jpg" class="slide-mindgame" alt="Mind 5">
+        </div>
+        <div class="project-body">
+          <h2>Mind Game (Highway Touch)</h2>
+          <div class="project-tagline">🌟 Prime S.H 262 Highway Touch | Residential & Commercial</div>
+          <div class="stats-grid">
+            <div class="stat-box">Area<strong>4 Acres</strong></div>
+            <div class="stat-box">Sanction<strong>NMRDA Sanctioned</strong></div>
+            <div class="stat-box">Rate<strong>₹1,400 / sq.ft.</strong></div>
+            <div class="stat-box">EMI<strong>0% Interest</strong></div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-main" onclick="showScreen('mindgame_detail')"><i class="fa-solid fa-eye"></i> Details</button>
+            <button class="btn-main" onclick="showGallery('mindgame')" style="background:var(--accent);"><i class="fa-solid fa-image"></i> 7 Photos</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. DEGMA DETAILS -->
+    <div id="degma_detail" class="screen">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <h2 style="color:var(--primary); font-size:18px;">Degma Farmland</h2>
+        <a href="https://share.google/BMTY8avUrswvyyQX7" target="_blank" class="btn-main" style="width:auto; padding:6px 12px; font-size:11px;">
+          <i class="fa-solid fa-location-dot"></i> Live Map
+        </a>
+      </div>
+
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+        Welcome to Degma Farm, a peaceful destination nestled in the heart of nature, perfect for investment, weekend homes, or future development.
+      </p>
+
+      <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">📍 Prime Location Advantages</h4>
+      <ul class="features-list">
+        <li><i class="fa-solid fa-check"></i> Near 17 Picnic Spot</li>
+        <li><i class="fa-solid fa-check"></i> Close to Bor Tiger Safari</li>
+        <li><i class="fa-solid fa-check"></i> Adjacent to Degma Waterfall</li>
+        <li><i class="fa-solid fa-check"></i> Surrounded by lush greenery and scenic landscapes</li>
+        <li><i class="fa-solid fa-check"></i> High growth tourism area</li>
+      </ul>
+
+      <h4 style="font-size: 13px; color: var(--primary); margin: 12px 0 8px 0;">📐 Available Plot Sizes & Detailed EMI Plans</h4>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹13,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹1,00,000</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹50,000 / Month (24 Months @ 0% Interest)</div>
+      </div>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>6,000 Sq.ft. Plot</h3><div class="plot-price">₹27,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹3,00,000</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,00,000 / Month (24 Months @ 0% Interest)</div>
+      </div>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>11,000 Sq.ft. Plot</h3><div class="plot-price">₹49,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹5,00,000</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,83,333 / Month (24 Months @ 0% Interest)</div>
+      </div>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>22,000 Sq.ft. Plot</h3><div class="plot-price">₹99,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹9,00,000</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹3,75,000 / Month (24 Months @ 0% Interest)</div>
+      </div>
+
+      <div style="display:flex; gap:8px; margin-top:14px;">
+        <button class="btn-main" onclick="showGallery('degma')" style="background:var(--accent);"><i class="fa-solid fa-image"></i> 10 Photos</button>
+        <button class="btn-main" onclick="openEnquiry('Degma Farmland')"><i class="fa-solid fa-calendar-check"></i> Book Visit</button>
+      </div>
+    </div>
+
+    <!-- 4. STRAWBERRY DETAILS -->
+    <div id="strawberry_detail" class="screen">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <h2 style="color:var(--primary); font-size:18px;">Strawberry Resort</h2>
+        <a href="https://share.google/Cd6a0cIAjs1LdKB7L" target="_blank" class="btn-main" style="width:auto; padding:6px 12px; font-size:11px;">
+          <i class="fa-solid fa-location-dot"></i> Live Map
+        </a>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+        🌸 <strong>Muniya Farm</strong> — Just 20km away from Chhatrapati square. NMRDA Sanctioned project. Today's best investment for yourself & family.
+      </p>
+
+      <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">✨ Resort Amenities</h4>
+      <ul class="features-list">
+        <li><i class="fa-solid fa-person-swimming"></i> Swimming Pool & 🍔 Salad Story Restaurant</li>
+        <li><i class="fa-solid fa-mountain"></i> Machan, Jungle View & 🎪 Adventure Area</li>
+        <li><i class="fa-solid fa-headphones"></i> Sound System, Indoor & Outdoor Games</li>
+        <li><i class="fa-solid fa-child"></i> Kids Play Area & 🌳 Natural Greenery</li>
+        <li><i class="fa-solid fa-shield-halved"></i> 24 Hrs Security & 🚘 Dedicated Parking Space</li>
+        <li><i class="fa-solid fa-house"></i> 36 Total Cottages (7 AC, 23 Non-AC, 2 Available for Sale)</li>
+      </ul>
+
+      <h4 style="font-size: 13px; color: var(--primary); margin: 12px 0 8px 0;">🏡 Available Cottages & Plots</h4>
+
+      <div class="plot-item" style="border-left-color: #E91E63;">
+        <span class="badge-status" style="background:#fce7f3; color:#be185d;">● 2 Units Available</span>
+        <div class="plot-header"><h3>Full Furnished Luxury Cottage</h3><div class="plot-price">₹24,00,000</div></div>
+        <div class="plot-meta">
+          Plot Area: <strong>1,114 sq.ft.</strong> | Construction: <strong>300 sq.ft.</strong><br>
+          Features: <strong>AC, TV, Bed, Curtains, Sofa & Lights Included</strong>
+        </div>
+        <div class="plot-emi-highlight" style="color:#E91E63;">
+          <i class="fa-solid fa-building-columns"></i> 90% Bank Finance Available / Company Finance @ 0%
+        </div>
+      </div>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>1,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹14,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
+      </div>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>3,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹42,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
+      </div>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>5,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹70,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: 90% Bank Loan / 12M EMI</div>
+      </div>
+
+      <div style="display:flex; gap:8px; margin-top:14px;">
+        <button class="btn-main" onclick="showGallery('strawberry')" style="background:var(--accent);"><i class="fa-solid fa-image"></i> 9 Photos</button>
+        <button class="btn-main" onclick="openEnquiry('Strawberry Resort')"><i class="fa-solid fa-calendar-check"></i> Book Visit</button>
+      </div>
+    </div>
+
+    <!-- 5. MIND GAME DETAILS -->
+    <div id="mindgame_detail" class="screen">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <h2 style="color:var(--primary); font-size:18px;">Mind Game Plots</h2>
+        <a href="https://maps.google.com/?q=MH+SH+262+Butibori+Umred+Road" target="_blank" class="btn-main" style="width:auto; padding:6px 12px; font-size:11px;">
+          <i class="fa-solid fa-location-dot"></i> Live Map
+        </a>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+        🌟 <strong>Premium Highway Touch Plots</strong> on S.H 262 — Total 4 Acres Project. Ideal for residential, commercial, and semi-commercial use.
+      </p>
+
+      <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">📍 Prime Location Highlights</h4>
+      <ul class="features-list">
+        <li><i class="fa-solid fa-road"></i> Highway touch property directly on S.H 262</li>
+        <li><i class="fa-solid fa-gas-pump"></i> Opposite Petrol Pump – High visibility & direct access</li>
+        <li><i class="fa-solid fa-train"></i> Just 6 KM from Butibori Metro Station</li>
+        <li><i class="fa-solid fa-route"></i> Well-connected via Kolkata Expressway & Umred Road</li>
+        <li><i class="fa-solid fa-chart-line"></i> Rapidly developing area with high future appreciation</li>
+        <li><i class="fa-solid fa-certificate"></i> NMRDA Sanctioned Project</li>
+      </ul>
+
+      <h4 style="font-size: 13px; color: var(--primary); margin: 12px 0 8px 0;">📐 Available Plot Sizes & 0% EMI</h4>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>1,000 Sq.ft. Plot</h3><div class="plot-price">₹14,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong><br>Usage: <strong>Residential / Office Space</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
+      </div>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>2,000 Sq.ft. Plot</h3><div class="plot-price">₹28,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong><br>Usage: <strong>Semi-Commercial / Dream Home</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
+      </div>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹42,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong><br>Usage: <strong>Commercial Shops / Showroom / Offices</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
+      </div>
+
+      <div class="plot-item" style="border-left-color: #F9A825;">
+        <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Prime Highway Touch</span>
+        <div class="plot-header"><h3>5,000 Sq.ft. Prime Commercial</h3><div class="plot-price">₹70,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong><br>Usage: <strong>Highway Frontage Prime Commercial Zone</strong></div>
+        <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> High Return Commercial Asset | 0% EMI</div>
+      </div>
+
+      <div style="display:flex; gap:8px; margin-top:14px;">
+        <button class="btn-main" onclick="showGallery('mindgame')" style="background:var(--accent);"><i class="fa-solid fa-image"></i> 7 Photos</button>
+        <button class="btn-main" onclick="openEnquiry('Mind Game Plots')"><i class="fa-solid fa-calendar-check"></i> Book Visit</button>
+      </div>
+    </div>
+
+    <!-- 6. GALLERY SCREEN -->
+    <div id="gallery" class="screen">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+        <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
+        <h3 id="galleryTitle" style="color: var(--primary);">Site Gallery</h3>
+      </div>
+      <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px; margin-left: 24px;">Click any photo to open full-screen slider</p>
+      <div class="gallery-grid" id="galleryContainer"></div>
+    </div>
+
+    <!-- 7. SIGNUP SCREEN -->
+    <div id="signup" class="screen">
+      <h3 style="color: var(--primary); margin-bottom: 4px;">Create an Account</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Join Walke Farm World to book and manage visits.</p>
+      
+      <form onsubmit="handleSignup(event)">
+        <div class="form-group">
+          <label>Email ID</label>
+          <input type="email" id="signup_email" required placeholder="Enter your email" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="signup_password" required placeholder="Create a password" />
+        </div>
+        <button type="submit" class="btn-main">Sign Up</button>
+      </form>
+      <p style="text-align:center; font-size:12px; margin-top:14px;">
+        Already have an account? <a href="javascript:void(0)" onclick="showScreen('login')" style="color:var(--primary); font-weight:600;">Log In</a>
+      </p>
+    </div>
+
+    <!-- 8. USER LOGIN SCREEN -->
+    <div id="login" class="screen">
+      <h3 style="color: var(--primary); margin-bottom: 4px;">Customer Login</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Log in to view personalised plans & bookings.</p>
+      
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="text" id="login_email" required placeholder="name@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login_password" required placeholder="Enter password" />
+        </div>
+        <button type="submit" class="btn-main">Log In</button>
+      </form>
+      <p style="text-align:center; font-size:12px; margin-top:14px;">
+        Don't have an account? <a href="javascript:void(0)" onclick="showScreen('signup')" style="color:var(--primary); font-weight:600;">Sign Up</a>
+      </p>
+    </div>
+
+    <!-- 9. HIDDEN ADMIN LOGIN SCREEN (ACCESSIBLE VIA CTRL + SHIFT + A) -->
+    <div id="admin_secret_login" class="screen">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+        <h3 style="color: #b91c1c;"><i class="fa-solid fa-lock"></i> Restricted Admin Access</h3>
+        <button onclick="showScreen('home')" style="border:none; background:none; color:gray; font-size:16px; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px;">Dual Authorized Credentials Required.</p>
+      
+      <form onsubmit="handleAdminLogin(event)">
+        <div class="form-group">
+          <label>Admin ID / Email</label>
+          <input type="text" id="admin_email" required placeholder="admin@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Master Security Key</label>
+          <input type="password" id="admin_password" required placeholder="••••••••" />
+        </div>
+        <button type="submit" class="btn-main" style="background:#b91c1c;"><i class="fa-solid fa-shield-halved"></i> Verify & Authenticate</button>
+      </form>
+    </div>
+
+    <!-- 10. ADMIN CONTROL DASHBOARD (HIDDEN) -->
+    <div id="admin_dashboard" class="screen">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Master Admin Control</h3>
+        <button onclick="logout()" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Exit Admin</button>
+      </div>
+
+      <div style="display:flex; gap:6px; margin-bottom:14px;">
+        <button class="btn-main" onclick="loadAdminPlots()" style="padding:6px; font-size:11px; flex:1;">Manage Plots</button>
+        <button class="btn-main" onclick="loadAdminEnquiries()" style="padding:6px; font-size:11px; flex:1; background:var(--accent);">Leads & Bookings</button>
+        <button class="btn-main" onclick="downloadExcel()" style="padding:6px; font-size:11px; flex:1; background:#059669;"><i class="fa-solid fa-file-excel"></i> Excel</button>
+      </div>
+
+      <div id="adminContentPanel">Loading admin records...</div>
+    </div>
+
+    <!-- 11. BOOK SITE VISIT -->
+    <div id="enquiry" class="screen">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+        <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
+        <h3 style="color: var(--primary);">Book Site Visit</h3>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px; margin-left: 24px;">Forwarded directly to Management: 7972306925</p>
+
+      <form id="enquiryForm" onsubmit="submitForm(event)">
+        <div class="form-group">
+          <label>Selected Project</label>
+          <input type="text" id="project_name" readonly style="background:#e5e7eb; font-weight:600;" />
+        </div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="name" required placeholder="Enter your full name" />
+        </div>
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <input type="tel" id="phone" required placeholder="10-digit number" />
+        </div>
+        <div class="form-group">
+          <label>Select Plot Interest</label>
+          <select id="plot_size">
+            <option value="Standard Plot">Standard Farmland Plot</option>
+            <option value="Furnished Cottage - ₹24 Lakh">Strawberry Furnished Cottage (₹24 Lakh)</option>
+            <option value="1000 sq ft Plot">Plot 1,000 sq.ft.</option>
+            <option value="2000 sq ft Plot">Plot 2,000 sq.ft.</option>
+            <option value="3000 sq ft Plot">Plot 3,000 sq.ft.</option>
+            <option value="5000 sq ft Plot">Plot 5,000 sq.ft.</option>
+            <option value="6000 sq ft Plot">Plot 6,000 sq.ft.</option>
+            <option value="11000 sq ft Plot">Plot 11,000 sq.ft.</option>
+            <option value="22000 sq ft Plot">Plot 22,000 sq.ft.</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preferred Visit Date</label>
+          <input type="date" id="visit_date" required />
+        </div>
+        <div class="form-group">
+          <label>Message (Optional)</label>
+          <textarea id="message" rows="2" placeholder="Time preference or requirements..."></textarea>
+        </div>
+        <button type="submit" class="btn-main"><i class="fa-brands fa-whatsapp"></i> Confirm & Forward to Booking</button>
+      </form>
+    </div>
+
+    <!-- Bottom Actions -->
+    <div class="bottom-bar">
+      <a href="tel:+917972306925" class="btn-call"><i class="fa-solid fa-phone"></i> Call Booking</a>
+      <a href="https://wa.me/917972306925?text=Hello%20Mam%2C%20I%20am%20interested%20in%20booking%20a%20site%20visit." target="_blank" class="btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp Mam</a>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="imageModal" class="image-modal">
+    <span class="close-modal" onclick="closeLightbox()">&times;</span>
+    <img id="lightboxImg" src="" alt="Enlarged View">
+    <div class="modal-controls">
+      <button class="modal-btn" onclick="prevLightbox()"><i class="fa-solid fa-arrow-left"></i> Prev</button>
+      <button class="modal-btn" onclick="nextLightbox()">Next <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://127.0.0.1:5000/api';
+    const MAM_PHONE = '7972306925';
+
+    let userSessionToken = localStorage.getItem('token') || null;
+    let loggedInUser = JSON.parse(localStorage.getItem('user')) || null;
+
+    const degmaImages = [
+      'images/farm1.jpg', 'images/farm2.jpg', 'images/farm3.jpg',
+      'images/farm4.jpg', 'images/farm5.jpg', 'images/farm6.jpg',
+      'images/farm7.jpg', 'images/farm8.jpg', 'images/farm9.jpg', 'images/farm10.jpg'
+    ];
+
+    const strawberryImages = [
+      'images/resort1.jpg', 'images/resort2.jpg', 'images/resort3.jpg',
+      'images/resort4.jpg', 'images/resort5.jpg', 'images/resort6.jpg',
+      'images/resort7.jpg', 'images/resort8.jpg', 'images/resort9.jpg'
+    ];
+
+    const mindgameImages = [
+      'images/mind1.jpg', 'images/mind2.jpg', 'images/mind3.jpg',
+      'images/mind4.jpg', 'images/mind5.jpg', 'images/mind6.jpg', 'images/mind7.jpg'
+    ];
+
+    const welcomeTags = [
+      '🌿 Degma Farmland: 122 Acres Nature Living',
+      '🌸 Strawberry Resort: Luxury Cottages & Pool',
+      '🌟 Mind Game: SH 262 Highway Touch Plots',
+      '🏊 Luxury Amenities & Salad Story Restaurant',
+      '🏕️ Peaceful Farm Life & Weekend Villas'
+    ];
+
+    let currentActiveGallery = [];
+    let currentLightboxIdx = 0;
+
+    // Window Load Authentication Check
+    window.addEventListener('DOMContentLoaded', () => {
+      renderHeaderAuth();
+    });
+
+    function renderHeaderAuth() {
+      const authContainer = document.getElementById('authHeaderBtn');
+      if (loggedInUser && userSessionToken) {
+        authContainer.innerHTML = `
+          <div class="user-pill">
+            <span onclick="showScreen('${loggedInUser.role === 'admin' ? 'admin_dashboard' : 'welcome_dashboard'}')" style="cursor:pointer;">
+              ${loggedInUser.role === 'admin' ? '🛡️ Admin' : '👤 ' + loggedInUser.email.split('@')[0]}
+            </span>
+            <span class="logout-link" onclick="logout()" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+          </div>
+        `;
+      } else {
+        authContainer.innerHTML = `
+          <button onclick="showScreen('login')" style="border:none; background:none; cursor:pointer; font-size:16px; color:var(--primary);">
+            <i class="fa-regular fa-circle-user"></i>
+          </button>
+        `;
+      }
+    }
+
+    // SECRET KEYBOARD SHORTCUT: Ctrl + Shift + A to open Hidden Admin Screen
+    window.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        if (loggedInUser && loggedInUser.role === 'admin') {
+          loadAdminPlots();
+          showScreen('admin_dashboard');
+        } else {
+          showScreen('admin_secret_login');
+        }
+      }
+    });
+
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(screenId);
+      if (target) target.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    // Live Calculator Slider
+    function updateCalculator() {
+      const val = parseInt(document.getElementById('calcSlider').value);
+      document.getElementById('calcPriceLabel').innerText = `₹${(val / 100000).toFixed(1)} Lakh`;
+      const monthly = Math.round(val / 24);
+      document.getElementById('calcEmiResult').innerText = `₹${monthly.toLocaleString('en-IN')} / mo`;
+    }
+
+    // Lightbox Controls
+    function showGallery(type) {
+      const container = document.getElementById('galleryContainer');
+      const title = document.getElementById('galleryTitle');
+      container.innerHTML = '';
+
+      if (type === 'degma') {
+        title.innerText = 'Degma Farmland Gallery (10 Photos)';
+        currentActiveGallery = degmaImages;
+      } else if (type === 'strawberry') {
+        title.innerText = 'Strawberry Resort Gallery (9 Photos)';
+        currentActiveGallery = strawberryImages;
+      } else {
+        title.innerText = 'Mind Game Highway Plots Gallery (7 Photos)';
+        currentActiveGallery = mindgameImages;
+      }
+
+      currentActiveGallery.forEach((img, idx) => {
+        const imageElement = document.createElement('img');
+        imageElement.src = img;
+        imageElement.alt = `Photo ${idx + 1}`;
+        imageElement.onclick = () => openLightbox(idx);
+        container.appendChild(imageElement);
+      });
+      showScreen('gallery');
+    }
+
+    function openLightbox(index) {
+      currentLightboxIdx = index;
+      document.getElementById('lightboxImg').src = currentActiveGallery[currentLightboxIdx];
+      document.getElementById('imageModal').style.display = 'flex';
+    }
+    function closeLightbox() { document.getElementById('imageModal').style.display = 'none'; }
+    function nextLightbox() {
+      currentLightboxIdx = (currentLightboxIdx + 1) % currentActiveGallery.length;
+      document.getElementById('lightboxImg').src = currentActiveGallery[currentLightboxIdx];
+    }
+    function prevLightbox() {
+      currentLightboxIdx = (currentLightboxIdx - 1 + currentActiveGallery.length) % currentActiveGallery.length;
+      document.getElementById('lightboxImg').src = currentActiveGallery[currentLightboxIdx];
+    }
+
+    function openEnquiry(projectName) {
+      document.getElementById('project_name').value = projectName;
+      showScreen('enquiry');
+    }
+
+    // Auto Carousels
+    function startCarousel(className, isWelcome = false) {
+      let idx = 0;
+      const slides = document.querySelectorAll('.' + className);
+      if (slides.length > 0) {
+        setInterval(() => {
+          slides[idx].classList.remove('active');
+          idx = (idx + 1) % slides.length;
+          slides[idx].classList.add('active');
+          
+          if (isWelcome && welcomeTags[idx]) {
+            const tagEl = document.getElementById('welcomeSlideTag');
+            if (tagEl) tagEl.innerText = welcomeTags[idx];
+          }
+        }, 2600);
+      }
+    }
+    startCarousel('slide-degma');
+    startCarousel('slide-strawberry');
+    startCarousel('slide-mindgame');
+    startCarousel('slide-welcome', true);
+
+    // Signup / Login
+    async function handleSignup(e) {
+      e.preventDefault();
+      const email = document.getElementById('signup_email').value;
+      const password = document.getElementById('signup_password').value;
+
+      try {
+        const res = await fetch(`${API_BASE}/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          alert('Account created! Please log in.');
+          showScreen('login');
+        } else { alert(data.message); }
+      } catch (err) { alert('Server error'); }
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('login_email').value;
+      const password = document.getElementById('login_password').value;
+
+      try {
+        const res = await fetch(`${API_BASE}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          userSessionToken = data.token;
+          loggedInUser = data;
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data));
+          renderHeaderAuth();
+
+          document.getElementById('welcomeUserName').innerText = `Welcome, ${data.email.split('@')[0]}!`;
+          showScreen('welcome_dashboard');
+        } else { alert(data.message); }
+      } catch (err) { alert('Server error'); }
+    }
+
+    // Hidden Admin Login Handler
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('admin_email').value;
+      const password = document.getElementById('admin_password').value;
+
+      try {
+        const res = await fetch(`${API_BASE}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (data.status === 'success' && data.role === 'admin') {
+          userSessionToken = data.token;
+          loggedInUser = data;
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data));
+          renderHeaderAuth();
+
+          alert('Admin Authenticated.');
+          loadAdminPlots();
+          showScreen('admin_dashboard');
+        } else {
+          alert('Unauthorized. Dual Admin ID required.');
+        }
+      } catch (err) { alert('Server error'); }
+    }
+
+    // Full Logout
+    function logout() {
+      userSessionToken = null;
+      loggedInUser = null;
+      localStorage.clear();
+      renderHeaderAuth();
+      alert('Logged out successfully.');
+      showScreen('home');
+    }
+
+    // Admin Plots Control
+    async function loadAdminPlots() {
+      try {
+        const res = await fetch(`${API_BASE}/admin/plots`, {
+          headers: { 'Authorization': `Bearer ${userSessionToken}` }
+        });
+        const plots = await res.json();
+        let html = '<h4 style="font-size:13px; margin-bottom:8px;">Manage Plot Availability:</h4>';
+        plots.forEach(p => {
+          html += `
+            <div class="admin-plot-card">
+              <div>
+                <strong style="font-size:12px;">${p.project_slug.toUpperCase()}: ${p.size}</strong>
+                <div style="font-size:11px; color:gray;">Price: ${p.total_price}</div>
+              </div>
+              <select onchange="changePlotStatus(${p.id}, this.value)" style="padding:4px 8px; font-size:11px; border-radius:6px; border:1px solid #ccc;">
+                <option value="Available" ${p.status === 'Available' ? 'selected' : ''}>🟢 Available</option>
+                <option value="Booked" ${p.status === 'Booked' ? 'selected' : ''}>🔴 Booked</option>
+                <option value="On Hold" ${p.status === 'On Hold' ? 'selected' : ''}>🟡 On Hold</option>
+              </select>
+            </div>
+          `;
+        });
+        document.getElementById('adminContentPanel').innerHTML = html;
+      } catch (err) {
+        document.getElementById('adminContentPanel').innerHTML = '<p style="color:red;">Error loading plots.</p>';
+      }
+    }
+
+    async function changePlotStatus(plotId, newStatus) {
+      try {
+        await fetch(`${API_BASE}/admin/update-plot-status`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${userSessionToken}`
+          },
+          body: JSON.stringify({ id: plotId, status: newStatus })
+        });
+        alert(`Status updated to ${newStatus}`);
+      } catch (err) { alert('Status update failed'); }
+    }
+
+    // Admin Leads List
+    async function loadAdminEnquiries() {
+      try {
+        const res = await fetch(`${API_BASE}/admin/enquiries`, {
+          headers: { 'Authorization': `Bearer ${userSessionToken}` }
+        });
+        const list = await res.json();
+        let html = '<h4 style="font-size:13px; margin-bottom:8px;">Customer Leads:</h4>';
+        if (list.length === 0) html += '<p style="font-size:12px; color:gray;">No leads yet.</p>';
+        list.forEach(e => {
+          html += `
+            <div class="admin-enquiry-card">
+              <strong style="color:var(--primary); font-size:13px;">${e.project_name}</strong> - <span>${e.plot_size}</span>
+              <p style="font-size:12px; margin:2px 0;">👤 <strong>${e.name}</strong> | 📞 <a href="tel:${e.phone}">${e.phone}</a></p>
+              <p style="font-size:11px; color:gray;">📅 Visit Date: ${e.visit_date} | Received: ${e.created_at}</p>
+              ${e.message ? `<p style="font-size:11px; color:#333; margin-top:2px;">💬 "${e.message}"</p>` : ''}
+            </div>
+          `;
+        });
+        document.getElementById('adminContentPanel').innerHTML = html;
+      } catch (err) {
+        document.getElementById('adminContentPanel').innerHTML = '<p style="color:red;">Error loading enquiries.</p>';
+      }
+    }
+
+    function downloadExcel() {
+      window.open(`${API_BASE}/admin/export-csv?Authorization=Bearer ${userSessionToken}`, '_blank');
+    }
+
+    // Booking Submission Forwarding to 7972306925
+    async function submitForm(e) {
+      e.preventDefault();
+      const proj = document.getElementById('project_name').value;
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const plot = document.getElementById('plot_size').value;
+      const date = document.getElementById('visit_date').value;
+      const msg = document.getElementById('message').value;
+
+      try {
+        await fetch(`${API_BASE}/enquiry`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ project_name: proj, name, phone, plot_size: plot, visit_date: date, message: msg })
+        });
+
+        const text = encodeURIComponent(
+          `*New Site Visit Booking Notification*\n\n` +
+          `🏡 *Project:* ${proj}\n` +
+          `👤 *Customer Name:* ${name}\n` +
+          `📞 *Mobile:* ${phone}\n` +
+          `📐 *Plot Interest:* ${plot}\n` +
+          `📅 *Preferred Visit Date:* ${date}\n` +
+          `💬 *Message:* ${msg || 'None'}`
+        );
+
+        window.open(`https://wa.me/91${MAM_PHONE}?text=${text}`, '_blank');
+        alert('Booking saved and forwarded on WhatsApp!');
+        document.getElementById('enquiryForm').reset();
+        showScreen('home');
+      } catch (err) {
+        alert('Booking forwarded directly!');
+      }
+    }
+  </script>
+</body>
+</html>
