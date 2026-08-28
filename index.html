@@ -544,7 +544,7 @@
       </p>
     </div>
 
-    <!-- 9. HIDDEN ADMIN LOGIN SCREEN (ACCESSIBLE VIA CTRL + SHIFT + A) -->
+    <!-- 9. HIDDEN ADMIN LOGIN SCREEN (CTRL + SHIFT + A) -->
     <div id="admin_secret_login" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
         <h3 style="color: #b91c1c;"><i class="fa-solid fa-lock"></i> Restricted Admin Access</h3>
@@ -565,7 +565,7 @@
       </form>
     </div>
 
-    <!-- 10. ADMIN CONTROL DASHBOARD (HIDDEN) -->
+    <!-- 10. ADMIN CONTROL DASHBOARD -->
     <div id="admin_dashboard" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <h3 style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Master Admin Control</h3>
@@ -646,7 +646,8 @@
   </div>
 
   <script>
-    const API_BASE = 'http://127.0.0.1:5000/api';
+    // LIVE CLOUD API URL SET (Render Endpoint)
+    const API_BASE = 'https://walke-farm-backend.onrender.com/api';
     const MAM_PHONE = '7972306925';
 
     let userSessionToken = localStorage.getItem('token') || null;
@@ -680,7 +681,6 @@
     let currentActiveGallery = [];
     let currentLightboxIdx = 0;
 
-    // Window Load Authentication Check
     window.addEventListener('DOMContentLoaded', () => {
       renderHeaderAuth();
     });
@@ -705,7 +705,7 @@
       }
     }
 
-    // SECRET KEYBOARD SHORTCUT: Ctrl + Shift + A to open Hidden Admin Screen
+    // SECRET KEYBOARD SHORTCUT: Ctrl + Shift + A
     window.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
         e.preventDefault();
@@ -725,7 +725,6 @@
       window.scrollTo(0, 0);
     }
 
-    // Live Calculator Slider
     function updateCalculator() {
       const val = parseInt(document.getElementById('calcSlider').value);
       document.getElementById('calcPriceLabel').innerText = `₹${(val / 100000).toFixed(1)} Lakh`;
@@ -733,7 +732,6 @@
       document.getElementById('calcEmiResult').innerText = `₹${monthly.toLocaleString('en-IN')} / mo`;
     }
 
-    // Lightbox Controls
     function showGallery(type) {
       const container = document.getElementById('galleryContainer');
       const title = document.getElementById('galleryTitle');
@@ -780,7 +778,6 @@
       showScreen('enquiry');
     }
 
-    // Auto Carousels
     function startCarousel(className, isWelcome = false) {
       let idx = 0;
       const slides = document.querySelectorAll('.' + className);
@@ -802,7 +799,6 @@
     startCarousel('slide-mindgame');
     startCarousel('slide-welcome', true);
 
-    // Signup / Login
     async function handleSignup(e) {
       e.preventDefault();
       const email = document.getElementById('signup_email').value;
@@ -819,7 +815,7 @@
           alert('Account created! Please log in.');
           showScreen('login');
         } else { alert(data.message); }
-      } catch (err) { alert('Server error'); }
+      } catch (err) { alert('Connecting to server...'); }
     }
 
     async function handleLogin(e) {
@@ -844,10 +840,9 @@
           document.getElementById('welcomeUserName').innerText = `Welcome, ${data.email.split('@')[0]}!`;
           showScreen('welcome_dashboard');
         } else { alert(data.message); }
-      } catch (err) { alert('Server error'); }
+      } catch (err) { alert('Server connecting...'); }
     }
 
-    // Hidden Admin Login Handler
     async function handleAdminLogin(e) {
       e.preventDefault();
       const email = document.getElementById('admin_email').value;
@@ -876,7 +871,6 @@
       } catch (err) { alert('Server error'); }
     }
 
-    // Full Logout
     function logout() {
       userSessionToken = null;
       loggedInUser = null;
@@ -886,7 +880,6 @@
       showScreen('home');
     }
 
-    // Admin Plots Control
     async function loadAdminPlots() {
       try {
         const res = await fetch(`${API_BASE}/admin/plots`, {
@@ -929,7 +922,6 @@
       } catch (err) { alert('Status update failed'); }
     }
 
-    // Admin Leads List
     async function loadAdminEnquiries() {
       try {
         const res = await fetch(`${API_BASE}/admin/enquiries`, {
@@ -955,10 +947,9 @@
     }
 
     function downloadExcel() {
-      window.open(`${API_BASE}/admin/export-csv?Authorization=Bearer ${userSessionToken}`, '_blank');
+      window.open(`${API_BASE}/admin/export-csv`, '_blank');
     }
 
-    // Booking Submission Forwarding to 7972306925
     async function submitForm(e) {
       e.preventDefault();
       const proj = document.getElementById('project_name').value;
