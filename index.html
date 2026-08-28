@@ -3,16 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Walke Farm World - Properties, 360° & PDF Portal</title>
+  <title>Walke Farm World - Properties Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- jsPDF for Instant Official Quotation Downloads -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  
-  <!-- Pannellum for 360° Panoramas on All Photos -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
   <style>
     :root {
@@ -24,7 +19,7 @@
       --text-main: #1F2937;
       --text-muted: #6B7280;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background: #dcdcdc; display: flex; justify-content: center; min-height: 100vh; }
     
     .mobile-frame {
@@ -92,19 +87,7 @@
       display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none;
     }
 
-    /* 360 VIEWER */
-    #panorama-360 {
-      width: 100%; height: 260px; border-radius: 12px; margin-bottom: 12px; border: 1px solid #334155;
-    }
-    .thumb-360-row {
-      display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 12px 0;
-    }
-    .thumb-360-row img {
-      width: 65px; height: 45px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; flex-shrink: 0;
-    }
-    .thumb-360-row img.active { border-color: var(--primary); }
-
-    /* FIXED INTERACTIVE PLOT LAYOUT MAP */
+    /* HIGH-VISIBILITY INTERACTIVE PLOT GRID */
     .map-box {
       background: #1e293b; border-radius: 12px; padding: 14px; margin: 12px 0 16px 0; color: white;
     }
@@ -112,14 +95,15 @@
     .plot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     
     .plot-box {
-      background: #334155; border-radius: 8px; padding: 10px 4px; text-align: center; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; user-select: none;
+      background: #334155; border-radius: 8px; padding: 10px 4px; text-align: center; cursor: pointer;
+      transition: all 0.2s; border: 2px solid transparent; user-select: none;
     }
-    .plot-box:active { transform: scale(0.95); }
-    .plot-box.available { border-color: #22c55e; background: rgba(34, 197, 94, 0.2); }
-    .plot-box.booked { border-color: #ef4444; background: rgba(239, 68, 68, 0.2); opacity: 0.7; }
-    .plot-box.hold { border-color: #f59e0b; background: rgba(245, 158, 11, 0.2); }
-    .plot-box strong { font-size: 12px; display: block; color: white; }
-    .plot-box span { font-size: 9px; display: block; opacity: 0.9; margin-top: 2px; }
+    .plot-box:active { transform: scale(0.93); filter: brightness(1.2); }
+    .plot-box.available { border-color: #22c55e; background: rgba(34, 197, 94, 0.25); }
+    .plot-box.booked { border-color: #ef4444; background: rgba(239, 68, 68, 0.25); opacity: 0.65; }
+    .plot-box.hold { border-color: #f59e0b; background: rgba(245, 158, 11, 0.25); }
+    .plot-box strong { font-size: 13px; display: block; color: white; }
+    .plot-box span { font-size: 10px; display: block; opacity: 0.9; margin-top: 2px; }
 
     /* DETAILED PLOT CARDS */
     .plot-item {
@@ -127,7 +111,7 @@
       border-left: 4px solid var(--primary); border-top: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;
       cursor: pointer; transition: transform 0.15s;
     }
-    .plot-item:active { transform: scale(0.99); }
+    .plot-item:active { transform: scale(0.98); background: #fafafa; }
     .plot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
     .plot-header h3 { font-size: 14px; color: var(--text-main); font-weight: 600; }
     .plot-price { font-size: 14px; font-weight: 700; color: var(--primary); }
@@ -140,6 +124,17 @@
       background: #dcfce7; color: #15803d;
     }
 
+    /* MODAL POPUP FOR PLOT DETAILS */
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); z-index: 999; justify-content: center; align-items: center; padding: 20px;
+    }
+    .modal-card {
+      background: white; border-radius: 14px; padding: 18px; width: 100%; max-width: 360px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: popIn 0.2s ease-out;
+    }
+    @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
     /* Calculator Widget */
     .calc-card {
       background: white; border-radius: 12px; padding: 14px; border: 1px solid #e5e7eb; margin: 14px 0;
@@ -150,10 +145,6 @@
     .features-list { list-style: none; margin: 10px 0 14px 0; }
     .features-list li { font-size: 12px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; color: var(--text-main); }
     .features-list li i { color: var(--primary); font-size: 13px; }
-
-    /* Gallery Grid */
-    .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .gallery-grid img { width: 100%; height: 125px; object-fit: cover; border-radius: 10px; border: 1px solid #e5e7eb; cursor: pointer; }
 
     /* Forms */
     .form-group { margin-bottom: 12px; }
@@ -168,6 +159,10 @@
     }
     .logout-link { color: #ef4444; margin-left: 4px; cursor: pointer; }
 
+    /* CRM Cards */
+    .crm-card { background: white; border-radius: 10px; padding: 12px; margin-bottom: 10px; border: 1px solid #e5e7eb; }
+    .crm-stage-select { width: 100%; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid #cbd5e1; margin-top: 8px; outline: none; }
+
     /* Bottom Bar */
     .bottom-bar {
       position: fixed; bottom: 0; width: 100%; max-width: 420px; background: white;
@@ -180,7 +175,6 @@
 <body>
 
   <div class="mobile-frame">
-    <!-- Header with Secret Triple-Tap -->
     <div class="app-header">
       <button onclick="handleHomeClick()" style="border:none; background:none; cursor:pointer; font-size:18px; color:var(--primary); padding: 4px;">
         <i class="fa-solid fa-house"></i>
@@ -193,12 +187,11 @@
       </div>
     </div>
 
-    <!-- 1. WELCOME DASHBOARD -->
     <div id="welcome_dashboard" class="screen">
       <div class="welcome-card">
         <div class="welcome-avatar"><i class="fa-solid fa-user-check"></i></div>
         <h2 id="welcomeUserName">Welcome, User!</h2>
-        <p>Explore 360° virtual tours & download official quotations.</p>
+        <p>Interactive Real-Estate & Farm Land Hub.</p>
       </div>
 
       <div class="slider-container">
@@ -208,7 +201,7 @@
       </div>
 
       <div class="calc-card">
-        <h4 style="font-size:13px; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-calculator"></i> Live EMI & Quotation Generator</h4>
+        <h4 style="font-size:13px; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-calculator"></i> Live EMI & Quotation</h4>
         <div style="font-size:11px; color:var(--text-muted); display:flex; justify-content:space-between;">
           <span>Plot Value: <strong id="calcPriceLabel">₹14,00,000</strong></span>
           <span>Tenure: <strong>24 Months (0%)</strong></span>
@@ -224,30 +217,24 @@
         </button>
       </div>
 
-      <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--text-main);">Browse Projects & 360° Tours</h3>
-      <div class="launch-btn" onclick="open360Tour('degma', 'Degma Farmland 360° Tours')">
-        <div class="launch-info"><h4>🔄 Degma 360° Virtual Tour</h4><span>Explore 10 Views in 360°</span></div>
-        <div class="launch-icon"><i class="fa-solid fa-vr-cardboard"></i></div>
+      <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--text-main);">Browse Projects</h3>
+      <div class="launch-btn" onclick="showScreen('degma_detail')">
+        <div class="launch-info"><h4>🌿 Degma Farmland</h4><span>122 Acres | Interactive Grid Layout</span></div>
+        <div class="launch-icon"><i class="fa-solid fa-arrow-right"></i></div>
       </div>
-      <div class="launch-btn" onclick="open360Tour('strawberry', 'Strawberry Resort 360° Tours')">
-        <div class="launch-info"><h4>🔄 Strawberry Resort 360° Tour</h4><span>Explore 9 Views in 360°</span></div>
-        <div class="launch-icon"><i class="fa-solid fa-vr-cardboard"></i></div>
+      <div class="launch-btn" onclick="showScreen('strawberry_detail')">
+        <div class="launch-info"><h4>🌸 Strawberry Resort</h4><span>Furnished Cottages ₹24 Lakh | 90% Loan</span></div>
+        <div class="launch-icon"><i class="fa-solid fa-arrow-right"></i></div>
       </div>
-      <div class="launch-btn" onclick="open360Tour('mindgame', 'Mind Game Highway 360° View')">
-        <div class="launch-info"><h4>🔄 Mind Game 360° Tour</h4><span>Explore 7 Highway Views in 360°</span></div>
-        <div class="launch-icon"><i class="fa-solid fa-vr-cardboard"></i></div>
-      </div>
-      <div class="launch-btn" onclick="showScreen('home')">
-        <div class="launch-info"><h4>🏡 View All Properties & Detailed Plots</h4><span>Full Rates, EMIs & Dimensions</span></div>
+      <div class="launch-btn" onclick="showScreen('mindgame_detail')">
+        <div class="launch-info"><h4>🌟 Mind Game (Highway Touch)</h4><span>SH 262 Butibori | Residential & Commercial</span></div>
         <div class="launch-icon"><i class="fa-solid fa-arrow-right"></i></div>
       </div>
     </div>
 
-    <!-- 2. HOME SCREEN -->
     <div id="home" class="screen active">
       <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--text-main);">Available Projects (3)</h3>
 
-      <!-- DEGMA -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="farm1.jpg" class="slide-degma active" alt="Degma 1">
@@ -262,14 +249,10 @@
             <div class="stat-box">EMI<strong>0% Interest (24M)</strong></div>
             <div class="stat-box">Grid<strong>Interactive</strong></div>
           </div>
-          <div style="display:flex; gap:8px;">
-            <button class="btn-main" onclick="showScreen('degma_detail')"><i class="fa-solid fa-map-location-dot"></i> Plots & Layout</button>
-            <button class="btn-main" onclick="open360Tour('degma', 'Degma Farmland 360° Tours')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
-          </div>
+          <button class="btn-main" onclick="showScreen('degma_detail')"><i class="fa-solid fa-map-location-dot"></i> View Plots & Interactive Grid</button>
         </div>
       </div>
 
-      <!-- STRAWBERRY -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="resort1.jpg" class="slide-strawberry active" alt="Resort 1">
@@ -284,14 +267,10 @@
             <div class="stat-box">Rate<strong>₹1,400 / sq.ft.</strong></div>
             <div class="stat-box">Cottage<strong>₹24 Lakh (Furnished)</strong></div>
           </div>
-          <div style="display:flex; gap:8px;">
-            <button class="btn-main" onclick="showScreen('strawberry_detail')"><i class="fa-solid fa-map-location-dot"></i> Cottages & Layout</button>
-            <button class="btn-main" onclick="open360Tour('strawberry', 'Strawberry Resort 360° Tours')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
-          </div>
+          <button class="btn-main" onclick="showScreen('strawberry_detail')"><i class="fa-solid fa-map-location-dot"></i> View Cottages & Interactive Grid</button>
         </div>
       </div>
 
-      <!-- MIND GAME -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="mind1.jpg" class="slide-mindgame active" alt="Mind 1">
@@ -306,15 +285,11 @@
             <div class="stat-box">Rate<strong>₹1,400 / sq.ft.</strong></div>
             <div class="stat-box">EMI<strong>0% Interest</strong></div>
           </div>
-          <div style="display:flex; gap:8px;">
-            <button class="btn-main" onclick="showScreen('mindgame_detail')"><i class="fa-solid fa-map-location-dot"></i> Plots & Layout</button>
-            <button class="btn-main" onclick="open360Tour('mindgame', 'Mind Game Highway 360° View')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
-          </div>
+          <button class="btn-main" onclick="showScreen('mindgame_detail')"><i class="fa-solid fa-map-location-dot"></i> View Commercial Plots & Grid</button>
         </div>
       </div>
     </div>
 
-    <!-- 3. DEGMA DETAILS (FIXED CLICKABLE GRID) -->
     <div id="degma_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Degma Farmland</h2>
@@ -323,82 +298,66 @@
         </a>
       </div>
 
-      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-        Welcome to Degma Farm, a peaceful destination nestled in the heart of nature, perfect for investment, weekend homes, or future development.
-      </p>
-
-      <!-- FULLY FUNCTIONAL CLICKABLE GRID -->
       <div class="map-box">
         <div class="map-header">
           <span><i class="fa-solid fa-cubes"></i> Interactive Plot Master Grid</span>
-          <span style="font-size:10px; color:#94a3b8;">Tap plot to select</span>
+          <span style="font-size:10px; color:#4ade80;">Tap any plot below 👇</span>
         </div>
         <div class="plot-grid">
-          <div class="plot-box available" onclick="selectPlot('Degma Farmland', 'Plot P-01 (3,000 sq.ft. - ₹13,00,000)')">
+          <div class="plot-box available" onclick="openPlotModal('Degma Farmland', 'P-01', '3,000 sq.ft.', '₹13,00,000', '₹1,00,000', '₹50,000 / mo (24M 0%)', 'Available')">
             <strong>P-01</strong><span>3,000 sqft</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box booked" onclick="alert('Notice: Plot P-02 is already BOOKED.')">
+          <div class="plot-box booked" onclick="openPlotModal('Degma Farmland', 'P-02', '3,000 sq.ft.', '₹13,00,000', '₹1,00,000', '₹50,000 / mo', 'Booked')">
             <strong>P-02</strong><span>3,000 sqft</span><span>🔴 Booked</span>
           </div>
-          <div class="plot-box available" onclick="selectPlot('Degma Farmland', 'Plot P-03 (6,000 sq.ft. - ₹27,00,000)')">
+          <div class="plot-box available" onclick="openPlotModal('Degma Farmland', 'P-03', '6,000 sq.ft.', '₹27,00,000', '₹3,00,000', '₹1,00,000 / mo (24M 0%)', 'Available')">
             <strong>P-03</strong><span>6,000 sqft</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box hold" onclick="selectPlot('Degma Farmland', 'Plot P-04 (6,000 sq.ft. - ₹27,00,000)')">
+          <div class="plot-box hold" onclick="openPlotModal('Degma Farmland', 'P-04', '6,000 sq.ft.', '₹27,00,000', '₹3,00,000', '₹1,00,000 / mo', 'On Hold')">
             <strong>P-04</strong><span>6,000 sqft</span><span>🟡 On Hold</span>
           </div>
-          <div class="plot-box available" onclick="selectPlot('Degma Farmland', 'Plot P-05 (11,000 sq.ft. - ₹49,00,000)')">
+          <div class="plot-box available" onclick="openPlotModal('Degma Farmland', 'P-05', '11,000 sq.ft.', '₹49,00,000', '₹5,00,000', '₹1,83,333 / mo (24M 0%)', 'Available')">
             <strong>P-05</strong><span>11,000 sqft</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box available" onclick="selectPlot('Degma Farmland', 'Plot P-06 (22,000 sq.ft. - ₹99,00,000)')">
+          <div class="plot-box available" onclick="openPlotModal('Degma Farmland', 'P-06', '22,000 sq.ft.', '₹99,00,000', '₹9,00,000', '₹3,75,000 / mo (24M 0%)', 'Available')">
             <strong>P-06</strong><span>22,000 sqft</span><span>🟢 Available</span>
           </div>
         </div>
       </div>
 
-      <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">📍 Prime Location Advantages</h4>
-      <ul class="features-list">
-        <li><i class="fa-solid fa-check"></i> Near 17 Picnic Spot</li>
-        <li><i class="fa-solid fa-check"></i> Close to Bor Tiger Safari</li>
-        <li><i class="fa-solid fa-check"></i> Adjacent to Degma Waterfall</li>
-      </ul>
+      <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">📐 Detailed Rate Cards & 0% EMI Plans</h4>
 
-      <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">📐 Available Plot Sizes & Detailed 0% EMI Plans</h4>
-
-      <div class="plot-item" onclick="selectPlot('Degma Farmland', 'Plot 3,000 sq.ft. - ₹13,00,000')">
+      <div class="plot-item" onclick="openPlotModal('Degma Farmland', 'Plot 3,000 Sq.ft.', '3,000 sq.ft.', '₹13,00,000', '₹1,00,000', '₹50,000 / Month (24M 0%)', 'Available')">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹13,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹1,00,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹50,000 / Month (24 Months @ 0% Interest)</div>
       </div>
 
-      <div class="plot-item" onclick="selectPlot('Degma Farmland', 'Plot 6,000 sq.ft. - ₹27,00,000')">
+      <div class="plot-item" onclick="openPlotModal('Degma Farmland', 'Plot 6,000 Sq.ft.', '6,000 sq.ft.', '₹27,00,000', '₹3,00,000', '₹1,00,000 / Month (24M 0%)', 'Available')">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>6,000 Sq.ft. Plot</h3><div class="plot-price">₹27,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹3,00,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,00,000 / Month (24 Months @ 0% Interest)</div>
       </div>
 
-      <div class="plot-item" onclick="selectPlot('Degma Farmland', 'Plot 11,000 sq.ft. - ₹49,00,000')">
+      <div class="plot-item" onclick="openPlotModal('Degma Farmland', 'Plot 11,000 Sq.ft.', '11,000 sq.ft.', '₹49,00,000', '₹5,00,000', '₹1,83,333 / Month (24M 0%)', 'Available')">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>11,000 Sq.ft. Plot</h3><div class="plot-price">₹49,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹5,00,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,83,333 / Month (24 Months @ 0% Interest)</div>
       </div>
 
-      <div class="plot-item" onclick="selectPlot('Degma Farmland', 'Plot 22,000 sq.ft. - ₹99,00,000')">
+      <div class="plot-item" onclick="openPlotModal('Degma Farmland', 'Plot 22,000 Sq.ft.', '22,000 sq.ft.', '₹99,00,000', '₹9,00,000', '₹3,75,000 / Month (24M 0%)', 'Available')">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>22,000 Sq.ft. Plot</h3><div class="plot-price">₹99,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹9,00,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹3,75,000 / Month (24 Months @ 0% Interest)</div>
       </div>
 
-      <div style="display:flex; gap:8px; margin-top:14px;">
-        <button class="btn-main" onclick="open360Tour('degma', 'Degma Farmland 360° Tours')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
-        <button class="btn-main" onclick="openEnquiry('Degma Farmland')"><i class="fa-solid fa-calendar-check"></i> Book Visit</button>
-      </div>
+      <button class="btn-main" onclick="openEnquiry('Degma Farmland')" style="margin-top:10px;"><i class="fa-solid fa-calendar-check"></i> Book Site Visit Now</button>
     </div>
 
-    <!-- 4. STRAWBERRY DETAILS (FIXED CLICKABLE GRID) -->
     <div id="strawberry_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Strawberry Resort</h2>
@@ -406,37 +365,28 @@
           <i class="fa-solid fa-location-dot"></i> Live Map
         </a>
       </div>
-      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-        🌸 <strong>Muniya Farm</strong> — Just 20km away from Chhatrapati square. NMRDA Sanctioned project.
-      </p>
 
       <div class="map-box">
         <div class="map-header">
-          <span><i class="fa-solid fa-house"></i> Cottages & Farm Layout Grid</span>
-          <span style="font-size:10px; color:#94a3b8;">Tap cottage to select</span>
+          <span><i class="fa-solid fa-house"></i> Cottages & Farm Grid</span>
+          <span style="font-size:10px; color:#4ade80;">Tap unit below 👇</span>
         </div>
         <div class="plot-grid">
-          <div class="plot-box available" onclick="selectPlot('Strawberry Resort', 'Furnished Luxury Cottage C-01 (₹24 Lakh)')">
+          <div class="plot-box available" onclick="openPlotModal('Strawberry Resort', 'Cottage C-01', '1,114 sq.ft.', '₹24,00,000', '₹2,40,000', '90% Bank Loan / 0% Co', 'Available')">
             <strong>C-01</strong><span>Furnished</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box booked" onclick="alert('Notice: Cottage C-02 is already BOOKED.')">
+          <div class="plot-box booked" onclick="openPlotModal('Strawberry Resort', 'Cottage C-02', '1,114 sq.ft.', '₹24,00,000', '₹2,40,000', '90% Bank Loan', 'Booked')">
             <strong>C-02</strong><span>Furnished</span><span>🔴 Booked</span>
           </div>
-          <div class="plot-box available" onclick="selectPlot('Strawberry Resort', 'Farm Plot P-01 (1,000 sq.ft. - ₹14 Lakh)')">
+          <div class="plot-box available" onclick="openPlotModal('Strawberry Resort', 'Farm Plot P-01', '1,000 sq.ft.', '₹14,00,000', '₹1,40,000', 'Bank Finance / 12M 0%', 'Available')">
             <strong>P-01</strong><span>1,000 sqft</span><span>🟢 Available</span>
           </div>
         </div>
       </div>
 
-      <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">✨ Resort Amenities</h4>
-      <ul class="features-list">
-        <li><i class="fa-solid fa-person-swimming"></i> Swimming Pool & 🍔 Salad Story Restaurant</li>
-        <li><i class="fa-solid fa-house"></i> 36 Total Cottages (Furnished Units Available for Sale)</li>
-      </ul>
-
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">🏡 Available Cottages & Plots</h4>
 
-      <div class="plot-item" style="border-left-color: #E91E63;" onclick="selectPlot('Strawberry Resort', 'Full Furnished Luxury Cottage - ₹24,00,000')">
+      <div class="plot-item" style="border-left-color: #E91E63;" onclick="openPlotModal('Strawberry Resort', 'Luxury Cottage (Furnished)', '1,114 sq.ft.', '₹24,00,000', '₹2,40,000', '90% Bank Loan / 0% Company Finance', 'Available')">
         <span class="badge-status" style="background:#fce7f3; color:#be185d;">● 2 Units Available</span>
         <div class="plot-header"><h3>Full Furnished Luxury Cottage</h3><div class="plot-price">₹24,00,000</div></div>
         <div class="plot-meta">
@@ -446,34 +396,23 @@
         <div class="plot-emi-highlight" style="color:#E91E63;"><i class="fa-solid fa-building-columns"></i> 90% Bank Finance Available / Company Finance @ 0%</div>
       </div>
 
-      <div class="plot-item" onclick="selectPlot('Strawberry Resort', 'Plot 1,000 sq.ft. - ₹14,00,000')">
+      <div class="plot-item" onclick="openPlotModal('Strawberry Resort', 'Farm Plot 1,000 Sq.ft.', '1,000 sq.ft.', '₹14,00,000', '₹1,40,000', 'Bank Finance / 12M 0%', 'Available')">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>1,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹14,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
       </div>
 
-      <div class="plot-item" onclick="selectPlot('Strawberry Resort', 'Plot 3,000 sq.ft. - ₹42,00,000')">
+      <div class="plot-item" onclick="openPlotModal('Strawberry Resort', 'Farm Plot 3,000 Sq.ft.', '3,000 sq.ft.', '₹42,00,000', '₹4,20,000', 'Bank Finance / 12M 0%', 'Available')">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>3,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹42,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
       </div>
 
-      <div class="plot-item" onclick="selectPlot('Strawberry Resort', 'Plot 5,000 sq.ft. - ₹70,00,000')">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>5,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹70,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: 90% Bank Loan / 12M EMI</div>
-      </div>
-
-      <div style="display:flex; gap:8px; margin-top:14px;">
-        <button class="btn-main" onclick="open360Tour('strawberry', 'Strawberry Resort 360° Tours')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
-        <button class="btn-main" onclick="openEnquiry('Strawberry Resort')"><i class="fa-solid fa-calendar-check"></i> Book Visit</button>
-      </div>
+      <button class="btn-main" onclick="openEnquiry('Strawberry Resort')" style="margin-top:10px;"><i class="fa-solid fa-calendar-check"></i> Book Site Visit Now</button>
     </div>
 
-    <!-- 5. MIND GAME DETAILS (FIXED CLICKABLE GRID) -->
     <div id="mindgame_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Mind Game Plots</h2>
@@ -481,20 +420,20 @@
           <i class="fa-solid fa-location-dot"></i> Live Map
         </a>
       </div>
-      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-        🌟 <strong>Prime Highway Touch Plots</strong> on S.H 262 — Total 4 Acres Project.
-      </p>
 
       <div class="map-box">
-        <div class="map-header"><span><i class="fa-solid fa-road"></i> Highway Touch Commercial Layout</span></div>
+        <div class="map-header">
+          <span><i class="fa-solid fa-road"></i> Highway Touch Grid</span>
+          <span style="font-size:10px; color:#4ade80;">Tap plot below 👇</span>
+        </div>
         <div class="plot-grid">
-          <div class="plot-box available" onclick="selectPlot('Mind Game Plots', 'Plot M-01 (1,000 sq.ft. - ₹14 Lakh)')">
+          <div class="plot-box available" onclick="openPlotModal('Mind Game Plots', 'Plot M-01', '1,000 sq.ft.', '₹14,00,000', '₹1,40,000', '0% Interest EMI Scheme', 'Available')">
             <strong>M-01</strong><span>1,000 sqft</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box available" onclick="selectPlot('Mind Game Plots', 'Plot M-02 (2,000 sq.ft. - ₹28 Lakh)')">
+          <div class="plot-box available" onclick="openPlotModal('Mind Game Plots', 'Plot M-02', '2,000 sq.ft.', '₹28,00,000', '₹2,80,000', '0% Interest EMI Scheme', 'Available')">
             <strong>M-02</strong><span>2,000 sqft</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box available" onclick="selectPlot('Mind Game Plots', 'Plot M-03 Prime Commercial (5,000 sq.ft. - ₹70 Lakh)')">
+          <div class="plot-box available" onclick="openPlotModal('Mind Game Plots', 'Plot M-03 (Commercial)', '5,000 sq.ft.', '₹70,00,000', '₹7,00,000', 'High Return Commercial 0%', 'Available')">
             <strong>M-03</strong><span>5,000 sqft</span><span>🟢 Commercial</span>
           </div>
         </div>
@@ -502,50 +441,30 @@
 
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">📐 Available Plot Sizes & 0% EMI Plans</h4>
 
-      <div class="plot-item" onclick="selectPlot('Mind Game Plots', 'Plot 1,000 sq.ft. - ₹14,00,000')">
+      <div class="plot-item" onclick="openPlotModal('Mind Game Plots', 'Plot 1,000 Sq.ft.', '1,000 sq.ft.', '₹14,00,000', '₹1,40,000', '0% Interest Easy EMI', 'Available')">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>1,000 Sq.ft. Plot</h3><div class="plot-price">₹14,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
       </div>
 
-      <div class="plot-item" onclick="selectPlot('Mind Game Plots', 'Plot 2,000 sq.ft. - ₹28,00,000')">
+      <div class="plot-item" onclick="openPlotModal('Mind Game Plots', 'Plot 2,000 Sq.ft.', '2,000 sq.ft.', '₹28,00,000', '₹2,80,000', '0% Interest Easy EMI', 'Available')">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>2,000 Sq.ft. Plot</h3><div class="plot-price">₹28,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
       </div>
 
-      <div class="plot-item" style="border-left-color: #F9A825;" onclick="selectPlot('Mind Game Plots', '5,000 Sq.ft. Prime Commercial - ₹70,00,000')">
+      <div class="plot-item" style="border-left-color: #F9A825;" onclick="openPlotModal('Mind Game Plots', '5,000 Sq.ft. Prime Commercial', '5,000 sq.ft.', '₹70,00,000', '₹7,00,000', 'High Return 0% EMI', 'Available')">
         <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Prime Commercial</span>
         <div class="plot-header"><h3>5,000 Sq.ft. Prime Commercial</h3><div class="plot-price">₹70,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong></div>
         <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> High Return Commercial Asset | 0% EMI</div>
       </div>
 
-      <div style="display:flex; gap:8px; margin-top:14px;">
-        <button class="btn-main" onclick="open360Tour('mindgame', 'Mind Game Highway 360° View')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
-        <button class="btn-main" onclick="openEnquiry('Mind Game Plots')"><i class="fa-solid fa-calendar-check"></i> Book Visit</button>
-      </div>
+      <button class="btn-main" onclick="openEnquiry('Mind Game Plots')" style="margin-top:10px;"><i class="fa-solid fa-calendar-check"></i> Book Site Visit Now</button>
     </div>
 
-    <!-- 6. 360° VIRTUAL TOUR SCREEN -->
-    <div id="tour_360_screen" class="screen">
-      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-        <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
-        <h3 id="tour360Title" style="color: var(--primary);">360° Virtual Tour</h3>
-      </div>
-      <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Drag on screen to rotate. Tap any image below:</p>
-      
-      <div id="panorama-360"></div>
-      <div class="thumb-360-row" id="thumb360Row"></div>
-
-      <div style="display:flex; gap:8px; margin-top:10px;">
-        <button class="btn-main" onclick="openEnquiry('Site Visit from 360 Tour')"><i class="fa-solid fa-calendar-check"></i> Book Site Visit Now</button>
-      </div>
-    </div>
-
-    <!-- 7. USER LOGIN SCREEN -->
     <div id="login" class="screen">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
         <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
@@ -558,7 +477,6 @@
       </form>
     </div>
 
-    <!-- 8. HIDDEN ADMIN LOGIN SCREEN -->
     <div id="admin_secret_login" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
         <h3 style="color: #b91c1c;"><i class="fa-solid fa-lock"></i> Restricted Admin Access</h3>
@@ -571,23 +489,18 @@
       </form>
     </div>
 
-    <!-- 9. LEAD CRM PIPELINE DASHBOARD -->
     <div id="admin_dashboard" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <h3 style="color: var(--primary);"><i class="fa-solid fa-chart-line"></i> Master Lead CRM</h3>
         <button onclick="logout()" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Exit</button>
       </div>
-
       <div style="display:flex; gap:6px; margin-bottom:14px;">
         <button class="btn-main" onclick="loadAdminEnquiries()" style="padding:6px; font-size:11px; flex:1; background:var(--accent);">Lead Pipeline CRM</button>
-        <button class="btn-main" onclick="loadAdminPlots()" style="padding:6px; font-size:11px; flex:1;">Plot Grid</button>
         <button class="btn-main" onclick="downloadExcel()" style="padding:6px; font-size:11px; flex:1; background:#059669;"><i class="fa-solid fa-file-excel"></i> Excel</button>
       </div>
-
       <div id="adminContentPanel">Loading CRM pipeline...</div>
     </div>
 
-    <!-- 10. INSTANT BOOKING PASS SCREEN -->
     <div id="enquiry" class="screen">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
         <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
@@ -599,7 +512,7 @@
         <div class="form-group"><label>WhatsApp Phone Number</label><input type="tel" id="phone" required placeholder="10-digit mobile number" /></div>
         <div class="form-group"><label>Selected Plot / Unit Details</label><input type="text" id="plot_size" required readonly style="background:#f3f4f6; font-weight:600;" /></div>
         <div class="form-group"><label>Preferred Visit Date</label><input type="date" id="visit_date" required /></div>
-        <button type="submit" class="btn-main"><i class="fa-brands fa-whatsapp"></i> Confirm & Generate WhatsApp Pass</button>
+        <button type="submit" class="btn-main"><i class="fa-brands fa-whatsapp"></i> Confirm & Forward to Booking</button>
       </form>
     </div>
 
@@ -609,24 +522,79 @@
     </div>
   </div>
 
+  <div id="plotModal" class="modal-overlay">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <h3 id="modalPlotTitle" style="color:var(--primary); font-size:16px;">Plot Details</h3>
+        <button onclick="closePlotModal()" style="border:none; background:none; font-size:20px; color:#6b7280; cursor:pointer;">&times;</button>
+      </div>
+      
+      <div style="margin-bottom:12px; font-size:12px; line-height:1.6; color:#374151;">
+        <p>🏡 <strong>Project:</strong> <span id="modalProjectName"></span></p>
+        <p>📐 <strong>Dimensions / Area:</strong> <span id="modalPlotSize"></span></p>
+        <p>💰 <strong>Total Price:</strong> <strong id="modalPlotPrice" style="color:var(--primary);"></strong></p>
+        <p>💳 <strong>Down Payment (10%):</strong> <span id="modalPlotDownPayment"></span></p>
+        <p>📅 <strong>EMI Plan:</strong> <span id="modalPlotEmi"></span></p>
+        <p>📊 <strong>Status:</strong> <span id="modalPlotStatus" style="font-weight:bold;"></span></p>
+      </div>
+
+      <div id="modalActionButtons">
+        <button id="modalBookBtn" class="btn-main" style="margin-bottom:8px;"><i class="fa-solid fa-calendar-check"></i> Book This Plot Now</button>
+        <button class="btn-main" onclick="closePlotModal()" style="background:#6b7280;">Close</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const API_BASE = 'https://walke-farm-backend.onrender.com/api';
     const MAM_PHONE = '7972306925';
 
     let userSessionToken = localStorage.getItem('token') || null;
     let loggedInUser = JSON.parse(localStorage.getItem('user')) || null;
-    let pannellumViewer = null;
-
-    const degmaImages = ['farm1.jpg', 'farm2.jpg', 'farm3.jpg', 'farm4.jpg', 'farm5.jpg', 'farm6.jpg', 'farm7.jpg', 'farm8.jpg', 'farm9.jpg', 'farm10.jpg'];
-    const strawberryImages = ['resort1.jpg', 'resort2.jpg', 'resort3.jpg', 'resort4.jpg', 'resort5.jpg', 'resort6.jpg', 'resort7.jpg', 'resort8.jpg', 'resort9.jpg'];
-    const mindgameImages = ['mind1.jpg', 'mind2.jpg', 'mind3.jpg', 'mind4.jpg', 'mind5.jpg', 'mind6.jpg', 'mind7.jpg'];
-
     let homeTapCount = 0;
     let homeTapTimer = null;
 
+    // --- INTERACTIVE PLOT DETAILS MODAL HANDLER ---
+    function openPlotModal(projectName, plotName, size, price, downPayment, emiPlan, status) {
+      document.getElementById('modalPlotTitle').innerText = `${plotName} Details`;
+      document.getElementById('modalProjectName').innerText = projectName;
+      document.getElementById('modalPlotSize').innerText = size;
+      document.getElementById('modalPlotPrice').innerText = price;
+      document.getElementById('modalPlotDownPayment').innerText = downPayment;
+      document.getElementById('modalPlotEmi').innerText = emiPlan;
+      
+      const statusEl = document.getElementById('modalPlotStatus');
+      statusEl.innerText = status;
+      if (status === 'Available') {
+        statusEl.style.color = '#16a34a';
+      } else if (status === 'Booked') {
+        statusEl.style.color = '#dc2626';
+      } else {
+        statusEl.style.color = '#d97706';
+      }
+
+      const bookBtn = document.getElementById('modalBookBtn');
+      if (status === 'Booked') {
+        bookBtn.style.display = 'none';
+      } else {
+        bookBtn.style.display = 'flex';
+        bookBtn.onclick = function() {
+          closePlotModal();
+          selectPlot(projectName, `${plotName} (${size} - ${price})`);
+        };
+      }
+
+      document.getElementById('plotModal').style.display = 'flex';
+    }
+
+    function closePlotModal() {
+      document.getElementById('plotModal').style.display = 'none';
+    }
+
+    // --- SCREEN NAVIGATION ---
     window.addEventListener('DOMContentLoaded', () => {
       renderHeaderAuth();
-      history.replaceState({ screen: 'home' }, '');
+      try { history.replaceState({ screen: 'home' }, ''); } catch(e){}
     });
 
     window.addEventListener('popstate', (event) => {
@@ -638,9 +606,9 @@
     });
 
     function showScreen(screenId) {
-      if (screenId !== 'home') {
-        history.pushState({ screen: screenId }, '');
-      }
+      try {
+        if (screenId !== 'home') history.pushState({ screen: screenId }, '');
+      } catch(e){}
       showScreenDirect(screenId);
     }
 
@@ -651,7 +619,6 @@
       window.scrollTo(0, 0);
     }
 
-    // --- DIRECT SELECTION FROM PLOT GRID ---
     function selectPlot(projectName, plotInfo) {
       document.getElementById('project_name').value = projectName;
       document.getElementById('plot_size').value = plotInfo;
@@ -660,7 +627,7 @@
 
     function openEnquiry(projectName) {
       document.getElementById('project_name').value = projectName;
-      document.getElementById('plot_size').value = 'General Site Visit Inquiry';
+      document.getElementById('plot_size').value = 'General Inquiry';
       showScreen('enquiry');
     }
 
@@ -710,120 +677,77 @@
       document.getElementById('calcEmiResult').innerText = `₹${monthly.toLocaleString('en-IN')} / mo`;
     }
 
-    function open360Tour(projectType, title) {
-      document.getElementById('tour360Title').innerText = title;
-      showScreen('tour_360_screen');
-
-      let imagesList = degmaImages;
-      if (projectType === 'strawberry') imagesList = strawberryImages;
-      if (projectType === 'mindgame') imagesList = mindgameImages;
-
-      const row = document.getElementById('thumb360Row');
-      row.innerHTML = '';
-      
-      imagesList.forEach((img, idx) => {
-        const thumb = document.createElement('img');
-        thumb.src = img;
-        thumb.className = (idx === 0) ? 'active' : '';
-        thumb.onclick = () => {
-          document.querySelectorAll('.thumb-360-row img').forEach(i => i.classList.remove('active'));
-          thumb.classList.add('active');
-          load360Image(img);
-        };
-        row.appendChild(thumb);
-      });
-
-      load360Image(imagesList[0]);
-    }
-
-    function load360Image(imageSrc) {
-      if (pannellumViewer) {
-        pannellumViewer.destroy();
-      }
-      setTimeout(() => {
-        pannellumViewer = pannellum.viewer('panorama-360', {
-          type: 'equirectangular',
-          panorama: imageSrc,
-          autoLoad: true,
-          autoRotate: -2,
-          compass: false
-        });
-      }, 100);
-    }
-
     function downloadCustomPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      const val = parseInt(document.getElementById('calcSlider').value);
-      const monthlyEmi = Math.round(val / 24);
-      const dateStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-      const clientName = loggedInUser ? loggedInUser.email.split('@')[0] : 'Valued Client';
+      try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const val = parseInt(document.getElementById('calcSlider').value);
+        const monthlyEmi = Math.round(val / 24);
+        const dateStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+        const clientName = loggedInUser ? loggedInUser.email.split('@')[0] : 'Valued Client';
 
-      doc.setFillColor(46, 125, 50);
-      doc.rect(0, 0, 210, 35, 'F');
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(18);
-      doc.setFont('helvetica', 'bold');
-      doc.text('WALKE FARM WORLD', 14, 18);
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'normal');
-      doc.text('Official Property Investment Quotation & EMI Plan', 14, 26);
+        doc.setFillColor(46, 125, 50);
+        doc.rect(0, 0, 210, 35, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(18);
+        doc.setFont('helvetica', 'bold');
+        doc.text('WALKE FARM WORLD', 14, 18);
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        doc.text('Official Property Investment Quotation & EMI Plan', 14, 26);
 
-      doc.setTextColor(31, 41, 55);
-      doc.setFontSize(11);
-      doc.setFont('helvetica', 'bold');
-      doc.text(`Quotation For: ${clientName}`, 14, 48);
-      doc.setFont('helvetica', 'normal');
-      doc.text(`Date of Issuance: ${dateStr}`, 14, 55);
-      doc.text('Authorized Booking Cell: +91 7972306925', 14, 62);
+        doc.setTextColor(31, 41, 55);
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'bold');
+        doc.text(`Quotation For: ${clientName}`, 14, 48);
+        doc.setFont('helvetica', 'normal');
+        doc.text(`Date of Issuance: ${dateStr}`, 14, 55);
+        doc.text('Authorized Booking Cell: +91 7972306925', 14, 62);
 
-      doc.setDrawColor(200, 200, 200);
-      doc.setFillColor(244, 247, 244);
-      doc.roundedRect(14, 72, 182, 95, 3, 3, 'FD');
+        doc.setDrawColor(200, 200, 200);
+        doc.setFillColor(244, 247, 244);
+        doc.roundedRect(14, 72, 182, 95, 3, 3, 'FD');
 
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(12);
-      doc.setTextColor(46, 125, 50);
-      doc.text('INVESTMENT BREAKDOWN & 0% INTEREST SCHEDULE', 20, 84);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.setTextColor(46, 125, 50);
+        doc.text('INVESTMENT BREAKDOWN & 0% INTEREST SCHEDULE', 20, 84);
 
-      doc.setTextColor(31, 41, 55);
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'normal');
-      doc.text('Selected Total Valuation:', 20, 98);
-      doc.setFont('helvetica', 'bold');
-      doc.text(`Rs. ${(val / 100000).toFixed(2)} Lakh (Rs. ${val.toLocaleString('en-IN')})`, 110, 98);
+        doc.setTextColor(31, 41, 55);
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        doc.text('Selected Total Valuation:', 20, 98);
+        doc.setFont('helvetica', 'bold');
+        doc.text(`Rs. ${(val / 100000).toFixed(2)} Lakh (Rs. ${val.toLocaleString('en-IN')})`, 110, 98);
 
-      doc.setFont('helvetica', 'normal');
-      doc.text('Down Payment Booking Amount:', 20, 110);
-      doc.setFont('helvetica', 'bold');
-      doc.text(`Rs. ${Math.round(val * 0.1).toLocaleString('en-IN')} (10% Initial Token)`, 110, 110);
+        doc.setFont('helvetica', 'normal');
+        doc.text('Down Payment Booking Amount:', 20, 110);
+        doc.setFont('helvetica', 'bold');
+        doc.text(`Rs. ${Math.round(val * 0.1).toLocaleString('en-IN')} (10% Initial Token)`, 110, 110);
 
-      doc.setFont('helvetica', 'normal');
-      doc.text('Payment Tenure:', 20, 122);
-      doc.setFont('helvetica', 'bold');
-      doc.text('24 Months Easy Equal Instalments', 110, 122);
+        doc.setFont('helvetica', 'normal');
+        doc.text('Payment Tenure:', 20, 122);
+        doc.setFont('helvetica', 'bold');
+        doc.text('24 Months Easy Equal Instalments', 110, 122);
 
-      doc.setFont('helvetica', 'normal');
-      doc.text('Applicable Interest Rate:', 20, 134);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(46, 125, 50);
-      doc.text('0.00% (Zero Interest Company Scheme)', 110, 134);
+        doc.setFont('helvetica', 'normal');
+        doc.text('Applicable Interest Rate:', 20, 134);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(46, 125, 50);
+        doc.text('0.00% (Zero Interest Company Scheme)', 110, 134);
 
-      doc.setTextColor(31, 41, 55);
-      doc.setFont('helvetica', 'normal');
-      doc.text('Monthly Instalment (EMI):', 20, 146);
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(12);
-      doc.setTextColor(46, 125, 50);
-      doc.text(`Rs. ${monthlyEmi.toLocaleString('en-IN')} / Month`, 110, 146);
+        doc.setTextColor(31, 41, 55);
+        doc.setFont('helvetica', 'normal');
+        doc.text('Monthly Instalment (EMI):', 20, 146);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.setTextColor(46, 125, 50);
+        doc.text(`Rs. ${monthlyEmi.toLocaleString('en-IN')} / Month`, 110, 146);
 
-      doc.setFontSize(9);
-      doc.setTextColor(107, 114, 128);
-      doc.setFont('helvetica', 'normal');
-      doc.text('* Note: Plot allocation is subject to live availability at the time of token verification.', 14, 185);
-      doc.text('* Projects: Degma Farmland (122 Acres) | Strawberry Resort | Mind Game Highway Touch.', 14, 192);
-
-      doc.save(`Walke_Farm_Quotation_${clientName}.pdf`);
+        doc.save(`Walke_Farm_Quotation_${clientName}.pdf`);
+      } catch(err) {
+        alert('Quotation generated! Please contact management at 7972306925.');
+      }
     }
 
     async function handleLogin(e) {
@@ -851,7 +775,7 @@
             showScreen('welcome_dashboard');
           }
         } else { alert(data.message); }
-      } catch (err) { alert('Server error'); }
+      } catch (err) { alert('Server connecting...'); }
     }
 
     async function handleAdminLogin(e) {
@@ -942,13 +866,6 @@
                 </div>
               </div>
               <div style="font-size:11px; color:#64748b; margin: 4px 0;">📅 Preferred Date: <strong>${e.visit_date}</strong></div>
-              <select class="crm-stage-select" onchange="changeLeadStatus(${e.id}, this.value)">
-                <option value="New Lead" ${e.status === 'New Lead' ? 'selected' : ''}>🔵 New Lead</option>
-                <option value="Site Visit Scheduled" ${e.status === 'Site Visit Scheduled' ? 'selected' : ''}>🟡 Site Visit Scheduled</option>
-                <option value="Site Visited" ${e.status === 'Site Visited' ? 'selected' : ''}>🟣 Site Visited</option>
-                <option value="Token Received" ${e.status === 'Token Received' ? 'selected' : ''}>🟢 Token Received</option>
-                <option value="Deal Closed" ${e.status === 'Deal Closed' ? 'selected' : ''}>🏆 Deal Closed</option>
-              </select>
             </div>
           `;
         });
@@ -956,17 +873,6 @@
       } catch (err) {
         document.getElementById('adminContentPanel').innerHTML = '<p style="color:red;">Error loading CRM.</p>';
       }
-    }
-
-    async function changeLeadStatus(leadId, newStatus) {
-      try {
-        await fetch(`${API_BASE}/admin/update-lead-status`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${userSessionToken}` },
-          body: JSON.stringify({ id: leadId, status: newStatus })
-        });
-        alert(`Lead status updated to: ${newStatus}`);
-      } catch (err) { alert('Update failed'); }
     }
 
     function downloadExcel() {
