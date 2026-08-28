@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Response, send_from_directory
+from flask import Flask, request, jsonify, Response, send_from_directory, send_file
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
@@ -7,26 +7,35 @@ import datetime
 import os
 from functools import wraps
 
-# Setup app to serve index.html directly from root folder
-app = Flask(__name__, static_folder='.', static_url_path='')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+app = Flask(__name__, static_folder=BASE_DIR, static_url_path='')
 CORS(app)
 
 SECRET_KEY = "WalkeFarm#Secure$Key_2026"
 
 def get_db_connection():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(os.path.join(BASE_DIR, 'database.db'))
     conn.row_factory = sqlite3.Row
     return conn
 
-# 1. FIX 404: DIRECT WEBSITE LOAD ON ROOT URL
+# 1. ROOT HOME PAGE
 @app.route('/')
 def serve_index():
-    return send_from_directory('.', 'index.html')
+    return send_from_directory(BASE_DIR, 'index.html')
 
-# 2. SERVE IMAGES
+# 2. IMAGE HANDLER (SERVES ROOT IMAGES DIRECTLY)
 @app.route('/images/<path:filename>')
 def serve_images(filename):
-    return send_from_directory('images', filename)
+    clean_name = os.path.basename(filename)
+    root_file = os.path.join(BASE_DIR, clean_name)
+    images_dir_file = os.path.join(BASE_DIR, 'images', clean_name)
+    
+    if os.path.isfile(root_file):
+        return send_file(root_file)
+    elif os.path.isfile(images_dir_file):
+        return send_file(images_dir_file)
+    return "Image Not Found", 404
 
 ADMIN_EMAILS = ["shreyashrangari08@gmail.com", "soniyasheikh594@gmail.com"]
 
