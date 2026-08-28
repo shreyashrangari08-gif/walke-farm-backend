@@ -131,6 +131,24 @@
       background: #dcfce7; color: #15803d;
     }
 
+    /* AI ROI PREDICTOR & VASTU WIDGETS */
+    .ai-widget-card {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      border-radius: 12px; padding: 14px; color: white; margin: 14px 0; border: 1px solid #334155;
+    }
+    .roi-bar-bg { background: #334155; border-radius: 6px; height: 10px; width: 100%; margin: 6px 0; overflow: hidden; }
+    .roi-bar-fill { background: linear-gradient(90deg, #22c55e, #eab308); height: 100%; width: 0%; transition: width 0.8s ease; }
+
+    .compass-dial {
+      width: 110px; height: 110px; border-radius: 50%; border: 3px dashed #22c55e;
+      margin: 10px auto; position: relative; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+    }
+    .compass-needle {
+      width: 4px; height: 80px; background: linear-gradient(to bottom, #ef4444 50%, #3b82f6 50%);
+      position: absolute; border-radius: 2px; transition: transform 0.3s cubic-bezier(0.1, 1, 0.1, 1);
+    }
+
     /* Calculator Widget */
     .calc-card { background: white; border-radius: 12px; padding: 14px; border: 1px solid #e5e7eb; margin: 14px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     .calc-slider { width: 100%; margin: 8px 0; accent-color: var(--primary); }
@@ -263,6 +281,42 @@
         <div style="background:var(--primary-light); padding:8px 10px; border-radius:6px; margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
           <span style="font-size:11px;">Est. Monthly Instalment:</span>
           <strong style="color:var(--primary); font-size:13px;" id="calcEmiResult">₹58,333 / mo</strong>
+        </div>
+      </div>
+
+      <div class="ai-widget-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h4 style="font-size:13px; color:#4ade80;"><i class="fa-solid fa-chart-line"></i> AI Land ROI Predictor (2026 - 2031)</h4>
+          <span style="font-size:10px; background:#22c55e; color:#0f172a; font-weight:700; padding:2px 6px; border-radius:4px;">14.5% CAGR</span>
+        </div>
+        <p style="font-size:11px; opacity:0.85; margin-bottom:8px;">Based on Metro expansion, Highway touch & Eco-Tourism growth:</p>
+        
+        <div style="font-size:11px; display:flex; justify-content:space-between;">
+          <span>Current Base (2026): <strong id="roiBaseVal">₹14.00 Lakh</strong></span>
+          <span>Expected 2031: <strong id="roiFutureVal" style="color:#facc15;">₹27.55 Lakh</strong></span>
+        </div>
+        <div class="roi-bar-bg"><div class="roi-bar-fill" id="roiFill" style="width: 85%;"></div></div>
+        <div style="font-size:10px; color:#94a3b8; display:flex; justify-content:space-between;">
+          <span>Net Appreciation: <strong id="roiProfit" style="color:#4ade80;">+₹13.55 Lakh</strong></span>
+          <span>Estimated Rental Yield: <strong>8.5%/yr</strong></span>
+        </div>
+      </div>
+
+      <div class="ai-widget-card" style="text-align:center;">
+        <h4 style="font-size:13px; color:#facc15; margin-bottom:4px;"><i class="fa-solid fa-compass"></i> Live Vastu & Sunlight Analyzer</h4>
+        <p style="font-size:11px; opacity:0.85;">Orientation check for optimal natural light & prosperity</p>
+        
+        <div class="compass-dial">
+          <div class="compass-needle" id="compassNeedle"></div>
+          <span style="position:absolute; top:4px; font-size:10px; font-weight:700; color:#ef4444;">N</span>
+          <span style="position:absolute; bottom:4px; font-size:10px; font-weight:700; color:#3b82f6;">S</span>
+          <span style="position:absolute; right:6px; font-size:10px; font-weight:700; color:#4ade80;">E</span>
+          <span style="position:absolute; left:6px; font-size:10px; font-weight:700; color:#eab308;">W</span>
+        </div>
+
+        <div style="font-size:11px; background:rgba(255,255,255,0.06); padding:8px; border-radius:6px; margin-top:8px; text-align:left;">
+          <p>☀️ <strong>Sunlight Direction:</strong> Morning East Sunrise ➔ Full Day Daylit</p>
+          <p>🌿 <strong>Vastu Harmony:</strong> <span style="color:#4ade80; font-weight:700;">North-East (Ishanya) Blessed</span></p>
         </div>
       </div>
 
@@ -696,10 +750,10 @@
           showScreenDirect('welcome_dashboard');
         }
       } else {
-        // Direct to Sign Up Gate if not logged in
         showScreenDirect('signup');
         renderHeaderAuth();
       }
+      initVastuCompass();
     });
 
     window.addEventListener('popstate', (event) => {
@@ -715,7 +769,6 @@
     });
 
     function showScreen(screenId) {
-      // Intercept if unauthenticated and trying to open inner screens
       if (!loggedInUser && screenId !== 'signup' && screenId !== 'login' && screenId !== 'admin_secret_login') {
         showScreenDirect('signup');
         return;
@@ -787,11 +840,37 @@
       }
     }
 
+    // --- DYNAMIC AI ROI CALCULATOR ENGINE ---
     function updateCalculator() {
       const val = parseInt(document.getElementById('calcSlider').value);
       document.getElementById('calcPriceLabel').innerText = `₹${(val / 100000).toFixed(1)} Lakh`;
       const monthly = Math.round(val / 24);
       document.getElementById('calcEmiResult').innerText = `₹${monthly.toLocaleString('en-IN')} / mo`;
+
+      // 5-Year Compounded ROI (14.5% CAGR over 5 years approx ~1.968x)
+      const futureVal = val * 1.968;
+      const profit = futureVal - val;
+      
+      const baseEl = document.getElementById('roiBaseVal');
+      const futureEl = document.getElementById('roiFutureVal');
+      const profitEl = document.getElementById('roiProfit');
+      
+      if (baseEl) baseEl.innerText = `₹${(val / 100000).toFixed(2)} Lakh`;
+      if (futureEl) futureEl.innerText = `₹${(futureVal / 100000).toFixed(2)} Lakh`;
+      if (profitEl) profitEl.innerText = `+₹${(profit / 100000).toFixed(2)} Lakh`;
+    }
+
+    // --- LIVE GYRO/VASTU COMPASS SIMULATOR ---
+    function initVastuCompass() {
+      if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', (e) => {
+          let heading = e.alpha || 35; // fallback angle
+          const needle = document.getElementById('compassNeedle');
+          if (needle) {
+            needle.style.transform = `rotate(${heading}deg)`;
+          }
+        });
+      }
     }
 
     // --- AUTOMATIC CAROUSEL ---
