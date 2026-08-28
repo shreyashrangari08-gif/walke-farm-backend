@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Walke Farm World - 360° & PDF Portal</title>
+  <title>Walke Farm World - Properties, 360° & PDF Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- jsPDF Library for Instant Official Quotation Downloads -->
+  <!-- jsPDF for Instant Official Quotation Downloads -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   
-  <!-- Pannellum Library for Real 360° Interactive Tours -->
+  <!-- Pannellum for 360° Panoramas on All Photos -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
@@ -43,7 +43,7 @@
     .screen { display: none; padding: 14px; padding-bottom: 90px; }
     .screen.active { display: block !important; }
 
-    /* Hero / Welcome */
+    /* Hero */
     .welcome-card {
       background: linear-gradient(135deg, #1b5e20, #2E7D32);
       border-radius: 14px; padding: 16px 14px; color: white; text-align: center;
@@ -64,7 +64,7 @@
     }
     .slide-degma.active, .slide-strawberry.active, .slide-mindgame.active, .slide-welcome.active { opacity: 1; }
 
-    /* Fast Launch Buttons */
+    /* Launch Buttons */
     .launch-btn {
       background: white; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px;
       display: flex; align-items: center; justify-content: space-between;
@@ -92,10 +92,17 @@
       display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none;
     }
 
-    /* 360 VIEWER CONTAINER */
+    /* 360 VIEWER */
     #panorama-360 {
       width: 100%; height: 260px; border-radius: 12px; margin-bottom: 12px; border: 1px solid #334155;
     }
+    .thumb-360-row {
+      display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 12px 0;
+    }
+    .thumb-360-row img {
+      width: 65px; height: 45px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; flex-shrink: 0;
+    }
+    .thumb-360-row img.active { border-color: var(--primary); }
 
     /* INTERACTIVE MAP GRID */
     .map-box {
@@ -183,7 +190,7 @@
 <body>
 
   <div class="mobile-frame">
-    <!-- Header with Secret Triple-Tap Trigger -->
+    <!-- Header with Secret Triple-Tap -->
     <div class="app-header">
       <button onclick="handleHomeClick()" style="border:none; background:none; cursor:pointer; font-size:18px; color:var(--primary); padding: 4px;">
         <i class="fa-solid fa-house"></i>
@@ -212,7 +219,7 @@
         <img src="farm10.jpg" class="slide-welcome" alt="Degma Gazebo">
       </div>
 
-      <!-- FEATURE: LIVE EMI + 1-CLICK OFFICIAL PDF QUOTATION -->
+      <!-- LIVE EMI & OFFICIAL PDF QUOTATION GENERATOR -->
       <div class="calc-card">
         <h4 style="font-size:13px; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-calculator"></i> Live EMI & Quotation Generator</h4>
         <div style="font-size:11px; color:var(--text-muted); display:flex; justify-content:space-between;">
@@ -231,16 +238,20 @@
       </div>
 
       <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--text-main);">Browse Projects & 360° Tours</h3>
-      <div class="launch-btn" onclick="open360Tour('farm1.jpg', 'Degma Farmland 360° View')">
-        <div class="launch-info"><h4>🔄 Degma 360° Virtual Tour</h4><span>Interactive 360 Degree View</span></div>
+      <div class="launch-btn" onclick="open360Tour('degma', 'Degma Farmland 360° Tours')">
+        <div class="launch-info"><h4>🔄 Degma 360° Virtual Tour</h4><span>Explore 10 Views in 360°</span></div>
         <div class="launch-icon"><i class="fa-solid fa-vr-cardboard"></i></div>
       </div>
-      <div class="launch-btn" onclick="open360Tour('resort1.jpg', 'Strawberry Resort 360° View')">
-        <div class="launch-info"><h4>🔄 Strawberry Resort 360° Tour</h4><span>Explore Cottages & Pool in 360°</span></div>
+      <div class="launch-btn" onclick="open360Tour('strawberry', 'Strawberry Resort 360° Tours')">
+        <div class="launch-info"><h4>🔄 Strawberry Resort 360° Tour</h4><span>Explore 9 Views in 360°</span></div>
+        <div class="launch-icon"><i class="fa-solid fa-vr-cardboard"></i></div>
+      </div>
+      <div class="launch-btn" onclick="open360Tour('mindgame', 'Mind Game Highway 360° View')">
+        <div class="launch-info"><h4>🔄 Mind Game 360° Tour</h4><span>Explore 7 Highway Views in 360°</span></div>
         <div class="launch-icon"><i class="fa-solid fa-vr-cardboard"></i></div>
       </div>
       <div class="launch-btn" onclick="showScreen('home')">
-        <div class="launch-info"><h4>🏡 View All Properties & Plots</h4><span>Detailed Rates & Layouts</span></div>
+        <div class="launch-info"><h4>🏡 View All Properties & Detailed Plots</h4><span>Full Rates, EMIs & Dimensions</span></div>
         <div class="launch-icon"><i class="fa-solid fa-arrow-right"></i></div>
       </div>
     </div>
@@ -249,6 +260,7 @@
     <div id="home" class="screen active">
       <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--text-main);">Available Projects (3)</h3>
 
+      <!-- PROJECT 1: DEGMA -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="farm1.jpg" class="slide-degma active" alt="Degma 1">
@@ -262,19 +274,21 @@
             <div class="stat-box">Area<strong>122 Acres</strong></div>
             <div class="stat-box">Rate<strong>₹450 / sq.ft.</strong></div>
             <div class="stat-box">EMI<strong>0% Interest (24M)</strong></div>
-            <div class="stat-box">360° View<strong>Available</strong></div>
+            <div class="stat-box">360° Views<strong>10 Photos</strong></div>
           </div>
           <div style="display:flex; gap:8px;">
             <button class="btn-main" onclick="showScreen('degma_detail')"><i class="fa-solid fa-map-location-dot"></i> Plots & Layout</button>
-            <button class="btn-main" onclick="open360Tour('farm1.jpg', 'Degma Farmland 360° View')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360°</button>
+            <button class="btn-main" onclick="open360Tour('degma', 'Degma Farmland 360° Tours')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
           </div>
         </div>
       </div>
 
+      <!-- PROJECT 2: STRAWBERRY RESORT -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="resort1.jpg" class="slide-strawberry active" alt="Resort 1">
           <img src="resort2.jpg" class="slide-strawberry" alt="Resort 2">
+          <img src="resort4.jpg" class="slide-strawberry" alt="Resort 4">
         </div>
         <div class="project-body">
           <h2>Strawberry Resort (Muniya Farm)</h2>
@@ -287,11 +301,12 @@
           </div>
           <div style="display:flex; gap:8px;">
             <button class="btn-main" onclick="showScreen('strawberry_detail')"><i class="fa-solid fa-map-location-dot"></i> Cottages & Layout</button>
-            <button class="btn-main" onclick="open360Tour('resort1.jpg', 'Strawberry Resort 360° Tour')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360°</button>
+            <button class="btn-main" onclick="open360Tour('strawberry', 'Strawberry Resort 360° Tours')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
           </div>
         </div>
       </div>
 
+      <!-- PROJECT 3: MIND GAME -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="mind1.jpg" class="slide-mindgame active" alt="Mind 1">
@@ -308,13 +323,13 @@
           </div>
           <div style="display:flex; gap:8px;">
             <button class="btn-main" onclick="showScreen('mindgame_detail')"><i class="fa-solid fa-map-location-dot"></i> Plots & Layout</button>
-            <button class="btn-main" onclick="open360Tour('mind1.jpg', 'Mind Game Highway 360° View')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360°</button>
+            <button class="btn-main" onclick="open360Tour('mindgame', 'Mind Game Highway 360° View')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 3. DEGMA DETAILS SCREEN -->
+    <!-- 3. DEGMA DETAILS (FULL DETAILS + PLOTS RESTORED) -->
     <div id="degma_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Degma Farmland</h2>
@@ -322,6 +337,10 @@
           <i class="fa-solid fa-location-dot"></i> Live Map
         </a>
       </div>
+
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+        Welcome to Degma Farm, a peaceful destination nestled in the heart of nature, perfect for investment, weekend homes, or future development.
+      </p>
 
       <div class="map-box">
         <div class="map-header">
@@ -355,6 +374,7 @@
         <li><i class="fa-solid fa-check"></i> Near 17 Picnic Spot</li>
         <li><i class="fa-solid fa-check"></i> Close to Bor Tiger Safari</li>
         <li><i class="fa-solid fa-check"></i> Adjacent to Degma Waterfall</li>
+        <li><i class="fa-solid fa-check"></i> High growth tourism & scenic landscape</li>
       </ul>
 
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">📐 Available Plot Sizes & Detailed 0% EMI Plans</h4>
@@ -388,12 +408,12 @@
       </div>
 
       <div style="display:flex; gap:8px; margin-top:14px;">
-        <button class="btn-main" onclick="open360Tour('farm1.jpg', 'Degma Farmland 360° Tour')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
+        <button class="btn-main" onclick="open360Tour('degma', 'Degma Farmland 360° Tours')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
         <button class="btn-main" onclick="openEnquiry('Degma Farmland')"><i class="fa-solid fa-calendar-check"></i> Book Visit</button>
       </div>
     </div>
 
-    <!-- 4. STRAWBERRY DETAILS SCREEN -->
+    <!-- 4. STRAWBERRY DETAILS (FULL COTTAGES & PLOT SIZES RESTORED) -->
     <div id="strawberry_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Strawberry Resort</h2>
@@ -401,6 +421,9 @@
           <i class="fa-solid fa-location-dot"></i> Live Map
         </a>
       </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+        🌸 <strong>Muniya Farm</strong> — Just 20km away from Chhatrapati square. NMRDA Sanctioned project.
+      </p>
 
       <div class="map-box">
         <div class="map-header">
@@ -419,6 +442,16 @@
         </div>
       </div>
 
+      <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">✨ Resort Amenities</h4>
+      <ul class="features-list">
+        <li><i class="fa-solid fa-person-swimming"></i> Swimming Pool & 🍔 Salad Story Restaurant</li>
+        <li><i class="fa-solid fa-mountain"></i> Machan, Jungle View & 🎪 Adventure Area</li>
+        <li><i class="fa-solid fa-headphones"></i> Sound System, Indoor & Outdoor Games</li>
+        <li><i class="fa-solid fa-shield-halved"></i> 24 Hrs Security & 🚘 Dedicated Parking Space</li>
+        <li><i class="fa-solid fa-house"></i> 36 Total Cottages (7 AC, 23 Non-AC, 2 Available for Sale)</li>
+      </ul>
+
+      <!-- FULL DETAILED COTTAGES & PLOTS -->
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">🏡 Available Cottages & Plots</h4>
 
       <div class="plot-item" style="border-left-color: #E91E63;" onclick="selectPlot('Strawberry Resort', 'Full Furnished Luxury Cottage - ₹24,00,000')">
@@ -438,13 +471,27 @@
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
       </div>
 
+      <div class="plot-item" onclick="selectPlot('Strawberry Resort', 'Plot 3,000 sq.ft. - ₹42,00,000')">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>3,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹42,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
+      </div>
+
+      <div class="plot-item" onclick="selectPlot('Strawberry Resort', 'Plot 5,000 sq.ft. - ₹70,00,000')">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>5,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹70,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: 90% Bank Loan / 12M EMI</div>
+      </div>
+
       <div style="display:flex; gap:8px; margin-top:14px;">
-        <button class="btn-main" onclick="open360Tour('resort1.jpg', 'Strawberry Resort 360° Tour')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
+        <button class="btn-main" onclick="open360Tour('strawberry', 'Strawberry Resort 360° Tours')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
         <button class="btn-main" onclick="openEnquiry('Strawberry Resort')"><i class="fa-solid fa-calendar-check"></i> Book Visit</button>
       </div>
     </div>
 
-    <!-- 5. MIND GAME DETAILS SCREEN -->
+    <!-- 5. MIND GAME DETAILS (FULL HIGHWAY PLOTS RESTORED) -->
     <div id="mindgame_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Mind Game Plots</h2>
@@ -452,6 +499,9 @@
           <i class="fa-solid fa-location-dot"></i> Live Map
         </a>
       </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+        🌟 <strong>Prime Highway Touch Plots</strong> on S.H 262 — Total 4 Acres Project. Ideal for residential, commercial, and semi-commercial use.
+      </p>
 
       <div class="map-box">
         <div class="map-header"><span><i class="fa-solid fa-road"></i> Highway Touch Layout</span></div>
@@ -468,39 +518,65 @@
         </div>
       </div>
 
+      <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">📍 Prime Location Highlights</h4>
+      <ul class="features-list">
+        <li><i class="fa-solid fa-road"></i> Highway touch property directly on S.H 262</li>
+        <li><i class="fa-solid fa-gas-pump"></i> Opposite Petrol Pump – High visibility & direct access</li>
+        <li><i class="fa-solid fa-train"></i> Just 6 KM from Butibori Metro Station</li>
+        <li><i class="fa-solid fa-certificate"></i> NMRDA Sanctioned Project</li>
+      </ul>
+
+      <!-- FULL DETAILED COMMERCIAL & RESIDENTIAL PLOTS -->
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">📐 Available Plot Sizes & 0% EMI Plans</h4>
 
       <div class="plot-item" onclick="selectPlot('Mind Game Plots', 'Plot 1,000 sq.ft. - ₹14,00,000')">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>1,000 Sq.ft. Plot</h3><div class="plot-price">₹14,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong><br>Usage: <strong>Residential / Office Space</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
+      </div>
+
+      <div class="plot-item" onclick="selectPlot('Mind Game Plots', 'Plot 2,000 sq.ft. - ₹28,00,000')">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>2,000 Sq.ft. Plot</h3><div class="plot-price">₹28,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong><br>Usage: <strong>Semi-Commercial / Dream Home</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
+      </div>
+
+      <div class="plot-item" onclick="selectPlot('Mind Game Plots', 'Plot 3,000 sq.ft. - ₹42,00,000')">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹42,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong><br>Usage: <strong>Commercial Shops / Showroom / Offices</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
       </div>
 
       <div class="plot-item" style="border-left-color: #F9A825;" onclick="selectPlot('Mind Game Plots', '5,000 Sq.ft. Prime Commercial - ₹70,00,000')">
         <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Prime Commercial</span>
         <div class="plot-header"><h3>5,000 Sq.ft. Prime Commercial</h3><div class="plot-price">₹70,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong><br>Usage: <strong>Highway Frontage Prime Commercial Zone</strong></div>
         <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> High Return Commercial Asset | 0% EMI</div>
       </div>
 
       <div style="display:flex; gap:8px; margin-top:14px;">
-        <button class="btn-main" onclick="open360Tour('mind1.jpg', 'Mind Game Highway 360° View')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
+        <button class="btn-main" onclick="open360Tour('mindgame', 'Mind Game Highway 360° View')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
         <button class="btn-main" onclick="openEnquiry('Mind Game Plots')"><i class="fa-solid fa-calendar-check"></i> Book Visit</button>
       </div>
     </div>
 
-    <!-- 6. 360° VIRTUAL TOUR SCREEN -->
+    <!-- 6. UNIVERSAL 360° VIRTUAL TOUR SCREEN (WITH THUMBNAIL SELECTOR) -->
     <div id="tour_360_screen" class="screen">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
         <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
         <h3 id="tour360Title" style="color: var(--primary);">360° Virtual Tour</h3>
       </div>
-      <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px; margin-left: 24px;">Drag and swipe on screen to rotate in 360°</p>
+      <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Drag on screen to rotate. Tap any image below to load in 360°:</p>
       
       <div id="panorama-360"></div>
 
-      <div style="display:flex; gap:8px; margin-top:14px;">
+      <!-- HORIZONTAL THUMBNAIL SELECTOR FOR ALL IMAGES -->
+      <div class="thumb-360-row" id="thumb360Row"></div>
+
+      <div style="display:flex; gap:8px; margin-top:10px;">
         <button class="btn-main" onclick="openEnquiry('Site Visit from 360 Tour')"><i class="fa-solid fa-calendar-check"></i> Book Site Visit Now</button>
       </div>
     </div>
@@ -583,6 +659,10 @@
     let loggedInUser = JSON.parse(localStorage.getItem('user')) || null;
     let pannellumViewer = null;
 
+    const degmaImages = ['farm1.jpg', 'farm2.jpg', 'farm3.jpg', 'farm4.jpg', 'farm5.jpg', 'farm6.jpg', 'farm7.jpg', 'farm8.jpg', 'farm9.jpg', 'farm10.jpg'];
+    const strawberryImages = ['resort1.jpg', 'resort2.jpg', 'resort3.jpg', 'resort4.jpg', 'resort5.jpg', 'resort6.jpg', 'resort7.jpg', 'resort8.jpg', 'resort9.jpg'];
+    const mindgameImages = ['mind1.jpg', 'mind2.jpg', 'mind3.jpg', 'mind4.jpg', 'mind5.jpg', 'mind6.jpg', 'mind7.jpg'];
+
     let homeTapCount = 0;
     let homeTapTimer = null;
 
@@ -656,15 +736,38 @@
       document.getElementById('calcEmiResult').innerText = `₹${monthly.toLocaleString('en-IN')} / mo`;
     }
 
-    // --- FEATURE 1: 360° PANORAMA VIEWER ---
-    function open360Tour(imageSrc, title) {
+    // --- UNIVERSAL 360° TOUR FOR ALL IMAGES ---
+    function open360Tour(projectType, title) {
       document.getElementById('tour360Title').innerText = title;
       showScreen('tour_360_screen');
+
+      let imagesList = degmaImages;
+      if (projectType === 'strawberry') imagesList = strawberryImages;
+      if (projectType === 'mindgame') imagesList = mindgameImages;
+
+      const row = document.getElementById('thumb360Row');
+      row.innerHTML = '';
       
+      imagesList.forEach((img, idx) => {
+        const thumb = document.createElement('img');
+        thumb.src = img;
+        thumb.className = (idx === 0) ? 'active' : '';
+        thumb.onclick = () => {
+          document.querySelectorAll('.thumb-360-row img').forEach(i => i.classList.remove('active'));
+          thumb.classList.add('active');
+          load360Image(img);
+        };
+        row.appendChild(thumb);
+      });
+
+      load360Image(imagesList[0]);
+    }
+
+    function load360Image(imageSrc) {
+      if (pannellumViewer) {
+        pannellumViewer.destroy();
+      }
       setTimeout(() => {
-        if (pannellumViewer) {
-          pannellumViewer.destroy();
-        }
         pannellumViewer = pannellum.viewer('panorama-360', {
           type: 'equirectangular',
           panorama: imageSrc,
@@ -672,10 +775,10 @@
           autoRotate: -2,
           compass: false
         });
-      }, 150);
+      }, 100);
     }
 
-    // --- FEATURE 2: INSTANT OFFICIAL PDF QUOTATION GENERATOR ---
+    // --- INSTANT OFFICIAL PDF QUOTATION GENERATOR ---
     function downloadCustomPDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
@@ -696,11 +799,11 @@
       doc.setFont('helvetica', 'normal');
       doc.text('Official Property Investment Quotation & EMI Plan', 14, 26);
 
-      // Client & Date Meta
+      // Meta
       doc.setTextColor(31, 41, 55);
       doc.setFontSize(11);
       doc.setFont('helvetica', 'bold');
-      doc.text(`Quotation Generated For: ${clientName}`, 14, 48);
+      doc.text(`Quotation For: ${clientName}`, 14, 48);
       doc.setFont('helvetica', 'normal');
       doc.text(`Date of Issuance: ${dateStr}`, 14, 55);
       doc.text('Authorized Booking Cell: +91 7972306925', 14, 62);
@@ -746,12 +849,12 @@
       doc.setTextColor(46, 125, 50);
       doc.text(`Rs. ${monthlyEmi.toLocaleString('en-IN')} / Month`, 110, 146);
 
-      // Terms & Footer
+      // Terms
       doc.setFontSize(9);
       doc.setTextColor(107, 114, 128);
       doc.setFont('helvetica', 'normal');
       doc.text('* Note: Plot allocation is subject to live availability at the time of token verification.', 14, 185);
-      doc.text('* Sites: Degma Farmland (122 Acres) | Strawberry Resort | Mind Game Highway Touch.', 14, 192);
+      doc.text('* Projects: Degma Farmland (122 Acres) | Strawberry Resort | Mind Game Highway Touch.', 14, 192);
 
       doc.save(`Walke_Farm_Quotation_${clientName}.pdf`);
     }
