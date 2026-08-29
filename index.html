@@ -70,6 +70,17 @@
     .welcome-card h2 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
     .welcome-card p { font-size: 11px; opacity: 0.9; }
 
+    /* Live KPI Metric Cards */
+    .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .kpi-card { background: white; border-radius: 10px; padding: 10px 6px; text-align: center; border: 1px solid #e5e7eb; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+    .kpi-card strong { display: block; font-size: 15px; font-weight: 700; }
+    .kpi-card span { font-size: 10px; color: var(--text-muted); font-weight: 500; }
+
+    /* Filter Pills */
+    .filter-pills { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 8px; }
+    .filter-pill { background: white; border: 1px solid #cbd5e1; border-radius: 20px; padding: 5px 12px; font-size: 11px; font-weight: 600; color: #475569; white-space: nowrap; cursor: pointer; }
+    .filter-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
+
     /* Auto Rotating Sliders */
     .slider-container { position: relative; width: 100%; height: 200px; overflow: hidden; border-radius: 14px; background: #111; margin-bottom: 14px; }
     .slide-degma, .slide-strawberry, .slide-mindgame, .slide-welcome {
@@ -341,6 +352,30 @@
         <div class="welcome-avatar"><i class="fa-solid fa-user-check"></i></div>
         <h2 id="welcomeUserName">Welcome, User!</h2>
         <p>Your complete property portal & investment hub.</p>
+      </div>
+
+      <!-- LIVE KPI METRIC STATUS -->
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <strong style="color:#16a34a;">14</strong>
+          <span>🟢 Available</span>
+        </div>
+        <div class="kpi-card">
+          <strong style="color:#f59e0b;">2</strong>
+          <span>🟡 On Hold</span>
+        </div>
+        <div class="kpi-card">
+          <strong style="color:#dc2626;">3</strong>
+          <span>🔴 Booked</span>
+        </div>
+      </div>
+
+      <!-- QUICK FILTER PILLS -->
+      <div class="filter-pills">
+        <div class="filter-pill active" onclick="showScreen('home')">All Projects</div>
+        <div class="filter-pill" onclick="showScreen('degma_detail')">🌿 Degma Farmland</div>
+        <div class="filter-pill" onclick="showScreen('strawberry_detail')">🌸 Strawberry Resort</div>
+        <div class="filter-pill" onclick="showScreen('mindgame_detail')">🌟 Mind Game</div>
       </div>
 
       <!-- IN-APP SOCIAL PROOF TICKER -->
@@ -650,7 +685,7 @@
         <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹1,50,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹50,000 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Degma Farmland', 'Plot P-01 (3,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="degma_3000" onclick="openHoldModal('Degma Farmland', 'Plot P-01 (3,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 3,000 sq.ft. - ₹13,50,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -661,7 +696,7 @@
         <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹3,00,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,00,000 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Degma Farmland', 'Plot P-03 (6,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="degma_6000" onclick="openHoldModal('Degma Farmland', 'Plot P-03 (6,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 6,000 sq.ft. - ₹27,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -672,7 +707,7 @@
         <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹5,50,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,83,333 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Degma Farmland', 'Plot P-05 (11,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="degma_11000" onclick="openHoldModal('Degma Farmland', 'Plot P-05 (11,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 11,000 sq.ft. - ₹49,50,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -683,7 +718,7 @@
         <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹9,00,000</strong><br>Features: <strong>Four-Side Open Road Frontage | Forest View</strong></div>
         <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹3,75,000 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Degma Farmland', 'Plot P-06 (22,000 sq.ft. Half Acre)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="degma_22000" onclick="openHoldModal('Degma Farmland', 'Plot P-06 (22,000 sq.ft. Half Acre)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 22,000 sq.ft. (Half Acre) - ₹99,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -749,7 +784,7 @@
         </div>
         <div class="plot-emi-highlight" style="color:#E91E63;"><i class="fa-solid fa-building-columns"></i> 90% Bank Finance Available / Company Finance @ 0%</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Strawberry Resort', 'Furnished Cottage C-01')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="resort_cottage" onclick="openHoldModal('Strawberry Resort', 'Furnished Cottage C-01')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Full Furnished Luxury Cottage - ₹24,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -760,7 +795,7 @@
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 1,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="resort_1000" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 1,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Plot 1,000 sq.ft. - ₹14,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -771,7 +806,7 @@
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 2,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="resort_2000" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 2,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Plot 2,000 sq.ft. - ₹28,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -782,7 +817,7 @@
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 3,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="resort_3000" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 3,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Plot 3,000 sq.ft. - ₹42,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -844,7 +879,7 @@
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong><br>Usage: <strong>Residential / Office Space</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹52,500 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-01 (1,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="mind_1000" onclick="openHoldModal('Mind Game Plots', 'Plot M-01 (1,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 1,000 sq.ft. - ₹14,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -855,7 +890,7 @@
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong><br>Usage: <strong>Semi-Commercial / Dream Home</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,05,000 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-02 (2,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="mind_2000" onclick="openHoldModal('Mind Game Plots', 'Plot M-02 (2,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 2,000 sq.ft. - ₹28,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -866,7 +901,7 @@
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong><br>Usage: <strong>Commercial Shops / Showroom / Offices</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,57,500 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-03 (3,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="mind_3000" onclick="openHoldModal('Mind Game Plots', 'Plot M-03 (3,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 3,000 sq.ft. - ₹42,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -877,7 +912,7 @@
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹5,60,000</strong><br>Usage: <strong>Commercial Complex / Highway Hub</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹2,10,000 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-04 (4,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="mind_4000" onclick="openHoldModal('Mind Game Plots', 'Plot M-04 (4,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 4,000 sq.ft. - ₹56,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -888,7 +923,7 @@
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong><br>Usage: <strong>Direct Highway Frontage Prime Commercial Zone</strong></div>
         <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹2,62,500 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-05 Prime Commercial (5,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main hold-btn-item" data-plotkey="mind_5000" onclick="openHoldModal('Mind Game Plots', 'Plot M-05 Prime Commercial (5,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Mind Game Plots', '5,000 Sq.ft. Prime Commercial - ₹70,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -944,9 +979,18 @@
         <button onclick="logout()" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Exit Admin</button>
       </div>
 
+      <!-- MASTER HOLD SWITCH BANNER IN ADMIN -->
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:10px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <strong style="font-size:12px; color:#0f172a;">Global ₹4,999 Token Hold</strong>
+          <div style="font-size:10px; color:#64748b;">Master switch to enable/disable user holds</div>
+        </div>
+        <button id="globalHoldToggleBtn" onclick="toggleGlobalHoldSwitch()" style="padding:6px 12px; border-radius:20px; font-size:11px; font-weight:700; border:none; cursor:pointer; background:#22c55e; color:#0f172a;">ACTIVE (ON)</button>
+      </div>
+
       <div style="display:flex; gap:6px; margin-bottom:14px;">
         <button class="btn-main" onclick="loadAdminHolds()" style="padding:6px; font-size:10px; flex:1; background:#f59e0b;"><i class="fa-solid fa-receipt"></i> Holds (₹4,999)</button>
-        <button class="btn-main" onclick="loadAdminPlots()" style="padding:6px; font-size:10px; flex:1;"><i class="fa-solid fa-cubes"></i> Plot Grid</button>
+        <button class="btn-main" onclick="loadAdminPlots()" style="padding:6px; font-size:10px; flex:1;"><i class="fa-solid fa-cubes"></i> Plot Grid & Hold Control</button>
         <button class="btn-main" onclick="loadAdminEnquiries()" style="padding:6px; font-size:10px; flex:1; background:var(--primary);"><i class="fa-solid fa-users"></i> Leads</button>
       </div>
 
@@ -991,7 +1035,7 @@
     <div class="drawer-body">
       <!-- 1. ACTIVE PLOT HOLDS -->
       <div class="drawer-section-title"><i class="fa-solid fa-lock" style="color:#f59e0b;"></i> My Priority Plot Holds</div>
-      <div id="drawerHoldsList"><p style="color:#94a3b8; font-size:11px;">No active plot holds yet.</p></div>
+      <div id="drawerHoldsList"><p style="color:#94a3b8; font-size:11px;">No active priority plot holds found.</p></div>
 
       <!-- 2. SITE VISIT REQUESTS -->
       <div class="drawer-section-title"><i class="fa-solid fa-calendar-check" style="color:var(--primary);"></i> My Site Visit Passes</div>
@@ -1166,6 +1210,10 @@
     let currentBaseAmount = 1400000;
     let videoTourInterval = null;
 
+    // --- ADMIN HOLD CONTROL STATE ---
+    let isGlobalHoldEnabled = localStorage.getItem('wfw_global_hold') !== 'false';
+    let plotHoldPermissionMap = JSON.parse(localStorage.getItem('wfw_plot_hold_perms') || '{}');
+
     // --- EXACT PLOT SPECIFICATION DATABASE FOR AI & VASTU ---
     const plotVastuData = {
       // Degma Plots
@@ -1174,7 +1222,7 @@
       "degma_11000": { price: 4950000, facing: "North Facing (Kuber Sthan)", sunlight: "Forest-touch panoramic natural daylight throughout the day", grade: "⭐⭐⭐⭐⭐ Best for Luxury Farmhouse & Water Bodies", entrance: "North Main Entrance for Wealth & Abundance", needleAngle: 0 },
       "degma_22000": { price: 9900000, facing: "Four-Side Open (All Direction Access)", sunlight: "360° Unrestricted Sunlight & Sunset View", grade: "⭐⭐⭐⭐⭐ Master Estate Layout", entrance: "Grand East-North Double Arch Gate", needleAngle: 30 },
       
-      // Strawberry Resort Plots & Cottages (1,000 to 3,000 sq.ft. Only)
+      // Strawberry Resort Plots & Cottages
       "resort_cottage": { price: 2400000, facing: "North-East Pool & Garden Facing", sunlight: "Morning Sunlight directly across wooden deck & balcony", grade: "⭐⭐⭐⭐⭐ Holiday Resort Vastu", entrance: "North Gate facing manicured lawn & pool", needleAngle: 50 },
       "resort_1000": { price: 1400000, facing: "East Facing (Resort Inner Avenue)", sunlight: "Morning Golden Hour light, shaded in hot afternoons", grade: "⭐⭐⭐⭐⭐ Peaceful Weekend Retreat Vastu", entrance: "East Facing Porch Entry", needleAngle: 90 },
       "resort_2000": { price: 2800000, facing: "North-East Garden View", sunlight: "Pleasant sunrise with continuous breeze", grade: "⭐⭐⭐⭐⭐ Ideal Family Farmhouse Vastu", entrance: "North-East Porch Entry", needleAngle: 45 },
@@ -1207,6 +1255,7 @@
     });
 
     window.addEventListener('DOMContentLoaded', () => {
+      syncHoldButtonDisplay();
       if (loggedInUser && userSessionToken) {
         renderHeaderAuth();
         if (loggedInUser.role === 'admin') {
@@ -1252,6 +1301,35 @@
       const target = document.getElementById(screenId);
       if (target) target.classList.add('active');
       window.scrollTo(0, 0);
+    }
+
+    // --- HOLD TOGGLE LOGIC & DISPLAY SYNCHRONIZER ---
+    function syncHoldButtonDisplay() {
+      const holdBtns = document.querySelectorAll('.hold-btn-item');
+      holdBtns.forEach(btn => {
+        const plotKey = btn.getAttribute('data-plotkey');
+        const isPlotAllowed = plotHoldPermissionMap[plotKey] !== false;
+        if (!isGlobalHoldEnabled || !isPlotAllowed) {
+          btn.style.display = 'none';
+        } else {
+          btn.style.display = 'block';
+        }
+      });
+    }
+
+    function toggleGlobalHoldSwitch() {
+      isGlobalHoldEnabled = !isGlobalHoldEnabled;
+      localStorage.setItem('wfw_global_hold', isGlobalHoldEnabled);
+      const btn = document.getElementById('globalHoldToggleBtn');
+      if (isGlobalHoldEnabled) {
+        btn.innerText = 'ACTIVE (ON)';
+        btn.style.background = '#22c55e';
+      } else {
+        btn.innerText = 'DISABLED (OFF)';
+        btn.style.background = '#ef4444';
+      }
+      syncHoldButtonDisplay();
+      alert(`Global ₹4,999 Hold Switch set to: ${isGlobalHoldEnabled ? 'ON' : 'OFF'}`);
     }
 
     // --- PLAY STORE PRIVACY & ACCOUNT DELETION ---
@@ -1339,7 +1417,6 @@
         const res = await fetch(`${API_BASE}/customer/activity?email=${encodeURIComponent(loggedInUser.email)}`);
         const data = await res.json();
 
-        // 1. Render Holds
         const holdsEl = document.getElementById('drawerHoldsList');
         if (!data.holds || data.holds.length === 0) {
           holdsEl.innerHTML = '<p style="color:#94a3b8; font-size:11px;">No active priority plot holds found.</p>';
@@ -1360,7 +1437,6 @@
           holdsEl.innerHTML = html;
         }
 
-        // 2. Render Visits
         const visitsEl = document.getElementById('drawerVisitsList');
         if (!data.enquiries || data.enquiries.length === 0) {
           visitsEl.innerHTML = '<p style="color:#94a3b8; font-size:11px;">No site visits scheduled yet.</p>';
@@ -1940,27 +2016,37 @@
       }
     }
 
-    // --- ADMIN PANEL: PLOT STATUS MANAGEMENT ---
+    // --- ADMIN PANEL: PLOT STATUS & HOLD TOGGLE MANAGEMENT ---
     async function loadAdminPlots() {
       try {
         const res = await fetch(`${API_BASE}/admin/plots`, {
           headers: { 'Authorization': `Bearer ${userSessionToken}` }
         });
         const plots = await res.json();
-        let html = '<h4 style="font-size:13px; margin-bottom:8px;">Live Plot Grid Control:</h4>';
+        let html = '<h4 style="font-size:13px; margin-bottom:8px;">Live Plot Status & ₹4,999 Hold Switch:</h4>';
         
         plots.forEach(p => {
+          const plotKey = `${p.project_slug}_${p.plot_no.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+          const isAllowed = plotHoldPermissionMap[plotKey] !== false;
           html += `
-            <div class="admin-plot-item">
-              <div>
-                <strong style="font-size:12px;">${p.plot_no} (${p.project_slug.toUpperCase()})</strong>
-                <div style="font-size:10px; color:gray;">${p.size} - ${p.total_price}</div>
+            <div class="admin-plot-item" style="flex-direction:column; align-items:stretch; gap:6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <strong style="font-size:12px;">${p.plot_no} (${p.project_slug.toUpperCase()})</strong>
+                  <div style="font-size:10px; color:gray;">${p.size} - ${p.total_price}</div>
+                </div>
+                <select onchange="changePlotStatus(${p.id}, this.value)" style="padding:4px 6px; font-size:11px; border-radius:6px; font-weight:600; border:1px solid #cbd5e1;">
+                  <option value="Available" ${p.status === 'Available' ? 'selected' : ''}>🟢 Available</option>
+                  <option value="Booked" ${p.status === 'Booked' ? 'selected' : ''}>🔴 Booked</option>
+                  <option value="On Hold" ${p.status === 'On Hold' ? 'selected' : ''}>🟡 On Hold</option>
+                </select>
               </div>
-              <select onchange="changePlotStatus(${p.id}, this.value)" style="padding:4px 6px; font-size:11px; border-radius:6px; font-weight:600; border:1px solid #cbd5e1;">
-                <option value="Available" ${p.status === 'Available' ? 'selected' : ''}>🟢 Available</option>
-                <option value="Booked" ${p.status === 'Booked' ? 'selected' : ''}>🔴 Booked</option>
-                <option value="On Hold" ${p.status === 'On Hold' ? 'selected' : ''}>🟡 On Hold</option>
-              </select>
+              <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:4px 8px; border-radius:6px;">
+                <span style="font-size:10px; font-weight:600; color:#334155;">Allow ₹4,999 Token Hold:</span>
+                <button onclick="toggleSinglePlotHold('${plotKey}', this)" style="padding:2px 8px; border-radius:4px; font-size:10px; font-weight:bold; border:none; cursor:pointer; background:${isAllowed ? '#22c55e' : '#ef4444'}; color:white;">
+                  ${isAllowed ? 'ENABLED' : 'DISABLED'}
+                </button>
+              </div>
             </div>
           `;
         });
@@ -1968,6 +2054,17 @@
       } catch (err) {
         document.getElementById('adminContentPanel').innerHTML = '<p style="color:red;">Error loading plots.</p>';
       }
+    }
+
+    function toggleSinglePlotHold(plotKey, btnElement) {
+      const currentState = plotHoldPermissionMap[plotKey] !== false;
+      const newState = !currentState;
+      plotHoldPermissionMap[plotKey] = newState;
+      localStorage.setItem('wfw_plot_hold_perms', JSON.stringify(plotHoldPermissionMap));
+      
+      btnElement.innerText = newState ? 'ENABLED' : 'DISABLED';
+      btnElement.style.background = newState ? '#22c55e' : '#ef4444';
+      syncHoldButtonDisplay();
     }
 
     async function changePlotStatus(plotId, newStatus) {
