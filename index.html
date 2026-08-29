@@ -343,6 +343,16 @@
         <p>Your complete property portal & investment hub.</p>
       </div>
 
+      <!-- PERSISTENT TOP NAVIGATION BAR (JUST BELOW WELCOME CARD) -->
+      <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+        <button onclick="showScreen('home')" class="btn-main" style="flex: 1; background: #ffffff; color: var(--primary); border: 1px solid #cbd5e1; font-size: 12px; padding: 8px;">
+          <i class="fa-solid fa-house"></i> Home Dashboard
+        </button>
+        <button onclick="openCustomerDrawer()" class="btn-main" style="flex: 1; background: #ffffff; color: #0284c7; border: 1px solid #cbd5e1; font-size: 12px; padding: 8px;">
+          <i class="fa-solid fa-user-circle"></i> My Account
+        </button>
+      </div>
+
       <!-- IN-APP SOCIAL PROOF TICKER -->
       <div style="text-align:center;">
         <div class="live-ticker">
@@ -1996,6 +2006,7 @@
         `;
         if (list.length === 0) html += '<p style="font-size:12px; color:gray;">No leads yet.</p>';
         
+        list.reload = true; // helper tag
         list.forEach(e => {
           html += `
             <div class="crm-card" style="${e.status.includes('Cancelled') ? 'border-left: 4px solid #ef4444; background:#fef2f2;' : ''}">
@@ -2036,9 +2047,6 @@
           body: JSON.stringify({ id: leadId, status: newStatus })
         });
         alert(`Lead status updated to: ${newStatus}`);
-        if (newStatus === 'Booking Cancelled' || newStatus === 'Refund Processed') {
-          alert('💡 Reminder: Plot Grid tab me jaakar plot ko 🟢 Available par set kar dein.');
-        }
       } catch (err) { alert('Status update failed'); }
     }
   </script>
