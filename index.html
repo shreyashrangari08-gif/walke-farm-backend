@@ -32,6 +32,12 @@
       display: flex; flex-direction: column; box-shadow: 0 0 25px rgba(0,0,0,0.15); position: relative;
     }
 
+    /* Offline Toast Banner */
+    #offlineBanner {
+      display: none; background: #dc2626; color: white; text-align: center;
+      padding: 6px; font-size: 11px; font-weight: 600; position: sticky; top: 0; z-index: 1000;
+    }
+
     /* Header */
     .app-header {
       background: var(--white); padding: 12px 16px; display: flex; align-items: center;
@@ -247,6 +253,9 @@
 <body>
 
   <div class="mobile-frame">
+    <!-- Offline Alert -->
+    <div id="offlineBanner">⚠️ You are offline. Please check your internet connection.</div>
+
     <!-- Header with Triple Tap Secret Admin Trigger & Profile Drawer -->
     <div class="app-header">
       <button onclick="handleHomeClick()" style="border:none; background:none; cursor:pointer; font-size:18px; color:var(--primary); padding: 4px;">
@@ -283,6 +292,10 @@
       <p style="text-align:center; font-size:12px; margin-top:16px;">
         Already registered? <a href="javascript:void(0)" onclick="showScreen('login')" style="color:var(--primary); font-weight:700;">Log In</a>
       </p>
+
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="javascript:void(0)" onclick="openPrivacyModal()" style="font-size: 11px; color: var(--text-muted); text-decoration: underline;">Privacy Policy & Terms</a>
+      </div>
     </div>
 
     <!-- 0.1. USER LOGIN SCREEN -->
@@ -308,6 +321,10 @@
       <p style="text-align:center; font-size:12px; margin-top:16px;">
         New user? <a href="javascript:void(0)" onclick="showScreen('signup')" style="color:var(--primary); font-weight:700;">Create an Account</a>
       </p>
+
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="javascript:void(0)" onclick="openPrivacyModal()" style="font-size: 11px; color: var(--text-muted); text-decoration: underline;">Privacy Policy & Terms</a>
+      </div>
     </div>
 
     <!-- 1. WELCOME DASHBOARD SCREEN -->
@@ -335,7 +352,7 @@
         <div class="launch-icon" style="background: rgba(255,255,255,0.2); color: white;"><i class="fa-solid fa-bolt"></i></div>
       </div>
 
-      <!-- CUSTOMER DRAWER TRIGGER BUTTON (DIRECT ACTIVITY ACCESS) -->
+      <!-- CUSTOMER DRAWER TRIGGER BUTTON -->
       <div class="launch-btn" onclick="openCustomerDrawer()" style="background: #ffffff; border-left: 4px solid #0284c7; margin-bottom: 12px;">
         <div class="launch-info">
           <h4 style="color: #0284c7; font-size: 13px;"><i class="fa-solid fa-clock-rotate-left"></i> My Plot Actions & Holds</h4>
@@ -344,7 +361,7 @@
         <div class="launch-icon" style="background: #e0f2fe; color: #0284c7;"><i class="fa-solid fa-chevron-right"></i></div>
       </div>
 
-      <!-- IN-APP VIRAL MARKETING FEATURE 1: SHARE & UNLOCK VOUCHER -->
+      <!-- IN-APP VIRAL MARKETING FEATURE 1 -->
       <div class="viral-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
           <h4 style="font-size:13px; font-weight:700;"><i class="fa-solid fa-gift"></i> Unlock ₹25,000 Booking Voucher</h4>
@@ -368,7 +385,7 @@
         <div class="slider-tag" id="welcomeSlideTag">🌿 Featured Property Highlights</div>
       </div>
 
-      <!-- IN-APP MARKETING FEATURE 2: REFER & EARN REWARD -->
+      <!-- IN-APP MARKETING FEATURE 2 -->
       <div class="refer-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
           <h4 style="font-size:13px; font-weight:700;"><i class="fa-solid fa-handshake"></i> Refer & Earn Direct ₹25,000 Cash</h4>
@@ -393,7 +410,7 @@
         </div>
       </div>
 
-      <!-- MASTER PER-PLOT SELECTOR (FULL RANGE) -->
+      <!-- MASTER PER-PLOT SELECTOR -->
       <div class="ai-widget-card" style="border: 2px solid #22c55e;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
           <h4 style="font-size:13px; color:#4ade80;"><i class="fa-solid fa-cubes"></i> Select Exact Plot for AI & Vastu Analysis:</h4>
@@ -425,7 +442,7 @@
         </div>
       </div>
 
-      <!-- EXACT AI ROI PREDICTOR (3 YEARS / 5 YEARS) -->
+      <!-- EXACT AI ROI PREDICTOR -->
       <div class="ai-widget-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <h4 style="font-size:13px; color:#4ade80;"><i class="fa-solid fa-chart-line"></i> AI Price Valuation (2026 - <span id="targetYearTitle">2031</span>)</h4>
@@ -448,7 +465,7 @@
         </div>
       </div>
 
-      <!-- EXACT LIVE VASTU & SUNLIGHT ANALYZER (PER PLOT) -->
+      <!-- EXACT LIVE VASTU & SUNLIGHT ANALYZER -->
       <div class="ai-widget-card" style="text-align:center;">
         <h4 style="font-size:13px; color:#facc15; margin-bottom:2px;"><i class="fa-solid fa-compass"></i> Exact Plot Vastu & Direction Analyzer</h4>
         <p style="font-size:11px; opacity:0.85;">Precise road facing, sunlight trajectory & Vastu alignment</p>
@@ -560,7 +577,7 @@
       </div>
     </div>
 
-    <!-- 3. DEGMA DETAILS (WITH LIVE 48-HR TIMER & VIDEO WALKTHROUGH) -->
+    <!-- 3. DEGMA DETAILS -->
     <div id="degma_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Degma Farmland</h2>
@@ -573,7 +590,6 @@
         Welcome to Degma Farm, a peaceful destination nestled in the heart of nature, perfect for investment, weekend homes, or future development.
       </p>
 
-      <!-- Video Tour Trigger Banner -->
       <div onclick="openCinematicTour('degma')" style="background: linear-gradient(135deg, #0f172a, #334155); border-radius: 10px; padding: 10px 12px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; cursor: pointer; border: 1px solid #475569;">
         <div style="display: flex; align-items: center; gap: 8px;">
           <div style="width: 32px; height: 32px; border-radius: 50%; background: #ef4444; display: flex; align-items: center; justify-content: center; font-size: 12px;"><i class="fa-solid fa-play"></i></div>
@@ -670,7 +686,7 @@
       </div>
     </div>
 
-    <!-- 4. STRAWBERRY DETAILS (1,000 TO 3,000 SQ.FT. ONLY) -->
+    <!-- 4. STRAWBERRY DETAILS -->
     <div id="strawberry_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Strawberry Resort</h2>
@@ -769,7 +785,7 @@
       </div>
     </div>
 
-    <!-- 5. MIND GAME DETAILS (1,000 TO 5,000 SQ.FT.) -->
+    <!-- 5. MIND GAME DETAILS -->
     <div id="mindgame_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Mind Game Plots</h2>
@@ -965,7 +981,7 @@
     </div>
 
     <div class="drawer-body">
-      <!-- 1. ACTIVE PLOT HOLDS (₹4,999 RECORD) -->
+      <!-- 1. ACTIVE PLOT HOLDS -->
       <div class="drawer-section-title"><i class="fa-solid fa-lock" style="color:#f59e0b;"></i> My Priority Plot Holds</div>
       <div id="drawerHoldsList"><p style="color:#94a3b8; font-size:11px;">No active plot holds yet.</p></div>
 
@@ -977,8 +993,19 @@
       <div class="drawer-section-title"><i class="fa-solid fa-eye" style="color:#0284c7;"></i> Recently Explored Plots</div>
       <div id="drawerExploredList"></div>
 
+      <!-- ACCOUNT & PLAY STORE SETTINGS -->
+      <div class="drawer-section-title"><i class="fa-solid fa-shield-halved" style="color:#64748b;"></i> Legal & Settings</div>
+      <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:12px;">
+        <button onclick="openPrivacyModal()" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:8px; border-radius:6px; font-size:11px; text-align:left; cursor:pointer; color:#334155;">
+          📄 Privacy Policy & Terms
+        </button>
+        <button onclick="handleDeleteAccount()" style="background:#fef2f2; border:1px solid #fecaca; padding:8px; border-radius:6px; font-size:11px; text-align:left; cursor:pointer; color:#dc2626;">
+          🗑️ Delete My Account Data
+        </button>
+      </div>
+
       <!-- ACTION BUTTONS -->
-      <div style="margin-top: 16px;">
+      <div style="margin-top: 10px;">
         <a href="https://wa.me/917972306925?text=Hello%20Mam%2C%20I%20need%20help%20with%20my%20plot%20inquiry." target="_blank" class="btn-main" style="background: #25D366; margin-bottom: 8px; font-size: 11px;">
           <i class="fa-brands fa-whatsapp"></i> Chat with Mam on WhatsApp
         </a>
@@ -989,12 +1016,30 @@
     </div>
   </div>
 
+  <!-- PRIVACY POLICY MODAL (PLAY STORE MANDATORY) -->
+  <div id="privacyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:4000; justify-content:center; align-items:center; padding:14px;">
+    <div style="background:#fff; width:100%; max-width:390px; padding:18px; border-radius:12px; max-height:85vh; overflow-y:auto; font-size:12px; color:#334155; line-height:1.6;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:8px; margin-bottom:10px;">
+        <h3 style="color:var(--primary); font-size:14px; margin:0;">Privacy Policy & Terms</h3>
+        <span onclick="closePrivacyModal()" style="font-size:20px; font-weight:bold; cursor:pointer; color:#64748b;">&times;</span>
+      </div>
+      <p><b>Walke Farm World</b> is committed to protecting your privacy. We collect basic contact details (Name, Phone number, Email) only to provide property assistance, schedule site visits, and coordinate priority bookings.</p>
+      <br>
+      <p><b>Data Usage:</b> Your contact info is strictly used for official site visit coordination and is never sold or shared with third parties.</p>
+      <br>
+      <p><b>Account Control:</b> Users can delete their stored credentials and account data anytime via the in-app "Delete My Account Data" button.</p>
+      <br>
+      <p><b>Contact Office:</b> +91 7972306925 | Nagpur, Maharashtra.</p>
+      <button onclick="closePrivacyModal()" class="btn-main" style="margin-top:14px;">Close Policy</button>
+    </div>
+  </div>
+
   <!-- AI SMART PLOT MATCHER QUIZ MODAL -->
   <div id="aiMatcherModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1100; justify-content:center; align-items:center;">
     <div style="background:#fff; width:92%; max-width:390px; padding:18px; border-radius:12px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
         <h3 style="color:#1b5e20; font-size:15px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Plot Matcher Quiz</h3>
-        <span onclick="closeAiMatcher()" style="font-size:20px; font-weight:bold; cursor:pointer; color:#64748b;">×</span>
+        <span onclick="closeAiMatcher()" style="font-size:20px; font-weight:bold; cursor:pointer; color:#64748b;">&times;</span>
       </div>
       <p style="font-size:11px; color:#64748b; margin-bottom:12px;">Answer 2 simple questions to find the 100% matched property:</p>
       
@@ -1027,7 +1072,7 @@
     <div style="width:92%; max-width:390px; background:#0f172a; border-radius:12px; overflow:hidden; border:1px solid #334155;">
       <div style="padding:10px 14px; display:flex; justify-content:space-between; align-items:center; background:#1e293b;">
         <h4 id="videoTitle" style="color:white; font-size:13px; margin:0;"><i class="fa-solid fa-film"></i> Cinematic Drone Walkthrough</h4>
-        <span onclick="closeCinematicTour()" style="color:white; font-size:20px; cursor:pointer;">×</span>
+        <span onclick="closeCinematicTour()" style="color:white; font-size:20px; cursor:pointer;">&times;</span>
       </div>
       <div style="position:relative; width:100%; height:260px; background:#000; display:flex; justify-content:center; align-items:center;">
         <img id="videoReelFrame" src="farm1.jpg" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.9);" />
@@ -1042,12 +1087,12 @@
     </div>
   </div>
 
-  <!-- PRIORITY HOLD MODAL (WITH DIRECT PAYMENT NUMBER: 7972306925) -->
+  <!-- PRIORITY HOLD MODAL -->
   <div id="holdModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
     <div style="background:#fff; width:92%; max-width:390px; padding:18px; border-radius:12px; max-height:90vh; overflow-y:auto;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h3 style="color:#0f172a; font-size:15px;"><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> Priority Plot Lock (48 Hrs)</h3>
-        <span onclick="closeHoldModal()" style="font-size:20px; font-weight:bold; cursor:pointer; color:#64748b;">×</span>
+        <span onclick="closeHoldModal()" style="font-size:20px; font-weight:bold; cursor:pointer; color:#64748b;">&times;</span>
       </div>
 
       <div style="background:#fef3c7; color:#92400e; padding:8px 10px; border-radius:6px; font-size:11px; margin-bottom:12px; line-height:1.4; border-left:3px solid #f59e0b;">
@@ -1093,7 +1138,7 @@
 
   <!-- Lightbox Modal -->
   <div id="imageModal" class="image-modal">
-    <span class="close-modal" onclick="closeLightbox()">×</span>
+    <span class="close-modal" onclick="closeLightbox()">&times;</span>
     <img id="lightboxImg" src="" alt="Enlarged View">
     <div class="modal-controls">
       <button class="modal-btn" onclick="prevLightbox()"><i class="fa-solid fa-arrow-left"></i> Prev</button>
@@ -1145,6 +1190,14 @@
     let homeTapCount = 0;
     let homeTapTimer = null;
 
+    // Online/Offline detection for Play Store reliability
+    window.addEventListener('offline', () => {
+      document.getElementById('offlineBanner').style.display = 'block';
+    });
+    window.addEventListener('online', () => {
+      document.getElementById('offlineBanner').style.display = 'none';
+    });
+
     window.addEventListener('DOMContentLoaded', () => {
       if (loggedInUser && userSessionToken) {
         renderHeaderAuth();
@@ -1191,6 +1244,22 @@
       const target = document.getElementById(screenId);
       if (target) target.classList.add('active');
       window.scrollTo(0, 0);
+    }
+
+    // --- PLAY STORE PRIVACY & ACCOUNT DELETION ---
+    function openPrivacyModal() {
+      document.getElementById('privacyModal').style.display = 'flex';
+    }
+    function closePrivacyModal() {
+      document.getElementById('privacyModal').style.display = 'none';
+    }
+
+    function handleDeleteAccount() {
+      if (confirm("Are you sure you want to delete your account and clear all saved plot preferences?")) {
+        localStorage.clear();
+        alert("Your account data has been successfully cleared.");
+        location.reload();
+      }
     }
 
     // --- RECENTLY EXPLORED TRACKER ---
