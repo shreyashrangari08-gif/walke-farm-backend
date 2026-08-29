@@ -25,7 +25,7 @@
       --text-muted: #6B7280;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background: #dcdcdc; display: flex; justify-content: center; min-height: 100vh; }
+    body { background: #dcdcdc; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
     
     .mobile-frame {
       width: 100%; max-width: 420px; background: var(--bg); min-height: 100vh;
@@ -203,8 +203,32 @@
       width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 13px; outline: none; background: white;
     }
 
-    .user-pill { display: flex; align-items: center; gap: 6px; background: var(--primary-light); padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; color: var(--primary); }
-    .logout-link { color: #ef4444; margin-left: 4px; cursor: pointer; }
+    .user-pill { display: flex; align-items: center; gap: 6px; background: var(--primary-light); padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; color: var(--primary); cursor: pointer; }
+    
+    /* CUSTOMER ACTIVITY SLIDE BAR DRAWER */
+    .customer-drawer-backdrop {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6); z-index: 3000; backdrop-filter: blur(2px);
+    }
+    .customer-drawer {
+      position: fixed; top: 0; right: -360px; width: 330px; max-width: 85vw; height: 100%;
+      background: #ffffff; z-index: 3100; box-shadow: -5px 0 25px rgba(0,0,0,0.25);
+      transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column;
+    }
+    .customer-drawer.open { right: 0; }
+    .drawer-header {
+      background: linear-gradient(135deg, #1b5e20, #2E7D32); color: white;
+      padding: 18px 16px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .drawer-body { padding: 14px; overflow-y: auto; flex: 1; }
+    .drawer-section-title {
+      font-size: 12px; font-weight: 700; color: #1e293b; text-transform: uppercase;
+      letter-spacing: 0.5px; margin: 12px 0 8px 0; display: flex; align-items: center; gap: 6px;
+    }
+    .activity-card {
+      background: #f8fafc; border-radius: 8px; padding: 10px; margin-bottom: 8px;
+      border: 1px solid #e2e8f0; font-size: 11px;
+    }
 
     /* Admin Cards */
     .admin-plot-item { background: white; border-radius: 8px; padding: 10px; margin-bottom: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
@@ -223,7 +247,7 @@
 <body>
 
   <div class="mobile-frame">
-    <!-- Header with Triple Tap Secret Admin Trigger -->
+    <!-- Header with Triple Tap Secret Admin Trigger & Profile Drawer -->
     <div class="app-header">
       <button onclick="handleHomeClick()" style="border:none; background:none; cursor:pointer; font-size:18px; color:var(--primary); padding: 4px;">
         <i class="fa-solid fa-house"></i>
@@ -309,6 +333,15 @@
           <span style="color: #dcfce7;">Answer 2 questions to find your dream plot</span>
         </div>
         <div class="launch-icon" style="background: rgba(255,255,255,0.2); color: white;"><i class="fa-solid fa-bolt"></i></div>
+      </div>
+
+      <!-- CUSTOMER DRAWER TRIGGER BUTTON (DIRECT ACTIVITY ACCESS) -->
+      <div class="launch-btn" onclick="openCustomerDrawer()" style="background: #ffffff; border-left: 4px solid #0284c7; margin-bottom: 12px;">
+        <div class="launch-info">
+          <h4 style="color: #0284c7; font-size: 13px;"><i class="fa-solid fa-clock-rotate-left"></i> My Plot Actions & Holds</h4>
+          <span>View your held plots, visits & interested units</span>
+        </div>
+        <div class="launch-icon" style="background: #e0f2fe; color: #0284c7;"><i class="fa-solid fa-chevron-right"></i></div>
       </div>
 
       <!-- IN-APP VIRAL MARKETING FEATURE 1: SHARE & UNLOCK VOUCHER -->
@@ -920,6 +953,42 @@
     </div>
   </div>
 
+  <!-- CUSTOMER ACTIVITY SLIDE BAR (DRAWER) -->
+  <div id="customerDrawerBackdrop" class="customer-drawer-backdrop" onclick="closeCustomerDrawer()"></div>
+  <div id="customerDrawer" class="customer-drawer">
+    <div class="drawer-header">
+      <div>
+        <h3 style="font-size: 14px; margin: 0;"><i class="fa-solid fa-user-circle"></i> My Account & Activity</h3>
+        <span id="drawerUserEmail" style="font-size: 11px; opacity: 0.85;">user@email.com</span>
+      </div>
+      <button onclick="closeCustomerDrawer()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer;">&times;</button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- 1. ACTIVE PLOT HOLDS (₹4,999 RECORD) -->
+      <div class="drawer-section-title"><i class="fa-solid fa-lock" style="color:#f59e0b;"></i> My Priority Plot Holds</div>
+      <div id="drawerHoldsList"><p style="color:#94a3b8; font-size:11px;">No active plot holds yet.</p></div>
+
+      <!-- 2. SITE VISIT REQUESTS -->
+      <div class="drawer-section-title"><i class="fa-solid fa-calendar-check" style="color:var(--primary);"></i> My Site Visit Passes</div>
+      <div id="drawerVisitsList"><p style="color:#94a3b8; font-size:11px;">No site visits scheduled.</p></div>
+
+      <!-- 3. RECENTLY VIEWED & INTERESTED PLOTS -->
+      <div class="drawer-section-title"><i class="fa-solid fa-eye" style="color:#0284c7;"></i> Recently Explored Plots</div>
+      <div id="drawerExploredList"></div>
+
+      <!-- ACTION BUTTONS -->
+      <div style="margin-top: 16px;">
+        <a href="https://wa.me/917972306925?text=Hello%20Mam%2C%20I%20need%20help%20with%20my%20plot%20inquiry." target="_blank" class="btn-main" style="background: #25D366; margin-bottom: 8px; font-size: 11px;">
+          <i class="fa-brands fa-whatsapp"></i> Chat with Mam on WhatsApp
+        </a>
+        <button onclick="logout()" class="btn-main" style="background: #ef4444; font-size: 11px;">
+          <i class="fa-solid fa-right-from-bracket"></i> Log Out
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- AI SMART PLOT MATCHER QUIZ MODAL -->
   <div id="aiMatcherModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1100; justify-content:center; align-items:center;">
     <div style="background:#fff; width:92%; max-width:390px; padding:18px; border-radius:12px;">
@@ -973,7 +1042,7 @@
     </div>
   </div>
 
-  <!-- PRIORITY HOLD MODAL (UPDATED PAYMENT NUMBER: 7972306925) -->
+  <!-- PRIORITY HOLD MODAL (WITH DIRECT PAYMENT NUMBER: 7972306925) -->
   <div id="holdModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
     <div style="background:#fff; width:92%; max-width:390px; padding:18px; border-radius:12px; max-height:90vh; overflow-y:auto;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
@@ -985,7 +1054,7 @@
         ⚠️ <strong>Important Policy:</strong> ₹4,999 is a Non-Refundable Priority Lock Fee. Agar plot booking cancel hoti hai ya 48 hrs me complete nahi hoti, toh yeh amount <strong>Refund Nahi Hoga</strong>.
       </div>
 
-      <!-- UPDATED PAYMENT BOX -->
+      <!-- DIRECT UPI DETAILS BOX -->
       <div style="background:#f8fafc; border:1px dashed #cbd5e1; padding:10px; border-radius:8px; text-align:center; margin-bottom:12px;">
         <p style="margin:0; font-size:11px; color:#475569;">GPay / PhonePe / Paytm Number:</p>
         <h2 style="margin:2px 0; color:#0f172a; font-size:18px; letter-spacing:1px;">7972306925</h2>
@@ -1091,6 +1160,7 @@
         renderHeaderAuth();
       }
       handlePlotSelectionChange();
+      renderExploredPlotsList();
     });
 
     window.addEventListener('popstate', (event) => {
@@ -1123,7 +1193,41 @@
       window.scrollTo(0, 0);
     }
 
+    // --- RECENTLY EXPLORED TRACKER ---
+    function recordPlotInterest(projectName, plotInfo) {
+      try {
+        let explored = JSON.parse(localStorage.getItem('wfw_explored_plots') || '[]');
+        const entry = { project: projectName, plot: plotInfo, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) };
+        explored = explored.filter(e => e.plot !== plotInfo);
+        explored.unshift(entry);
+        if (explored.length > 5) explored.pop();
+        localStorage.setItem('wfw_explored_plots', JSON.stringify(explored));
+        renderExploredPlotsList();
+      } catch(e){}
+    }
+
+    function renderExploredPlotsList() {
+      const container = document.getElementById('drawerExploredList');
+      if (!container) return;
+      const explored = JSON.parse(localStorage.getItem('wfw_explored_plots') || '[]');
+      if (explored.length === 0) {
+        container.innerHTML = '<p style="color:#94a3b8; font-size:11px;">Browse properties to see your viewed plots here.</p>';
+        return;
+      }
+      let html = '';
+      explored.forEach(item => {
+        html += `
+          <div class="activity-card" style="border-left:3px solid #0284c7;">
+            <div style="font-weight:700; color:#0f172a;">${item.plot}</div>
+            <div style="color:#64748b; font-size:10px;">${item.project} • Viewed at ${item.time}</div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
     function selectPlot(projectName, plotInfo) {
+      recordPlotInterest(projectName, plotInfo);
       document.getElementById('project_name').value = projectName;
       document.getElementById('plot_size').value = plotInfo;
       showScreen('enquiry');
@@ -1133,6 +1237,77 @@
       document.getElementById('project_name').value = projectName;
       document.getElementById('plot_size').value = 'General Site Visit Inquiry';
       showScreen('enquiry');
+    }
+
+    // --- CUSTOMER DRAWER CONTROLLER ---
+    function openCustomerDrawer() {
+      if (!loggedInUser) {
+        showScreen('login');
+        return;
+      }
+      document.getElementById('drawerUserEmail').innerText = loggedInUser.email;
+      document.getElementById('customerDrawerBackdrop').style.display = 'block';
+      document.getElementById('customerDrawer').classList.add('open');
+      loadCustomerActivityData();
+    }
+
+    function closeCustomerDrawer() {
+      document.getElementById('customerDrawer').classList.remove('open');
+      document.getElementById('customerDrawerBackdrop').style.display = 'none';
+    }
+
+    async function loadCustomerActivityData() {
+      if (!loggedInUser) return;
+      try {
+        const res = await fetch(`${API_BASE}/customer/activity?email=${encodeURIComponent(loggedInUser.email)}`);
+        const data = await res.json();
+
+        // 1. Render Holds
+        const holdsEl = document.getElementById('drawerHoldsList');
+        if (!data.holds || data.holds.length === 0) {
+          holdsEl.innerHTML = '<p style="color:#94a3b8; font-size:11px;">No active priority plot holds found.</p>';
+        } else {
+          let html = '';
+          data.holds.forEach(h => {
+            html += `
+              <div class="activity-card" style="border-left:3px solid #f59e0b;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:#0f172a;">${h.plot_no}</strong>
+                  <span style="background:#fef3c7; color:#b45309; font-weight:bold; font-size:9px; padding:2px 6px; border-radius:4px;">⏱️ 48h Locked</span>
+                </div>
+                <div style="color:#64748b; font-size:10px; margin-top:2px;">${h.project_name}</div>
+                <div style="font-size:10px; color:#16a34a; font-weight:bold; margin-top:4px;">₹${h.amount} Paid • Ref: ${h.txn_id}</div>
+              </div>
+            `;
+          });
+          holdsEl.innerHTML = html;
+        }
+
+        // 2. Render Visits
+        const visitsEl = document.getElementById('drawerVisitsList');
+        if (!data.enquiries || data.enquiries.length === 0) {
+          visitsEl.innerHTML = '<p style="color:#94a3b8; font-size:11px;">No site visits scheduled yet.</p>';
+        } else {
+          let html = '';
+          data.enquiries.forEach(v => {
+            html += `
+              <div class="activity-card" style="border-left:3px solid var(--primary);">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:var(--primary);">${v.project_name}</strong>
+                  <span style="background:#dcfce7; color:#15803d; font-weight:bold; font-size:9px; padding:2px 6px; border-radius:4px;">${v.status}</span>
+                </div>
+                <div style="color:#334155; font-size:10px; margin-top:2px;">${v.plot_size}</div>
+                <div style="color:#64748b; font-size:10px; margin-top:2px;">📅 Preferred Date: <strong>${v.visit_date}</strong></div>
+              </div>
+            `;
+          });
+          visitsEl.innerHTML = html;
+        }
+
+        renderExploredPlotsList();
+      } catch (err) {
+        console.error('Error fetching customer activity:', err);
+      }
     }
 
     // --- AI SMART PLOT MATCHER LOGIC ---
@@ -1182,6 +1357,7 @@
 
     // --- PRIORITY PLOT HOLD MODAL & PAYMENT SLIP GENERATOR ---
     function openHoldModal(project, plot) {
+      recordPlotInterest(project, plot);
       document.getElementById('modalHoldProject').value = project;
       document.getElementById('modalHoldPlot').value = plot;
       document.getElementById('modalDisplayPlot').value = `${project} - ${plot}`;
@@ -1347,11 +1523,9 @@
       const authContainer = document.getElementById('authHeaderBtn');
       if (loggedInUser && userSessionToken) {
         authContainer.innerHTML = `
-          <div class="user-pill">
-            <span onclick="showScreen('${loggedInUser.role === 'admin' ? 'admin_dashboard' : 'welcome_dashboard'}')" style="cursor:pointer;">
-              ${loggedInUser.role === 'admin' ? '🛡️ Admin' : '👤 ' + loggedInUser.email.split('@')[0]}
-            </span>
-            <span class="logout-link" onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+          <div class="user-pill" onclick="openCustomerDrawer()">
+            <span>${loggedInUser.role === 'admin' ? '🛡️ Admin' : '👤 ' + loggedInUser.email.split('@')[0]}</span>
+            <i class="fa-solid fa-bars" style="font-size:10px; margin-left:2px;"></i>
           </div>
         `;
       } else {
@@ -1606,6 +1780,7 @@
       userSessionToken = null;
       loggedInUser = null;
       localStorage.clear();
+      closeCustomerDrawer();
       renderHeaderAuth();
       alert('Logged out successfully.');
       showScreenDirect('signup');
@@ -1619,12 +1794,13 @@
       const phone = document.getElementById('phone').value;
       const plot = document.getElementById('plot_size').value;
       const date = document.getElementById('visit_date').value;
+      const userEmail = loggedInUser ? loggedInUser.email : '';
 
       try {
         await fetch(`${API_BASE}/enquiry`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ project_name: proj, name, phone, plot_size: plot, visit_date: date, message: '' })
+          body: JSON.stringify({ project_name: proj, name, phone, plot_size: plot, visit_date: date, user_email: userEmail, message: '' })
         });
 
         const managementText = encodeURIComponent(
