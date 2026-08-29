@@ -8,15 +8,15 @@
   "theme_color": "#2E7D32",
   "icons": [
     {
-      "src": "/farm1.jpg",
+      "src": "https://cdn-icons-png.flaticon.com/512/619/619032.png",
       "sizes": "192x192",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/farm1.jpg",
+      "src": "https://cdn-icons-png.flaticon.com/512/619/619032.png",
       "sizes": "512x512",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
