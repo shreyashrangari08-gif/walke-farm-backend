@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
+  <!-- HTML2PDF Library for Instant Official Receipts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
   <style>
     :root {
       --primary: #2E7D32;
@@ -104,7 +107,7 @@
     .map-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; font-weight: 600; }
     .plot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .plot-box {
-      background: #334155; border-radius: 8px; padding: 10px 4px; text-align: center; cursor: pointer; transition: all 0.2s; border: 2px solid transparent;
+      background: #334155; border-radius: 8px; padding: 10px 4px; text-align: center; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; position: relative;
     }
     .plot-box:active { transform: scale(0.96); }
     .plot-box.Available { border-color: #22c55e; background: rgba(34, 197, 94, 0.2); }
@@ -112,6 +115,8 @@
     .plot-box.On-Hold, .plot-box.Hold { border-color: #f59e0b; background: rgba(245, 158, 11, 0.2); }
     .plot-box strong { font-size: 12px; display: block; color: white; }
     .plot-box span { font-size: 9px; display: block; opacity: 0.85; margin-top: 2px; }
+    
+    .timer-badge { font-size: 8px; background: #dc2626; color: white; padding: 1px 4px; border-radius: 4px; font-weight: bold; margin-top: 2px; display: inline-block; }
 
     /* DETAILED PLOT CARDS */
     .plot-item {
@@ -297,6 +302,15 @@
         </div>
       </div>
 
+      <!-- NEW: AI BUDGET & PURPOSE PLOT FINDER BUTTON -->
+      <div class="launch-btn" onclick="openAiMatcher()" style="background: linear-gradient(135deg, #15803d, #22c55e); color: white; border: none; margin-bottom: 12px;">
+        <div class="launch-info">
+          <h4 style="color: white; font-size: 13px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Smart Plot Matcher</h4>
+          <span style="color: #dcfce7;">Answer 2 questions to find your dream plot</span>
+        </div>
+        <div class="launch-icon" style="background: rgba(255,255,255,0.2); color: white;"><i class="fa-solid fa-bolt"></i></div>
+      </div>
+
       <!-- IN-APP VIRAL MARKETING FEATURE 1: SHARE & UNLOCK VOUCHER -->
       <div class="viral-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
@@ -358,7 +372,7 @@
           <option value="degma_6000">🌿 Degma Farm - 6,000 sq.ft. (₹27 Lakh)</option>
           <option value="degma_11000">🌿 Degma Farm - 11,000 sq.ft. (₹49.5 Lakh)</option>
           <option value="degma_22000">🌿 Degma Farm - 22,000 sq.ft. / Half Acre (₹99 Lakh)</option>
-          <!-- Strawberry Resort Plots (Only 1,000 to 3,000 sq.ft. + Cottages) -->
+          <!-- Strawberry Resort Plots -->
           <option value="resort_cottage">🌸 Strawberry Resort - Luxury Furnished Cottage (₹24 Lakh)</option>
           <option value="resort_1000">🌸 Strawberry Resort - 1,000 sq.ft. Farm Plot (₹14 Lakh)</option>
           <option value="resort_2000">🌸 Strawberry Resort - 2,000 sq.ft. Farm Plot (₹28 Lakh)</option>
@@ -513,7 +527,7 @@
       </div>
     </div>
 
-    <!-- 3. DEGMA DETAILS (INCLUDING 22,000 SQ.FT. PLOT) -->
+    <!-- 3. DEGMA DETAILS (WITH LIVE 48-HR TIMER & VIDEO WALKTHROUGH) -->
     <div id="degma_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Degma Farmland</h2>
@@ -525,6 +539,15 @@
       <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
         Welcome to Degma Farm, a peaceful destination nestled in the heart of nature, perfect for investment, weekend homes, or future development.
       </p>
+
+      <!-- Video Tour Trigger Banner -->
+      <div onclick="openCinematicTour('degma')" style="background: linear-gradient(135deg, #0f172a, #334155); border-radius: 10px; padding: 10px 12px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; cursor: pointer; border: 1px solid #475569;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: #ef4444; display: flex; align-items: center; justify-content: center; font-size: 12px;"><i class="fa-solid fa-play"></i></div>
+          <div><h4 style="font-size: 12px; margin: 0;">Drone Reel Walkthrough</h4><span style="font-size: 10px; opacity: 0.8;">Tap to play aerial video tour</span></div>
+        </div>
+        <span style="font-size: 11px; color: #38bdf8; font-weight: bold;">Play <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
 
       <div class="map-box">
         <div class="map-header">
@@ -543,6 +566,7 @@
           </div>
           <div class="plot-box On-Hold" onclick="selectPlot('Degma Farmland', 'Plot P-04 (6,000 sq.ft. - ₹27,00,000)')">
             <strong>P-04</strong><span>6,000 sqft</span><span>🟡 On Hold</span>
+            <div class="timer-badge" id="holdTimerP4">⏱️ 47h:52m</div>
           </div>
           <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-05 (11,000 sq.ft. - ₹49,50,000)')">
             <strong>P-05</strong><span>11,000 sqft</span><span>🟢 Available</span>
@@ -596,7 +620,6 @@
         </div>
       </div>
 
-      <!-- 22,000 SQ.FT. PLOT (HALF ACRE ESTATE) -->
       <div class="plot-item" style="border-left-color: #F9A825;">
         <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Master Estate (Half Acre)</span>
         <div class="plot-header"><h3>22,000 Sq.ft. Plot (Half Acre)</h3><div class="plot-price">₹99,00,000</div></div>
@@ -614,7 +637,7 @@
       </div>
     </div>
 
-    <!-- 4. STRAWBERRY DETAILS (1,000 TO 3,000 SQ.FT. ONLY + COTTAGES) -->
+    <!-- 4. STRAWBERRY DETAILS (1,000 TO 3,000 SQ.FT. ONLY) -->
     <div id="strawberry_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Strawberry Resort</h2>
@@ -713,7 +736,7 @@
       </div>
     </div>
 
-    <!-- 5. MIND GAME DETAILS (1,000 TO 5,000 SQ.FT. COMPLETE RANGE) -->
+    <!-- 5. MIND GAME DETAILS (1,000 TO 5,000 SQ.FT.) -->
     <div id="mindgame_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Mind Game Plots</h2>
@@ -897,6 +920,59 @@
     </div>
   </div>
 
+  <!-- AI SMART PLOT MATCHER QUIZ MODAL -->
+  <div id="aiMatcherModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1100; justify-content:center; align-items:center;">
+    <div style="background:#fff; width:92%; max-width:390px; padding:18px; border-radius:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <h3 style="color:#1b5e20; font-size:15px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Plot Matcher Quiz</h3>
+        <span onclick="closeAiMatcher()" style="font-size:20px; font-weight:bold; cursor:pointer; color:#64748b;">×</span>
+      </div>
+      <p style="font-size:11px; color:#64748b; margin-bottom:12px;">Answer 2 simple questions to find the 100% matched property:</p>
+      
+      <div class="form-group">
+        <label style="font-size:11px;">1. What is your approximate budget?</label>
+        <select id="quizBudget" style="font-size:12px; padding:8px;">
+          <option value="15">Up to ₹15 Lakh (0% EMI Available)</option>
+          <option value="30">₹20 Lakh - ₹30 Lakh</option>
+          <option value="50">₹40 Lakh - ₹50 Lakh</option>
+          <option value="100">₹70 Lakh - ₹1 Crore (Commercial / Estate)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label style="font-size:11px;">2. What is your main investment goal?</label>
+        <select id="quizGoal" style="font-size:12px; padding:8px;">
+          <option value="weekend">Weekend Farmhouse & Nature Retreat</option>
+          <option value="commercial">High Return Highway Touch Commercial</option>
+          <option value="resort">Furnished Luxury Cottage with Pool</option>
+          <option value="estate">Large Half-Acre Plantation Estate</option>
+        </select>
+      </div>
+
+      <button onclick="executeAiMatch()" class="btn-main" style="background:#15803d; margin-top:8px;"><i class="fa-solid fa-sparkles"></i> Generate Best Match</button>
+    </div>
+  </div>
+
+  <!-- CINEMATIC VIDEO WALKTHROUGH MODAL -->
+  <div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1200; justify-content:center; align-items:center; flex-direction:column;">
+    <div style="width:92%; max-width:390px; background:#0f172a; border-radius:12px; overflow:hidden; border:1px solid #334155;">
+      <div style="padding:10px 14px; display:flex; justify-content:space-between; align-items:center; background:#1e293b;">
+        <h4 id="videoTitle" style="color:white; font-size:13px; margin:0;"><i class="fa-solid fa-film"></i> Cinematic Drone Walkthrough</h4>
+        <span onclick="closeCinematicTour()" style="color:white; font-size:20px; cursor:pointer;">×</span>
+      </div>
+      <div style="position:relative; width:100%; height:260px; background:#000; display:flex; justify-content:center; align-items:center;">
+        <img id="videoReelFrame" src="farm1.jpg" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.9);" />
+        <div style="position:absolute; bottom:10px; left:10px; right:10px; background:rgba(0,0,0,0.7); backdrop-filter:blur(5px); color:white; padding:6px 10px; border-radius:6px; font-size:11px; display:flex; justify-content:space-between;">
+          <span id="videoLocationTag">📍 Degma Waterfall Entrance</span>
+          <span style="color:#22c55e;">● Live Walkthrough</span>
+        </div>
+      </div>
+      <div style="padding:10px 14px; text-align:center;">
+        <button onclick="openHoldModal('Degma Farmland', 'Plot P-01 (3,000 sq.ft.)'); closeCinematicTour();" class="btn-main" style="background:#f59e0b; font-size:12px;"><i class="fa-solid fa-lock"></i> Hold This Plot for ₹4,999</button>
+      </div>
+    </div>
+  </div>
+
   <!-- PRIORITY HOLD MODAL (₹4,999 NON-REFUNDABLE) -->
   <div id="holdModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
     <div style="background:#fff; width:92%; max-width:390px; padding:18px; border-radius:12px; max-height:90vh; overflow-y:auto;">
@@ -965,6 +1041,7 @@
 
     let selectedHorizonYears = 5;
     let currentBaseAmount = 1400000;
+    let videoTourInterval = null;
 
     // --- EXACT PLOT SPECIFICATION DATABASE FOR AI & VASTU ---
     const plotVastuData = {
@@ -974,7 +1051,7 @@
       "degma_11000": { price: 4950000, facing: "North Facing (Kuber Sthan)", sunlight: "Forest-touch panoramic natural daylight throughout the day", grade: "⭐⭐⭐⭐⭐ Best for Luxury Farmhouse & Water Bodies", entrance: "North Main Entrance for Wealth & Abundance", needleAngle: 0 },
       "degma_22000": { price: 9900000, facing: "Four-Side Open (All Direction Access)", sunlight: "360° Unrestricted Sunlight & Sunset View", grade: "⭐⭐⭐⭐⭐ Master Estate Layout", entrance: "Grand East-North Double Arch Gate", needleAngle: 30 },
       
-      // Strawberry Resort Plots & Cottages (Only 1,000 to 3,000 sq.ft. + Cottages)
+      // Strawberry Resort Plots & Cottages (1,000 to 3,000 sq.ft. Only)
       "resort_cottage": { price: 2400000, facing: "North-East Pool & Garden Facing", sunlight: "Morning Sunlight directly across wooden deck & balcony", grade: "⭐⭐⭐⭐⭐ Holiday Resort Vastu", entrance: "North Gate facing manicured lawn & pool", needleAngle: 50 },
       "resort_1000": { price: 1400000, facing: "East Facing (Resort Inner Avenue)", sunlight: "Morning Golden Hour light, shaded in hot afternoons", grade: "⭐⭐⭐⭐⭐ Peaceful Weekend Retreat Vastu", entrance: "East Facing Porch Entry", needleAngle: 90 },
       "resort_2000": { price: 2800000, facing: "North-East Garden View", sunlight: "Pleasant sunrise with continuous breeze", grade: "⭐⭐⭐⭐⭐ Ideal Family Farmhouse Vastu", entrance: "North-East Porch Entry", needleAngle: 45 },
@@ -1057,6 +1134,51 @@
       showScreen('enquiry');
     }
 
+    // --- AI SMART PLOT MATCHER LOGIC ---
+    function openAiMatcher() {
+      document.getElementById('aiMatcherModal').style.display = 'flex';
+    }
+    function closeAiMatcher() {
+      document.getElementById('aiMatcherModal').style.display = 'none';
+    }
+    function executeAiMatch() {
+      const budget = document.getElementById('quizBudget').value;
+      const goal = document.getElementById('quizGoal').value;
+      closeAiMatcher();
+
+      if (goal === 'resort' || budget === '30') {
+        alert('🎯 AI Match Found: 🌸 Strawberry Resort - Luxury Furnished Cottage (₹24 Lakh). Redirecting...');
+        showScreen('strawberry_detail');
+      } else if (goal === 'commercial' || budget === '100') {
+        alert('🎯 AI Match Found: 🌟 Mind Game - Prime Commercial Highway Frontage (₹70 Lakh). Redirecting...');
+        showScreen('mindgame_detail');
+      } else if (goal === 'estate') {
+        alert('🎯 AI Match Found: 🌿 Degma Farmland - 22,000 sq.ft. (Half Acre Estate). Redirecting...');
+        showScreen('degma_detail');
+      } else {
+        alert('🎯 AI Match Found: 🌿 Degma Farmland - 3,000 sq.ft. Plot (₹13.5 Lakh / 0% EMI). Redirecting...');
+        showScreen('degma_detail');
+      }
+    }
+
+    // --- CINEMATIC VIDEO / DRONE WALKTHROUGH CONTROLLER ---
+    function openCinematicTour(project) {
+      document.getElementById('videoModal').style.display = 'flex';
+      let frameIdx = 0;
+      const frameList = (project === 'strawberry') ? strawberryImages : degmaImages;
+      const frameImg = document.getElementById('videoReelFrame');
+      
+      clearInterval(videoTourInterval);
+      videoTourInterval = setInterval(() => {
+        frameIdx = (frameIdx + 1) % frameList.length;
+        frameImg.src = frameList[frameIdx];
+      }, 1200);
+    }
+    function closeCinematicTour() {
+      clearInterval(videoTourInterval);
+      document.getElementById('videoModal').style.display = 'none';
+    }
+
     // --- PRIORITY PLOT HOLD MODAL & PAYMENT SLIP GENERATOR ---
     function openHoldModal(project, plot) {
       document.getElementById('modalHoldProject').value = project;
@@ -1111,7 +1233,7 @@
     function renderPaymentSlip(data) {
       const slipHTML = `
         <div id="paymentSlipOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; display:flex; justify-content:center; align-items:center; padding:14px;">
-          <div style="background:#fff; width:100%; max-width:380px; padding:20px; border-radius:12px; border:2px solid #0f172a; font-family:sans-serif; box-shadow:0 10px 25px rgba(0,0,0,0.5);">
+          <div id="printableReceiptCard" style="background:#fff; width:100%; max-width:380px; padding:20px; border-radius:12px; border:2px solid #0f172a; font-family:sans-serif; box-shadow:0 10px 25px rgba(0,0,0,0.5);">
             <div style="text-align:center; border-bottom:2px dashed #cbd5e1; padding-bottom:10px;">
               <h2 style="margin:0; color:#1b5e20; font-size:18px;">WALKE FARM WORLD</h2>
               <span style="font-size:10px; background:#16a34a; color:#fff; padding:2px 8px; border-radius:12px; font-weight:bold;">OFFICIAL PLOT HOLD RECEIPT</span>
@@ -1134,11 +1256,27 @@
               Note: This priority hold is subject to final UTR payment clearance by management.
             </div>
 
-            <button onclick="document.getElementById('paymentSlipOverlay').remove()" class="btn-main" style="background:#0f172a;">Done & Close Receipt</button>
+            <div style="display:flex; gap:8px;">
+              <button onclick="downloadSlipPDF('printableReceiptCard', 'WalkeFarm_Receipt_${data.id}.pdf')" class="btn-main" style="background:#2563eb; flex:1;"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+              <button onclick="document.getElementById('paymentSlipOverlay').remove()" class="btn-main" style="background:#0f172a; flex:1;">Close</button>
+            </div>
           </div>
         </div>
       `;
       document.body.insertAdjacentHTML('beforeend', slipHTML);
+    }
+
+    // --- INSTANT PDF DOWNLOAD ENGINE ---
+    function downloadSlipPDF(elementId, filename) {
+      const element = document.getElementById(elementId);
+      const opt = {
+        margin: 10,
+        filename: filename,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
     }
 
     // --- IN-APP VIRAL MARKETING HANDLERS ---
