@@ -256,7 +256,7 @@
     }
 
     /* Admin Cards */
-    .admin-plot-item { background: white; border-radius: 8px; padding: 10px; margin-bottom: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+    .admin-plot-item { background: white; border-radius: 8px; padding: 10px; margin-bottom: 8px; border: 1px solid #e2e8f0; }
     .crm-card { background: white; border-radius: 10px; padding: 12px; margin-bottom: 10px; border: 1px solid #e5e7eb; }
     .crm-stage-select { width: 100%; padding: 7px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid #cbd5e1; margin-top: 8px; outline: none; }
 
@@ -357,15 +357,15 @@
       <!-- LIVE KPI METRIC STATUS -->
       <div class="kpi-row">
         <div class="kpi-card">
-          <strong style="color:#16a34a;">14</strong>
+          <strong id="userKpiAvailable" style="color:#16a34a;">13</strong>
           <span>🟢 Available</span>
         </div>
         <div class="kpi-card">
-          <strong style="color:#f59e0b;">2</strong>
+          <strong id="userKpiHold" style="color:#f59e0b;">1</strong>
           <span>🟡 On Hold</span>
         </div>
         <div class="kpi-card">
-          <strong style="color:#dc2626;">3</strong>
+          <strong id="userKpiBooked" style="color:#dc2626;">2</strong>
           <span>🔴 Booked</span>
         </div>
       </div>
@@ -460,22 +460,19 @@
         </div>
         
         <select id="masterPlotSelector" onchange="handlePlotSelectionChange()" style="width:100%; padding:10px; border-radius:8px; background:#0f172a; color:#22c55e; border:1px solid #22c55e; font-size:12px; font-weight:700; margin-top:4px;">
-          <!-- Degma Plots -->
-          <option value="degma_3000">🌿 Degma Farm - 3,000 sq.ft. (₹13.5 Lakh)</option>
-          <option value="degma_6000">🌿 Degma Farm - 6,000 sq.ft. (₹27 Lakh)</option>
-          <option value="degma_11000">🌿 Degma Farm - 11,000 sq.ft. (₹49.5 Lakh)</option>
-          <option value="degma_22000">🌿 Degma Farm - 22,000 sq.ft. / Half Acre (₹99 Lakh)</option>
-          <!-- Strawberry Resort Plots -->
-          <option value="resort_cottage">🌸 Strawberry Resort - Luxury Furnished Cottage (₹24 Lakh)</option>
-          <option value="resort_1000">🌸 Strawberry Resort - 1,000 sq.ft. Farm Plot (₹14 Lakh)</option>
-          <option value="resort_2000">🌸 Strawberry Resort - 2,000 sq.ft. Farm Plot (₹28 Lakh)</option>
-          <option value="resort_3000">🌸 Strawberry Resort - 3,000 sq.ft. Farm Plot (₹42 Lakh)</option>
-          <!-- Mind Game Plots -->
-          <option value="mind_1000" selected>🌟 Mind Game - 1,000 sq.ft. Highway Plot (₹14 Lakh)</option>
-          <option value="mind_2000">🌟 Mind Game - 2,000 sq.ft. Commercial Plot (₹28 Lakh)</option>
-          <option value="mind_3000">🌟 Mind Game - 3,000 sq.ft. Commercial Plot (₹42 Lakh)</option>
-          <option value="mind_4000">🌟 Mind Game - 4,000 sq.ft. Commercial Plot (₹56 Lakh)</option>
-          <option value="mind_5000">🌟 Mind Game - 5,000 sq.ft. Prime Commercial Frontage (₹70 Lakh)</option>
+          <option value="degma_p01">🌿 Degma Farm - 3,000 sq.ft. (₹13.5 Lakh)</option>
+          <option value="degma_p03">🌿 Degma Farm - 6,000 sq.ft. (₹27 Lakh)</option>
+          <option value="degma_p05">🌿 Degma Farm - 11,000 sq.ft. (₹49.5 Lakh)</option>
+          <option value="degma_p06">🌿 Degma Farm - 22,000 sq.ft. / Half Acre (₹99 Lakh)</option>
+          <option value="resort_c01">🌸 Strawberry Resort - Luxury Furnished Cottage (₹24 Lakh)</option>
+          <option value="resort_p01">🌸 Strawberry Resort - 1,000 sq.ft. Farm Plot (₹14 Lakh)</option>
+          <option value="resort_p02">🌸 Strawberry Resort - 2,000 sq.ft. Farm Plot (₹28 Lakh)</option>
+          <option value="resort_p03">🌸 Strawberry Resort - 3,000 sq.ft. Farm Plot (₹42 Lakh)</option>
+          <option value="mind_m01" selected>🌟 Mind Game - 1,000 sq.ft. Highway Plot (₹14 Lakh)</option>
+          <option value="mind_m02">🌟 Mind Game - 2,000 sq.ft. Commercial Plot (₹28 Lakh)</option>
+          <option value="mind_m03">🌟 Mind Game - 3,000 sq.ft. Commercial Plot (₹42 Lakh)</option>
+          <option value="mind_m04">🌟 Mind Game - 4,000 sq.ft. Commercial Plot (₹56 Lakh)</option>
+          <option value="mind_m05">🌟 Mind Game - 5,000 sq.ft. Prime Commercial Frontage (₹70 Lakh)</option>
           <option value="custom">✏️ Enter Custom Plot Price (₹)...</option>
         </select>
 
@@ -646,27 +643,7 @@
           <span><i class="fa-solid fa-cubes"></i> Interactive Plot Master Grid</span>
           <span style="font-size:10px; color:#94a3b8;">Tap plot to select</span>
         </div>
-        <div class="plot-grid">
-          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-01 (3,000 sq.ft. - ₹13,50,000)')">
-            <strong>P-01</strong><span>3,000 sqft</span><span>🟢 Available</span>
-          </div>
-          <div class="plot-box Booked" onclick="alert('Notice: Plot P-02 is already BOOKED.')">
-            <strong>P-02</strong><span>3,000 sqft</span><span>🔴 Booked</span>
-          </div>
-          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-03 (6,000 sq.ft. - ₹27,00,000)')">
-            <strong>P-03</strong><span>6,000 sqft</span><span>🟢 Available</span>
-          </div>
-          <div class="plot-box On-Hold" onclick="selectPlot('Degma Farmland', 'Plot P-04 (6,000 sq.ft. - ₹27,00,000)')">
-            <strong>P-04</strong><span>6,000 sqft</span><span>🟡 On Hold</span>
-            <div class="timer-badge" id="holdTimerP4">⏱️ 47h:52m</div>
-          </div>
-          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-05 (11,000 sq.ft. - ₹49,50,000)')">
-            <strong>P-05</strong><span>11,000 sqft</span><span>🟢 Available</span>
-          </div>
-          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-06 (22,000 sq.ft. - ₹99,00,000)')">
-            <strong>P-06</strong><span>22,000 sqft</span><span>🟢 Available</span>
-          </div>
-        </div>
+        <div class="plot-grid" id="degmaGrid"></div>
       </div>
 
       <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">📍 Prime Location Advantages</h4>
@@ -678,50 +655,7 @@
       </ul>
 
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">📐 Available Plot Sizes & Detailed 0% EMI Plans</h4>
-
-      <div class="plot-item">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹13,50,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹1,50,000</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹50,000 / Month (24 Months @ 0% Interest)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="degma_3000" onclick="openHoldModal('Degma Farmland', 'Plot P-01 (3,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 3,000 sq.ft. - ₹13,50,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
-
-      <div class="plot-item">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>6,000 Sq.ft. Plot</h3><div class="plot-price">₹27,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹3,00,000</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,00,000 / Month (24 Months @ 0% Interest)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="degma_6000" onclick="openHoldModal('Degma Farmland', 'Plot P-03 (6,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 6,000 sq.ft. - ₹27,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
-
-      <div class="plot-item">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>11,000 Sq.ft. Plot</h3><div class="plot-price">₹49,50,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹5,50,000</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,83,333 / Month (24 Months @ 0% Interest)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="degma_11000" onclick="openHoldModal('Degma Farmland', 'Plot P-05 (11,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 11,000 sq.ft. - ₹49,50,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
-
-      <div class="plot-item" style="border-left-color: #F9A825;">
-        <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Master Estate (Half Acre)</span>
-        <div class="plot-header"><h3>22,000 Sq.ft. Plot (Half Acre)</h3><div class="plot-price">₹99,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹9,00,000</strong><br>Features: <strong>Four-Side Open Road Frontage | Forest View</strong></div>
-        <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹3,75,000 / Month (24 Months @ 0% Interest)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="degma_22000" onclick="openHoldModal('Degma Farmland', 'Plot P-06 (22,000 sq.ft. Half Acre)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 22,000 sq.ft. (Half Acre) - ₹99,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
+      <div id="degmaCardsContainer"></div>
 
       <div style="display:flex; gap:8px; margin-top:14px;">
         <button class="btn-main" onclick="open360Tour('degma', 'Degma Farmland 360° Tours')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
@@ -746,23 +680,7 @@
           <span><i class="fa-solid fa-house"></i> Cottages & Farm Layout</span>
           <span style="font-size:10px; color:#94a3b8;">Tap cottage to select</span>
         </div>
-        <div class="plot-grid">
-          <div class="plot-box Available" onclick="selectPlot('Strawberry Resort', 'Furnished Cottage C-01 (₹24 Lakh)')">
-            <strong>C-01</strong><span>Furnished</span><span>🟢 Available</span>
-          </div>
-          <div class="plot-box Booked" onclick="alert('Notice: Cottage C-02 is already booked.')">
-            <strong>C-02</strong><span>Furnished</span><span>🔴 Booked</span>
-          </div>
-          <div class="plot-box Available" onclick="selectPlot('Strawberry Resort', 'Farm Plot (1,000 sq.ft. - ₹14 Lakh)')">
-            <strong>P-01</strong><span>1,000 sqft</span><span>🟢 Available</span>
-          </div>
-          <div class="plot-box Available" onclick="selectPlot('Strawberry Resort', 'Farm Plot (2,000 sq.ft. - ₹28 Lakh)')">
-            <strong>P-02</strong><span>2,000 sqft</span><span>🟢 Available</span>
-          </div>
-          <div class="plot-box Available" onclick="selectPlot('Strawberry Resort', 'Farm Plot (3,000 sq.ft. - ₹42 Lakh)')">
-            <strong>P-03</strong><span>3,000 sqft</span><span>🟢 Available</span>
-          </div>
-        </div>
+        <div class="plot-grid" id="strawberryGrid"></div>
       </div>
 
       <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">✨ Resort Amenities</h4>
@@ -774,53 +692,7 @@
       </ul>
 
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">🏡 Available Cottages & Plots</h4>
-
-      <div class="plot-item" style="border-left-color: #E91E63;">
-        <span class="badge-status" style="background:#fce7f3; color:#be185d;">● 2 Units Available</span>
-        <div class="plot-header"><h3>Full Furnished Luxury Cottage</h3><div class="plot-price">₹24,00,000</div></div>
-        <div class="plot-meta">
-          Plot Area: <strong>1,114 sq.ft.</strong> | Construction: <strong>300 sq.ft.</strong><br>
-          Features: <strong>AC, TV, Bed, Curtains, Sofa & Lights Included</strong>
-        </div>
-        <div class="plot-emi-highlight" style="color:#E91E63;"><i class="fa-solid fa-building-columns"></i> 90% Bank Finance Available / Company Finance @ 0%</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="resort_cottage" onclick="openHoldModal('Strawberry Resort', 'Furnished Cottage C-01')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Full Furnished Luxury Cottage - ₹24,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
-
-      <div class="plot-item">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>1,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹14,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="resort_1000" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 1,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Plot 1,000 sq.ft. - ₹14,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
-
-      <div class="plot-item">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>2,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹28,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="resort_2000" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 2,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Plot 2,000 sq.ft. - ₹28,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
-
-      <div class="plot-item">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>3,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹42,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="resort_3000" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 3,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Plot 3,000 sq.ft. - ₹42,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
+      <div id="strawberryCardsContainer"></div>
 
       <div style="display:flex; gap:8px; margin-top:14px;">
         <button class="btn-main" onclick="open360Tour('strawberry', 'Strawberry Resort 360° Tours')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
@@ -844,23 +716,7 @@
         <div class="map-header">
           <span><i class="fa-solid fa-road"></i> Highway Touch Commercial Layout</span>
         </div>
-        <div class="plot-grid">
-          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-01 (1,000 sq.ft. - ₹14 Lakh)')">
-            <strong>M-01</strong><span>1,000 sqft</span><span>🟢 Available</span>
-          </div>
-          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-02 (2,000 sq.ft. - ₹28 Lakh)')">
-            <strong>M-02</strong><span>2,000 sqft</span><span>🟢 Available</span>
-          </div>
-          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-03 (3,000 sq.ft. - ₹42 Lakh)')">
-            <strong>M-03</strong><span>3,000 sqft</span><span>🟢 Available</span>
-          </div>
-          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-04 (4,000 sq.ft. - ₹56 Lakh)')">
-            <strong>M-04</strong><span>4,000 sqft</span><span>🟢 Available</span>
-          </div>
-          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-05 Prime Commercial (5,000 sq.ft. - ₹70 Lakh)')">
-            <strong>M-05</strong><span>5,000 sqft</span><span>🟢 Commercial</span>
-          </div>
-        </div>
+        <div class="plot-grid" id="mindgameGrid"></div>
       </div>
 
       <h4 style="font-size: 13px; color: var(--primary); margin-bottom: 6px;">📍 Prime Location Highlights</h4>
@@ -872,61 +728,7 @@
       </ul>
 
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">📐 Available Plot Sizes & 0% EMI Plans</h4>
-
-      <div class="plot-item">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>1,000 Sq.ft. Plot</h3><div class="plot-price">₹14,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong><br>Usage: <strong>Residential / Office Space</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹52,500 / Month (24 Months @ 0% Interest)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="mind_1000" onclick="openHoldModal('Mind Game Plots', 'Plot M-01 (1,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 1,000 sq.ft. - ₹14,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
-
-      <div class="plot-item">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>2,000 Sq.ft. Plot</h3><div class="plot-price">₹28,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong><br>Usage: <strong>Semi-Commercial / Dream Home</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,05,000 / Month (24 Months @ 0% Interest)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="mind_2000" onclick="openHoldModal('Mind Game Plots', 'Plot M-02 (2,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 2,000 sq.ft. - ₹28,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
-
-      <div class="plot-item">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹42,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong><br>Usage: <strong>Commercial Shops / Showroom / Offices</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,57,500 / Month (24 Months @ 0% Interest)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="mind_3000" onclick="openHoldModal('Mind Game Plots', 'Plot M-03 (3,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 3,000 sq.ft. - ₹42,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
-
-      <div class="plot-item">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>4,000 Sq.ft. Plot</h3><div class="plot-price">₹56,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹5,60,000</strong><br>Usage: <strong>Commercial Complex / Highway Hub</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹2,10,000 / Month (24 Months @ 0% Interest)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="mind_4000" onclick="openHoldModal('Mind Game Plots', 'Plot M-04 (4,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 4,000 sq.ft. - ₹56,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
-
-      <div class="plot-item" style="border-left-color: #F9A825;">
-        <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Prime Commercial Frontage</span>
-        <div class="plot-header"><h3>5,000 Sq.ft. Prime Commercial</h3><div class="plot-price">₹70,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong><br>Usage: <strong>Direct Highway Frontage Prime Commercial Zone</strong></div>
-        <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹2,62,500 / Month (24 Months @ 0% Interest)</div>
-        <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main hold-btn-item" data-plotkey="mind_5000" onclick="openHoldModal('Mind Game Plots', 'Plot M-05 Prime Commercial (5,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Mind Game Plots', '5,000 Sq.ft. Prime Commercial - ₹70,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
-        </div>
-      </div>
+      <div id="mindgameCardsContainer"></div>
 
       <div style="display:flex; gap:8px; margin-top:14px;">
         <button class="btn-main" onclick="open360Tour('mindgame', 'Mind Game Highway 360° View')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
@@ -972,7 +774,7 @@
       </form>
     </div>
 
-    <!-- 11. MASTER ADMIN DASHBOARD -->
+    <!-- 11. MASTER ADMIN CONTROL HUB -->
     <div id="admin_dashboard" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <h3 style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Master Admin Control</h3>
@@ -986,6 +788,13 @@
           <div style="font-size:10px; color:#64748b;">Master switch to enable/disable user holds</div>
         </div>
         <button id="globalHoldToggleBtn" onclick="toggleGlobalHoldSwitch()" style="padding:6px 12px; border-radius:20px; font-size:11px; font-weight:700; border:none; cursor:pointer; background:#22c55e; color:#0f172a;">ACTIVE (ON)</button>
+      </div>
+
+      <!-- ADMIN ANALYTICS KPI -->
+      <div class="kpi-row" style="margin-bottom:12px;">
+        <div class="kpi-card"><strong id="adminTotalPlots" style="color:#0284c7;">16</strong><span>Total Units</span></div>
+        <div class="kpi-card"><strong id="adminAvailPlots" style="color:#16a34a;">13</strong><span>Available</span></div>
+        <div class="kpi-card"><strong id="adminBookedPlots" style="color:#dc2626;">2</strong><span>Booked</span></div>
       </div>
 
       <div style="display:flex; gap:6px; margin-bottom:14px;">
@@ -1210,30 +1019,57 @@
     let currentBaseAmount = 1400000;
     let videoTourInterval = null;
 
-    // --- ADMIN HOLD CONTROL STATE ---
-    let isGlobalHoldEnabled = localStorage.getItem('wfw_global_hold') !== 'false';
-    let plotHoldPermissionMap = JSON.parse(localStorage.getItem('wfw_plot_hold_perms') || '{}');
-
-    // --- EXACT PLOT SPECIFICATION DATABASE FOR AI & VASTU ---
-    const plotVastuData = {
-      // Degma Plots
-      "degma_3000": { price: 1350000, facing: "East Facing (Purva Disha)", sunlight: "Direct Sunrise from 6:30 AM | Naturally Daylit till 3:00 PM", grade: "⭐⭐⭐⭐⭐ Ideal Vastu for Health & Living", entrance: "East Gate (Indra Sthan) brings prosperity", needleAngle: 90 },
-      "degma_6000": { price: 2700000, facing: "North-East Facing (Ishanya Kona)", sunlight: "Lush Corner plot with full day soothing sunlight & cool breeze", grade: "⭐⭐⭐⭐⭐ Supreme Vastu Alignment", entrance: "North-East Gate recommended for Spiritual peace", needleAngle: 45 },
-      "degma_11000": { price: 4950000, facing: "North Facing (Kuber Sthan)", sunlight: "Forest-touch panoramic natural daylight throughout the day", grade: "⭐⭐⭐⭐⭐ Best for Luxury Farmhouse & Water Bodies", entrance: "North Main Entrance for Wealth & Abundance", needleAngle: 0 },
-      "degma_22000": { price: 9900000, facing: "Four-Side Open (All Direction Access)", sunlight: "360° Unrestricted Sunlight & Sunset View", grade: "⭐⭐⭐⭐⭐ Master Estate Layout", entrance: "Grand East-North Double Arch Gate", needleAngle: 30 },
+    // --- MASTER DEFAULT PLOT INVENTORY DATABASE (ALWAYS LOADED) ---
+    const initialMasterPlots = [
+      // Degma Farmland
+      { key: "degma_p01", project: "Degma Farmland", proj_slug: "degma", plot_no: "P-01", size: "3,000 sq.ft.", price: "₹13,50,000", numericPrice: 1350000, dp: "₹1,50,000", emi: "₹50,000 / mo", status: "Available", holdAllowed: true, usage: "Nature Weekend Plot" },
+      { key: "degma_p02", project: "Degma Farmland", proj_slug: "degma", plot_no: "P-02", size: "3,000 sq.ft.", price: "₹13,50,000", numericPrice: 1350000, dp: "₹1,50,000", emi: "₹50,000 / mo", status: "Booked", holdAllowed: false, usage: "Nature Weekend Plot" },
+      { key: "degma_p03", project: "Degma Farmland", proj_slug: "degma", plot_no: "P-03", size: "6,000 sq.ft.", price: "₹27,00,000", numericPrice: 2700000, dp: "₹3,00,000", emi: "₹1,00,000 / mo", status: "Available", holdAllowed: true, usage: "Spacious Garden Farm" },
+      { key: "degma_p04", project: "Degma Farmland", proj_slug: "degma", plot_no: "P-04", size: "6,000 sq.ft.", price: "₹27,00,000", numericPrice: 2700000, dp: "₹3,00,000", emi: "₹1,00,000 / mo", status: "On Hold", holdAllowed: true, usage: "Corner Farmhouse Plot" },
+      { key: "degma_p05", project: "Degma Farmland", proj_slug: "degma", plot_no: "P-05", size: "11,000 sq.ft.", price: "₹49,50,000", numericPrice: 4950000, dp: "₹5,50,000", emi: "₹1,83,333 / mo", status: "Available", holdAllowed: true, usage: "Forest View Farmhouse" },
+      { key: "degma_p06", project: "Degma Farmland", proj_slug: "degma", plot_no: "P-06", size: "22,000 sq.ft. (Half Acre)", price: "₹99,00,000", numericPrice: 9900000, dp: "₹9,00,000", emi: "₹3,75,000 / mo", status: "Available", holdAllowed: true, usage: "Four-Side Open Forest Estate" },
       
-      // Strawberry Resort Plots & Cottages
-      "resort_cottage": { price: 2400000, facing: "North-East Pool & Garden Facing", sunlight: "Morning Sunlight directly across wooden deck & balcony", grade: "⭐⭐⭐⭐⭐ Holiday Resort Vastu", entrance: "North Gate facing manicured lawn & pool", needleAngle: 50 },
-      "resort_1000": { price: 1400000, facing: "East Facing (Resort Inner Avenue)", sunlight: "Morning Golden Hour light, shaded in hot afternoons", grade: "⭐⭐⭐⭐⭐ Peaceful Weekend Retreat Vastu", entrance: "East Facing Porch Entry", needleAngle: 90 },
-      "resort_2000": { price: 2800000, facing: "North-East Garden View", sunlight: "Pleasant sunrise with continuous breeze", grade: "⭐⭐⭐⭐⭐ Ideal Family Farmhouse Vastu", entrance: "North-East Porch Entry", needleAngle: 45 },
-      "resort_3000": { price: 4200000, facing: "North Facing Pool View", sunlight: "Full daytime bright illumination", grade: "⭐⭐⭐⭐⭐ High Prosperity Vastu", entrance: "North Main Gate", needleAngle: 0 },
+      // Strawberry Resort
+      { key: "resort_c01", project: "Strawberry Resort", proj_slug: "strawberry", plot_no: "C-01", size: "Furnished Luxury Cottage", price: "₹24,00,000", numericPrice: 2400000, dp: "90% Bank Loan", emi: "Company 0% EMI", status: "Available", holdAllowed: true, usage: "1,114 sq.ft. Plot + Furnished Cottage" },
+      { key: "resort_c02", project: "Strawberry Resort", proj_slug: "strawberry", plot_no: "C-02", size: "Furnished Luxury Cottage", price: "₹24,00,000", numericPrice: 2400000, dp: "90% Bank Loan", emi: "Company 0% EMI", status: "Booked", holdAllowed: false, usage: "Pool Facing Cottage" },
+      { key: "resort_p01", project: "Strawberry Resort", proj_slug: "strawberry", plot_no: "P-01", size: "1,000 sq.ft.", price: "₹14,00,000", numericPrice: 1400000, dp: "₹1,40,000", emi: "Bank / 0% EMI", status: "Available", holdAllowed: true, usage: "Resort Avenue Farm Plot" },
+      { key: "resort_p02", project: "Strawberry Resort", proj_slug: "strawberry", plot_no: "P-02", size: "2,000 sq.ft.", price: "₹28,00,000", numericPrice: 2800000, dp: "₹2,80,000", emi: "Bank / 0% EMI", status: "Available", holdAllowed: true, usage: "Garden View Farm Plot" },
+      { key: "resort_p03", project: "Strawberry Resort", proj_slug: "strawberry", plot_no: "P-03", size: "3,000 sq.ft.", price: "₹42,00,000", numericPrice: 4200000, dp: "₹4,20,000", emi: "Bank / 0% EMI", status: "Available", holdAllowed: true, usage: "Prime Pool View Farm Plot" },
 
       // Mind Game Highway Plots
-      "mind_1000": { price: 1400000, facing: "Highway Touch S.H 262 Facing (North-East)", sunlight: "High visibility daylit commercial frontage", grade: "⭐⭐⭐⭐⭐ Commercial High-Growth Vastu", entrance: "Direct Highway Main Frontage", needleAngle: 45 },
-      "mind_2000": { price: 2800000, facing: "North-West Dual Road Corner", sunlight: "Dual Frontage with bright natural visibility for showrooms", grade: "⭐⭐⭐⭐ Commercial & Office Vastu", entrance: "Corner Grand Double Entrance", needleAngle: 315 },
-      "mind_3000": { price: 4200000, facing: "North Facing Commercial Highway Touch", sunlight: "Direct daylight on wide commercial road", grade: "⭐⭐⭐⭐⭐ Retail & Showroom Vastu", entrance: "Wide Highway Glass Frontage", needleAngle: 0 },
-      "mind_4000": { price: 5600000, facing: "North-East Commercial Zone", sunlight: "High-footfall morning and afternoon sunlight", grade: "⭐⭐⭐⭐⭐ Commercial Hub Vastu", entrance: "Multi-Storey Commercial Entrance", needleAngle: 45 },
-      "mind_5000": { price: 7000000, facing: "Prime S.H 262 Highway Frontage (East Facing)", sunlight: "Unblocked High Visibility Sunlight from sunrise to sunset", grade: "⭐⭐⭐⭐⭐ Top Tier Commercial Asset Vastu", entrance: "Wide 60ft Highway Front Commercial Entry", needleAngle: 90 }
+      { key: "mind_m01", project: "Mind Game Plots", proj_slug: "mindgame", plot_no: "M-01", size: "1,000 sq.ft.", price: "₹14,00,000", numericPrice: 1400000, dp: "₹1,40,000", emi: "₹52,500 / mo", status: "Available", holdAllowed: true, usage: "Residential / Office Space" },
+      { key: "mind_m02", project: "Mind Game Plots", proj_slug: "mindgame", plot_no: "M-02", size: "2,000 sq.ft.", price: "₹28,00,000", numericPrice: 2800000, dp: "₹2,80,000", emi: "₹1,05,000 / mo", status: "Available", holdAllowed: true, usage: "Semi-Commercial / Dream Home" },
+      { key: "mind_m03", project: "Mind Game Plots", proj_slug: "mindgame", plot_no: "M-03", size: "3,000 sq.ft.", price: "₹42,00,000", numericPrice: 4200000, dp: "₹4,20,000", emi: "₹1,57,500 / mo", status: "Available", holdAllowed: true, usage: "Commercial Shops / Showroom" },
+      { key: "mind_m04", project: "Mind Game Plots", proj_slug: "mindgame", plot_no: "M-04", size: "4,000 sq.ft.", price: "₹56,00,000", numericPrice: 5600000, dp: "₹5,60,000", emi: "₹2,10,000 / mo", status: "Available", holdAllowed: true, usage: "Commercial Complex / Highway Hub" },
+      { key: "mind_m05", project: "Mind Game Plots", proj_slug: "mindgame", plot_no: "M-05", size: "5,000 sq.ft.", price: "₹70,00,000", numericPrice: 7000000, dp: "₹7,00,000", emi: "₹2,62,500 / mo", status: "Available", holdAllowed: true, usage: "Direct Highway Frontage Prime Commercial" }
+    ];
+
+    let livePlotInventory = JSON.parse(localStorage.getItem('wfw_master_plots')) || initialMasterPlots;
+    let isGlobalHoldEnabled = localStorage.getItem('wfw_global_hold') !== 'false';
+
+    // Save plots state
+    function savePlotInventory() {
+      localStorage.setItem('wfw_master_plots', JSON.stringify(livePlotInventory));
+      renderUserPlotCards();
+      renderUserPlotGrids();
+      updateDashboardKpis();
+    }
+
+    // --- VASTU ORIENTATION DATA ---
+    const plotVastuData = {
+      "degma_p01": { price: 1350000, facing: "East Facing (Purva Disha)", sunlight: "Direct Sunrise from 6:30 AM | Naturally Daylit till 3:00 PM", grade: "⭐⭐⭐⭐⭐ Ideal Vastu for Health & Living", entrance: "East Gate (Indra Sthan) brings prosperity", needleAngle: 90 },
+      "degma_p03": { price: 2700000, facing: "North-East Facing (Ishanya Kona)", sunlight: "Lush Corner plot with full day soothing sunlight & cool breeze", grade: "⭐⭐⭐⭐⭐ Supreme Vastu Alignment", entrance: "North-East Gate recommended for Spiritual peace", needleAngle: 45 },
+      "degma_p05": { price: 4950000, facing: "North Facing (Kuber Sthan)", sunlight: "Forest-touch panoramic natural daylight throughout the day", grade: "⭐⭐⭐⭐⭐ Best for Luxury Farmhouse & Water Bodies", entrance: "North Main Entrance for Wealth & Abundance", needleAngle: 0 },
+      "degma_p06": { price: 9900000, facing: "Four-Side Open (All Direction Access)", sunlight: "360° Unrestricted Sunlight & Sunset View", grade: "⭐⭐⭐⭐⭐ Master Estate Layout", entrance: "Grand East-North Double Arch Gate", needleAngle: 30 },
+      "resort_c01": { price: 2400000, facing: "North-East Pool & Garden Facing", sunlight: "Morning Sunlight directly across wooden deck & balcony", grade: "⭐⭐⭐⭐⭐ Holiday Resort Vastu", entrance: "North Gate facing manicured lawn & pool", needleAngle: 50 },
+      "resort_p01": { price: 1400000, facing: "East Facing (Resort Inner Avenue)", sunlight: "Morning Golden Hour light, shaded in hot afternoons", grade: "⭐⭐⭐⭐⭐ Peaceful Weekend Retreat Vastu", entrance: "East Facing Porch Entry", needleAngle: 90 },
+      "resort_p02": { price: 2800000, facing: "North-East Garden View", sunlight: "Pleasant sunrise with continuous breeze", grade: "⭐⭐⭐⭐⭐ Ideal Family Farmhouse Vastu", entrance: "North-East Porch Entry", needleAngle: 45 },
+      "resort_p03": { price: 4200000, facing: "North Facing Pool View", sunlight: "Full daytime bright illumination", grade: "⭐⭐⭐⭐⭐ High Prosperity Vastu", entrance: "North Main Gate", needleAngle: 0 },
+      "mind_m01": { price: 1400000, facing: "Highway Touch S.H 262 Facing (North-East)", sunlight: "High visibility daylit commercial frontage", grade: "⭐⭐⭐⭐⭐ Commercial High-Growth Vastu", entrance: "Direct Highway Main Frontage", needleAngle: 45 },
+      "mind_m02": { price: 2800000, facing: "North-West Dual Road Corner", sunlight: "Dual Frontage with bright natural visibility for showrooms", grade: "⭐⭐⭐⭐ Commercial & Office Vastu", entrance: "Corner Grand Double Entrance", needleAngle: 315 },
+      "mind_m03": { price: 4200000, facing: "North Facing Commercial Highway Touch", sunlight: "Direct daylight on wide commercial road", grade: "⭐⭐⭐⭐⭐ Retail & Showroom Vastu", entrance: "Wide Highway Glass Frontage", needleAngle: 0 },
+      "mind_m04": { price: 5600000, facing: "North-East Commercial Zone", sunlight: "High-footfall morning and afternoon sunlight", grade: "⭐⭐⭐⭐⭐ Commercial Hub Vastu", entrance: "Multi-Storey Commercial Entrance", needleAngle: 45 },
+      "mind_m05": { price: 7000000, facing: "Prime S.H 262 Highway Frontage (East Facing)", sunlight: "Unblocked High Visibility Sunlight from sunrise to sunset", grade: "⭐⭐⭐⭐⭐ Top Tier Commercial Asset Vastu", entrance: "Wide 60ft Highway Front Commercial Entry", needleAngle: 90 }
     };
 
     const degmaImages = ['farm1.jpg', 'farm2.jpg', 'farm3.jpg', 'farm4.jpg', 'farm5.jpg', 'farm6.jpg', 'farm7.jpg', 'farm8.jpg', 'farm9.jpg', 'farm10.jpg'];
@@ -1246,20 +1082,19 @@
     let homeTapCount = 0;
     let homeTapTimer = null;
 
-    // Online/Offline detection for Play Store reliability
-    window.addEventListener('offline', () => {
-      document.getElementById('offlineBanner').style.display = 'block';
-    });
-    window.addEventListener('online', () => {
-      document.getElementById('offlineBanner').style.display = 'none';
-    });
+    // Online/Offline detection
+    window.addEventListener('offline', () => { document.getElementById('offlineBanner').style.display = 'block'; });
+    window.addEventListener('online', () => { document.getElementById('offlineBanner').style.display = 'none'; });
 
     window.addEventListener('DOMContentLoaded', () => {
-      syncHoldButtonDisplay();
+      renderUserPlotCards();
+      renderUserPlotGrids();
+      updateDashboardKpis();
+
       if (loggedInUser && userSessionToken) {
         renderHeaderAuth();
         if (loggedInUser.role === 'admin') {
-          loadAdminHolds();
+          loadAdminPlots();
           showScreenDirect('admin_dashboard');
         } else {
           document.getElementById('welcomeUserName').innerText = `Welcome, ${loggedInUser.email.split('@')[0]}!`;
@@ -1303,42 +1138,188 @@
       window.scrollTo(0, 0);
     }
 
-    // --- HOLD TOGGLE LOGIC & DISPLAY SYNCHRONIZER ---
-    function syncHoldButtonDisplay() {
-      const holdBtns = document.querySelectorAll('.hold-btn-item');
-      holdBtns.forEach(btn => {
-        const plotKey = btn.getAttribute('data-plotkey');
-        const isPlotAllowed = plotHoldPermissionMap[plotKey] !== false;
-        if (!isGlobalHoldEnabled || !isPlotAllowed) {
-          btn.style.display = 'none';
-        } else {
-          btn.style.display = 'block';
-        }
+    // --- RENDER DYNAMIC USER PLOT CARDS & GRIDS ---
+    function renderUserPlotCards() {
+      const renderSection = (projSlug, containerId) => {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const plots = livePlotInventory.filter(p => p.proj_slug === projSlug);
+        let html = '';
+        plots.forEach(p => {
+          const isHoldActive = isGlobalHoldEnabled && p.holdAllowed && p.status === 'Available';
+          const badgeClass = p.status === 'Available' ? 'badge-status' : (p.status === 'On Hold' ? 'badge-status" style="background:#fef3c7; color:#b45309;' : 'badge-status" style="background:#fee2e2; color:#dc2626;');
+          
+          html += `
+            <div class="plot-item" style="${p.status === 'Booked' ? 'opacity:0.6;' : ''}">
+              <span class="${badgeClass}">● ${p.status}</span>
+              <div class="plot-header">
+                <h3>${p.plot_no} (${p.size})</h3>
+                <div class="plot-price">${p.price}</div>
+              </div>
+              <div class="plot-meta">
+                Usage: <strong>${p.usage}</strong> | Down Payment: <strong>${p.dp}</strong>
+              </div>
+              <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> EMI: ${p.emi}</div>
+              
+              <div style="display:flex; gap:6px; margin-top:8px;">
+                ${isHoldActive ? `
+                  <button class="btn-main" onclick="openHoldModal('${p.project}', 'Plot ${p.plot_no} (${p.size})')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;">
+                    <i class="fa-solid fa-lock"></i> Hold for ₹4,999
+                  </button>
+                ` : ''}
+                <button class="btn-main" onclick="selectPlot('${p.project}', 'Plot ${p.plot_no} (${p.size} - ${p.price})')" style="padding:6px; font-size:11px; flex:1; ${!isHoldActive ? 'background:var(--primary);' : ''}">
+                  <i class="fa-solid fa-calendar-check"></i> ${p.status === 'Booked' ? 'Enquire Next Phase' : 'Free Visit'}
+                </button>
+              </div>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      };
+
+      renderSection('degma', 'degmaCardsContainer');
+      renderSection('strawberry', 'strawberryCardsContainer');
+      renderSection('mindgame', 'mindgameCardsContainer');
+    }
+
+    function renderUserPlotGrids() {
+      const renderGrid = (projSlug, gridId) => {
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+        const plots = livePlotInventory.filter(p => p.proj_slug === projSlug);
+        let html = '';
+        plots.forEach(p => {
+          const statusClass = p.status === 'Available' ? 'Available' : (p.status === 'On Hold' ? 'On-Hold' : 'Booked');
+          const statusIcon = p.status === 'Available' ? '🟢 Available' : (p.status === 'On Hold' ? '🟡 On Hold' : '🔴 Booked');
+          html += `
+            <div class="plot-box ${statusClass}" onclick="${p.status === 'Booked' ? `alert('Plot ${p.plot_no} is already BOOKED.')` : `selectPlot('${p.project}', 'Plot ${p.plot_no} (${p.size} - ${p.price})')`}">
+              <strong>${p.plot_no}</strong>
+              <span>${p.size.split('(')[0]}</span>
+              <span>${statusIcon}</span>
+            </div>
+          `;
+        });
+        grid.innerHTML = html;
+      };
+
+      renderGrid('degma', 'degmaGrid');
+      renderGrid('strawberry', 'strawberryGrid');
+      renderGrid('mindgame', 'mindgameGrid');
+    }
+
+    function updateDashboardKpis() {
+      const avail = livePlotInventory.filter(p => p.status === 'Available').length;
+      const hold = livePlotInventory.filter(p => p.status === 'On Hold').length;
+      const booked = livePlotInventory.filter(p => p.status === 'Booked').length;
+
+      const uAvail = document.getElementById('userKpiAvailable');
+      const uHold = document.getElementById('userKpiHold');
+      const uBooked = document.getElementById('userKpiBooked');
+      if (uAvail) uAvail.innerText = avail;
+      if (uHold) uHold.innerText = hold;
+      if (uBooked) uBooked.innerText = booked;
+
+      const aTotal = document.getElementById('adminTotalPlots');
+      const aAvail = document.getElementById('adminAvailPlots');
+      const aBooked = document.getElementById('adminBookedPlots');
+      if (aTotal) aTotal.innerText = livePlotInventory.length;
+      if (aAvail) aAvail.innerText = avail;
+      if (aBooked) aBooked.innerText = booked;
+    }
+
+    // --- ADMIN DASHBOARD: COMPREHENSIVE PLOT CONTROL CENTER ---
+    function loadAdminPlots(filterSlug = 'all') {
+      const globalBtn = document.getElementById('globalHoldToggleBtn');
+      if (globalBtn) {
+        globalBtn.innerText = isGlobalHoldEnabled ? 'ACTIVE (ON)' : 'DISABLED (OFF)';
+        globalBtn.style.background = isGlobalHoldEnabled ? '#22c55e' : '#ef4444';
+      }
+
+      let filteredPlots = livePlotInventory;
+      if (filterSlug !== 'all') {
+        filteredPlots = livePlotInventory.filter(p => p.proj_slug === filterSlug);
+      }
+
+      let html = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h4 style="font-size:13px; margin:0; color:#0f172a;"><i class="fa-solid fa-cubes"></i> Real-time Plot Inventory (${filteredPlots.length})</h4>
+          <button onclick="resetPlotInventoryToDefault()" style="background:#f1f5f9; border:1px solid #cbd5e1; font-size:10px; padding:3px 8px; border-radius:4px; cursor:pointer;">Reset Default</button>
+        </div>
+
+        <div class="filter-pills" style="margin-bottom:10px;">
+          <div class="filter-pill ${filterSlug === 'all' ? 'active' : ''}" onclick="loadAdminPlots('all')">All (${livePlotInventory.length})</div>
+          <div class="filter-pill ${filterSlug === 'degma' ? 'active' : ''}" onclick="loadAdminPlots('degma')">Degma (6)</div>
+          <div class="filter-pill ${filterSlug === 'strawberry' ? 'active' : ''}" onclick="loadAdminPlots('strawberry')">Resort (5)</div>
+          <div class="filter-pill ${filterSlug === 'mindgame' ? 'active' : ''}" onclick="loadAdminPlots('mindgame')">Mind Game (5)</div>
+        </div>
+      `;
+
+      filteredPlots.forEach((p, idx) => {
+        html += `
+          <div class="admin-plot-item">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <strong style="font-size:13px; color:#0f172a;">${p.plot_no} — ${p.project}</strong>
+                <div style="font-size:11px; color:#64748b;">${p.size} • <b>${p.price}</b></div>
+              </div>
+              <select onchange="updateSinglePlotStatus('${p.key}', this.value)" style="padding:4px 6px; font-size:11px; border-radius:6px; font-weight:700; border:1px solid #cbd5e1; background:#f8fafc;">
+                <option value="Available" ${p.status === 'Available' ? 'selected' : ''}>🟢 Available</option>
+                <option value="On Hold" ${p.status === 'On Hold' ? 'selected' : ''}>🟡 On Hold</option>
+                <option value="Booked" ${p.status === 'Booked' ? 'selected' : ''}>🔴 Booked</option>
+              </select>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:6px 10px; border-radius:6px; margin-top:8px; border:1px solid #f1f5f9;">
+              <span style="font-size:11px; font-weight:600; color:#334155;"><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> ₹4,999 Hold Feature:</span>
+              <button onclick="toggleSinglePlotHoldPermission('${p.key}')" style="padding:3px 10px; border-radius:12px; font-size:10px; font-weight:700; border:none; cursor:pointer; background:${p.holdAllowed ? '#22c55e' : '#ef4444'}; color:white;">
+                ${p.holdAllowed ? 'ENABLED' : 'DISABLED'}
+              </button>
+            </div>
+          </div>
+        `;
       });
+
+      document.getElementById('adminContentPanel').innerHTML = html;
+      updateDashboardKpis();
+    }
+
+    function updateSinglePlotStatus(plotKey, newStatus) {
+      const plot = livePlotInventory.find(p => p.key === plotKey);
+      if (plot) {
+        plot.status = newStatus;
+        savePlotInventory();
+        alert(`Unit ${plot.plot_no} updated to: ${newStatus}`);
+      }
+    }
+
+    function toggleSinglePlotHoldPermission(plotKey) {
+      const plot = livePlotInventory.find(p => p.key === plotKey);
+      if (plot) {
+        plot.holdAllowed = !plot.holdAllowed;
+        savePlotInventory();
+        loadAdminPlots();
+      }
     }
 
     function toggleGlobalHoldSwitch() {
       isGlobalHoldEnabled = !isGlobalHoldEnabled;
       localStorage.setItem('wfw_global_hold', isGlobalHoldEnabled);
-      const btn = document.getElementById('globalHoldToggleBtn');
-      if (isGlobalHoldEnabled) {
-        btn.innerText = 'ACTIVE (ON)';
-        btn.style.background = '#22c55e';
-      } else {
-        btn.innerText = 'DISABLED (OFF)';
-        btn.style.background = '#ef4444';
+      savePlotInventory();
+      loadAdminPlots();
+      alert(`Master ₹4,999 Hold Switch set to: ${isGlobalHoldEnabled ? 'ACTIVE (ON)' : 'DISABLED (OFF)'}`);
+    }
+
+    function resetPlotInventoryToDefault() {
+      if (confirm("Reset all plot status and hold switches to default showroom data?")) {
+        livePlotInventory = JSON.parse(JSON.stringify(initialMasterPlots));
+        savePlotInventory();
+        loadAdminPlots();
       }
-      syncHoldButtonDisplay();
-      alert(`Global ₹4,999 Hold Switch set to: ${isGlobalHoldEnabled ? 'ON' : 'OFF'}`);
     }
 
     // --- PLAY STORE PRIVACY & ACCOUNT DELETION ---
-    function openPrivacyModal() {
-      document.getElementById('privacyModal').style.display = 'flex';
-    }
-    function closePrivacyModal() {
-      document.getElementById('privacyModal').style.display = 'none';
-    }
+    function openPrivacyModal() { document.getElementById('privacyModal').style.display = 'flex'; }
+    function closePrivacyModal() { document.getElementById('privacyModal').style.display = 'none'; }
 
     function handleDeleteAccount() {
       if (confirm("Are you sure you want to delete your account and clear all saved plot preferences?")) {
@@ -1464,12 +1445,8 @@
     }
 
     // --- AI SMART PLOT MATCHER LOGIC ---
-    function openAiMatcher() {
-      document.getElementById('aiMatcherModal').style.display = 'flex';
-    }
-    function closeAiMatcher() {
-      document.getElementById('aiMatcherModal').style.display = 'none';
-    }
+    function openAiMatcher() { document.getElementById('aiMatcherModal').style.display = 'flex'; }
+    function closeAiMatcher() { document.getElementById('aiMatcherModal').style.display = 'none'; }
     function executeAiMatch() {
       const budget = document.getElementById('quizBudget').value;
       const goal = document.getElementById('quizGoal').value;
@@ -1610,7 +1587,6 @@
       document.body.insertAdjacentHTML('beforeend', slipHTML);
     }
 
-    // --- INSTANT PDF DOWNLOAD ENGINE ---
     function downloadSlipPDF(elementId, filename) {
       const element = document.getElementById(elementId);
       const opt = {
@@ -1623,7 +1599,7 @@
       html2pdf().set(opt).from(element).save();
     }
 
-    // --- IN-APP VIRAL MARKETING HANDLERS ---
+    // --- VIRAL SHARING ---
     function shareOnWhatsAppForVoucher() {
       const shareUrl = window.location.origin;
       const viralText = encodeURIComponent(
@@ -1633,10 +1609,7 @@
         `🎁 _Use VIP code WALKE25K-VIP for ₹25,000 token discount!_`
       );
       window.open(`https://api.whatsapp.com/send?text=${viralText}`, '_blank');
-      
-      setTimeout(() => {
-        document.getElementById('voucherCodeUnlocked').style.display = 'block';
-      }, 1000);
+      setTimeout(() => { document.getElementById('voucherCodeUnlocked').style.display = 'block'; }, 1000);
     }
 
     function shareReferralLink() {
@@ -1659,7 +1632,7 @@
       if (homeTapCount === 3) {
         homeTapCount = 0;
         if (loggedInUser && loggedInUser.role === 'admin') {
-          loadAdminHolds();
+          loadAdminPlots();
           showScreen('admin_dashboard');
         } else {
           showScreen('admin_secret_login');
@@ -1707,7 +1680,7 @@
         updateVastuDetails("Custom Plot Orientation", "Sunlight depends on layout facing", "⭐⭐⭐⭐ Standard Residential Vastu", "North or East entry advised", 45);
       } else {
         customDiv.style.display = 'none';
-        const data = plotVastuData[selectedKey];
+        const data = plotVastuData[selectedKey] || { price: 1400000, facing: "East Facing", sunlight: "Direct Sun", grade: "⭐⭐⭐⭐⭐ Good Vastu", entrance: "East Gate", needleAngle: 90 };
         currentBaseAmount = data.price;
         updateVastuDetails(data.facing, data.sunlight, data.grade, data.entrance, data.needleAngle);
       }
@@ -1895,7 +1868,7 @@
           localStorage.setItem('user', JSON.stringify(data));
           renderHeaderAuth();
           if (data.role === 'admin') {
-            loadAdminHolds();
+            loadAdminPlots();
             showScreenDirect('admin_dashboard');
           } else {
             document.getElementById('welcomeUserName').innerText = `Welcome, ${data.email.split('@')[0]}!`;
@@ -1923,7 +1896,7 @@
           localStorage.setItem('user', JSON.stringify(data));
           renderHeaderAuth();
           alert('Admin Authenticated.');
-          loadAdminHolds();
+          loadAdminPlots();
           showScreenDirect('admin_dashboard');
         } else { alert('Unauthorized Admin ID.'); }
       } catch (err) { alert('Server error'); }
@@ -2016,68 +1989,6 @@
       }
     }
 
-    // --- ADMIN PANEL: PLOT STATUS & HOLD TOGGLE MANAGEMENT ---
-    async function loadAdminPlots() {
-      try {
-        const res = await fetch(`${API_BASE}/admin/plots`, {
-          headers: { 'Authorization': `Bearer ${userSessionToken}` }
-        });
-        const plots = await res.json();
-        let html = '<h4 style="font-size:13px; margin-bottom:8px;">Live Plot Status & ₹4,999 Hold Switch:</h4>';
-        
-        plots.forEach(p => {
-          const plotKey = `${p.project_slug}_${p.plot_no.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
-          const isAllowed = plotHoldPermissionMap[plotKey] !== false;
-          html += `
-            <div class="admin-plot-item" style="flex-direction:column; align-items:stretch; gap:6px;">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div>
-                  <strong style="font-size:12px;">${p.plot_no} (${p.project_slug.toUpperCase()})</strong>
-                  <div style="font-size:10px; color:gray;">${p.size} - ${p.total_price}</div>
-                </div>
-                <select onchange="changePlotStatus(${p.id}, this.value)" style="padding:4px 6px; font-size:11px; border-radius:6px; font-weight:600; border:1px solid #cbd5e1;">
-                  <option value="Available" ${p.status === 'Available' ? 'selected' : ''}>🟢 Available</option>
-                  <option value="Booked" ${p.status === 'Booked' ? 'selected' : ''}>🔴 Booked</option>
-                  <option value="On Hold" ${p.status === 'On Hold' ? 'selected' : ''}>🟡 On Hold</option>
-                </select>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:4px 8px; border-radius:6px;">
-                <span style="font-size:10px; font-weight:600; color:#334155;">Allow ₹4,999 Token Hold:</span>
-                <button onclick="toggleSinglePlotHold('${plotKey}', this)" style="padding:2px 8px; border-radius:4px; font-size:10px; font-weight:bold; border:none; cursor:pointer; background:${isAllowed ? '#22c55e' : '#ef4444'}; color:white;">
-                  ${isAllowed ? 'ENABLED' : 'DISABLED'}
-                </button>
-              </div>
-            </div>
-          `;
-        });
-        document.getElementById('adminContentPanel').innerHTML = html;
-      } catch (err) {
-        document.getElementById('adminContentPanel').innerHTML = '<p style="color:red;">Error loading plots.</p>';
-      }
-    }
-
-    function toggleSinglePlotHold(plotKey, btnElement) {
-      const currentState = plotHoldPermissionMap[plotKey] !== false;
-      const newState = !currentState;
-      plotHoldPermissionMap[plotKey] = newState;
-      localStorage.setItem('wfw_plot_hold_perms', JSON.stringify(plotHoldPermissionMap));
-      
-      btnElement.innerText = newState ? 'ENABLED' : 'DISABLED';
-      btnElement.style.background = newState ? '#22c55e' : '#ef4444';
-      syncHoldButtonDisplay();
-    }
-
-    async function changePlotStatus(plotId, newStatus) {
-      try {
-        await fetch(`${API_BASE}/admin/update-plot-status`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${userSessionToken}` },
-          body: JSON.stringify({ id: plotId, status: newStatus })
-        });
-        alert(`Plot updated to: ${newStatus}`);
-      } catch (err) { alert('Status update failed'); }
-    }
-
     // --- ADMIN PANEL: LEAD CRM PIPELINE ---
     async function loadAdminEnquiries() {
       try {
@@ -2133,9 +2044,6 @@
           body: JSON.stringify({ id: leadId, status: newStatus })
         });
         alert(`Lead status updated to: ${newStatus}`);
-        if (newStatus === 'Booking Cancelled' || newStatus === 'Refund Processed') {
-          alert('💡 Reminder: Plot Grid tab me jaakar plot ko 🟢 Available par set kar dein.');
-        }
       } catch (err) { alert('Status update failed'); }
     }
   </script>
