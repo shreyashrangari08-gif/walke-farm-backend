@@ -231,7 +231,7 @@
       </div>
     </div>
 
-    <!-- 0. USER SIGNUP GATE (DEFAULT SCREEN FOR NEW USERS) -->
+    <!-- 0. USER SIGNUP GATE -->
     <div id="signup" class="screen">
       <div class="welcome-card" style="margin-top: 10px;">
         <div class="welcome-avatar"><i class="fa-solid fa-user-plus"></i></div>
@@ -326,7 +326,7 @@
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
           <h4 style="font-size:13px; font-weight:700;"><i class="fa-solid fa-handshake"></i> Refer & Earn Direct ₹25,000 Cash</h4>
         </div>
-        <p style="font-size:11px; opacity:0.9; margin-bottom:10px;">Refer friends, colleagues or investors to buy plots in Degma or Mind Game and get direct referral payout on registry!</p>
+        <p style="font-size:11px; opacity:0.9; margin-bottom:10px;">Refer friends, colleagues or investors to buy plots in Degma, Strawberry Resort or Mind Game and get direct referral payout!</p>
         <button onclick="shareReferralLink()" style="width:100%; background:#facc15; color:#78350f; border:none; padding:9px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
           <i class="fa-solid fa-share-nodes"></i> Share My Invite Link to Earn
         </button>
@@ -346,22 +346,29 @@
         </div>
       </div>
 
-      <!-- MASTER PER-PLOT SELECTOR (CONTROLS BOTH AI ROI & VASTU EXACTLY) -->
+      <!-- MASTER PER-PLOT SELECTOR (FULL RANGE - STRAWBERRY 1K-3K ONLY) -->
       <div class="ai-widget-card" style="border: 2px solid #22c55e;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
           <h4 style="font-size:13px; color:#4ade80;"><i class="fa-solid fa-cubes"></i> Select Exact Plot for AI & Vastu Analysis:</h4>
         </div>
         
         <select id="masterPlotSelector" onchange="handlePlotSelectionChange()" style="width:100%; padding:10px; border-radius:8px; background:#0f172a; color:#22c55e; border:1px solid #22c55e; font-size:12px; font-weight:700; margin-top:4px;">
-          <option value="degma_3000">🌿 Degma Farm - 3,000 sq.ft. (₹13 Lakh)</option>
+          <!-- Degma Plots -->
+          <option value="degma_3000">🌿 Degma Farm - 3,000 sq.ft. (₹13.5 Lakh)</option>
           <option value="degma_6000">🌿 Degma Farm - 6,000 sq.ft. (₹27 Lakh)</option>
-          <option value="degma_11000">🌿 Degma Farm - 11,000 sq.ft. (₹49 Lakh)</option>
-          <option value="degma_22000">🌿 Degma Farm - 22,000 sq.ft. (₹99 Lakh)</option>
+          <option value="degma_11000">🌿 Degma Farm - 11,000 sq.ft. (₹49.5 Lakh)</option>
+          <option value="degma_22000">🌿 Degma Farm - 22,000 sq.ft. / Half Acre (₹99 Lakh)</option>
+          <!-- Strawberry Resort Plots (Only 1,000 to 3,000 sq.ft. + Cottages) -->
           <option value="resort_cottage">🌸 Strawberry Resort - Luxury Furnished Cottage (₹24 Lakh)</option>
-          <option value="resort_plot">🌸 Strawberry Resort - 1,000 sq.ft. Farm Plot (₹14 Lakh)</option>
+          <option value="resort_1000">🌸 Strawberry Resort - 1,000 sq.ft. Farm Plot (₹14 Lakh)</option>
+          <option value="resort_2000">🌸 Strawberry Resort - 2,000 sq.ft. Farm Plot (₹28 Lakh)</option>
+          <option value="resort_3000">🌸 Strawberry Resort - 3,000 sq.ft. Farm Plot (₹42 Lakh)</option>
+          <!-- Mind Game Plots -->
           <option value="mind_1000" selected>🌟 Mind Game - 1,000 sq.ft. Highway Plot (₹14 Lakh)</option>
-          <option value="mind_2000">🌟 Mind Game - 2,000 sq.ft. Commercial (₹28 Lakh)</option>
-          <option value="mind_5000">🌟 Mind Game - 5,000 sq.ft. Prime Commercial (₹70 Lakh)</option>
+          <option value="mind_2000">🌟 Mind Game - 2,000 sq.ft. Commercial Plot (₹28 Lakh)</option>
+          <option value="mind_3000">🌟 Mind Game - 3,000 sq.ft. Commercial Plot (₹42 Lakh)</option>
+          <option value="mind_4000">🌟 Mind Game - 4,000 sq.ft. Commercial Plot (₹56 Lakh)</option>
+          <option value="mind_5000">🌟 Mind Game - 5,000 sq.ft. Prime Commercial Frontage (₹70 Lakh)</option>
           <option value="custom">✏️ Enter Custom Plot Price (₹)...</option>
         </select>
 
@@ -506,7 +513,7 @@
       </div>
     </div>
 
-    <!-- 3. DEGMA DETAILS -->
+    <!-- 3. DEGMA DETAILS (INCLUDING 22,000 SQ.FT. PLOT) -->
     <div id="degma_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Degma Farmland</h2>
@@ -525,7 +532,7 @@
           <span style="font-size:10px; color:#94a3b8;">Tap plot to select</span>
         </div>
         <div class="plot-grid">
-          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-01 (3,000 sq.ft. - ₹13,00,000)')">
+          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-01 (3,000 sq.ft. - ₹13,50,000)')">
             <strong>P-01</strong><span>3,000 sqft</span><span>🟢 Available</span>
           </div>
           <div class="plot-box Booked" onclick="alert('Notice: Plot P-02 is already BOOKED.')">
@@ -537,7 +544,7 @@
           <div class="plot-box On-Hold" onclick="selectPlot('Degma Farmland', 'Plot P-04 (6,000 sq.ft. - ₹27,00,000)')">
             <strong>P-04</strong><span>6,000 sqft</span><span>🟡 On Hold</span>
           </div>
-          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-05 (11,000 sq.ft. - ₹49,00,000)')">
+          <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-05 (11,000 sq.ft. - ₹49,50,000)')">
             <strong>P-05</strong><span>11,000 sqft</span><span>🟢 Available</span>
           </div>
           <div class="plot-box Available" onclick="selectPlot('Degma Farmland', 'Plot P-06 (22,000 sq.ft. - ₹99,00,000)')">
@@ -558,12 +565,12 @@
 
       <div class="plot-item">
         <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹13,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹1,00,000</strong></div>
+        <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹13,50,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹1,50,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹50,000 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
           <button class="btn-main" onclick="openHoldModal('Degma Farmland', 'Plot P-01 (3,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 3,000 sq.ft. - ₹13,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 3,000 sq.ft. - ₹13,50,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
 
@@ -580,12 +587,24 @@
 
       <div class="plot-item">
         <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>11,000 Sq.ft. Plot</h3><div class="plot-price">₹49,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹5,00,000</strong></div>
+        <div class="plot-header"><h3>11,000 Sq.ft. Plot</h3><div class="plot-price">₹49,50,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹5,50,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,83,333 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
           <button class="btn-main" onclick="openHoldModal('Degma Farmland', 'Plot P-05 (11,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
-          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 11,000 sq.ft. - ₹49,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 11,000 sq.ft. - ₹49,50,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
+      </div>
+
+      <!-- 22,000 SQ.FT. PLOT (HALF ACRE ESTATE) -->
+      <div class="plot-item" style="border-left-color: #F9A825;">
+        <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Master Estate (Half Acre)</span>
+        <div class="plot-header"><h3>22,000 Sq.ft. Plot (Half Acre)</h3><div class="plot-price">₹99,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹9,00,000</strong><br>Features: <strong>Four-Side Open Road Frontage | Forest View</strong></div>
+        <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹3,75,000 / Month (24 Months @ 0% Interest)</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Degma Farmland', 'Plot P-06 (22,000 sq.ft. Half Acre)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 22,000 sq.ft. (Half Acre) - ₹99,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
 
@@ -595,7 +614,7 @@
       </div>
     </div>
 
-    <!-- 4. STRAWBERRY DETAILS -->
+    <!-- 4. STRAWBERRY DETAILS (1,000 TO 3,000 SQ.FT. ONLY + COTTAGES) -->
     <div id="strawberry_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Strawberry Resort</h2>
@@ -621,6 +640,12 @@
           </div>
           <div class="plot-box Available" onclick="selectPlot('Strawberry Resort', 'Farm Plot (1,000 sq.ft. - ₹14 Lakh)')">
             <strong>P-01</strong><span>1,000 sqft</span><span>🟢 Available</span>
+          </div>
+          <div class="plot-box Available" onclick="selectPlot('Strawberry Resort', 'Farm Plot (2,000 sq.ft. - ₹28 Lakh)')">
+            <strong>P-02</strong><span>2,000 sqft</span><span>🟢 Available</span>
+          </div>
+          <div class="plot-box Available" onclick="selectPlot('Strawberry Resort', 'Farm Plot (3,000 sq.ft. - ₹42 Lakh)')">
+            <strong>P-03</strong><span>3,000 sqft</span><span>🟢 Available</span>
           </div>
         </div>
       </div>
@@ -660,13 +685,35 @@
         </div>
       </div>
 
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>2,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹28,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 2,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Plot 2,000 sq.ft. - ₹28,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
+      </div>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>3,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹42,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 3,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Plot 3,000 sq.ft. - ₹42,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
+      </div>
+
       <div style="display:flex; gap:8px; margin-top:14px;">
         <button class="btn-main" onclick="open360Tour('strawberry', 'Strawberry Resort 360° Tours')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
         <button class="btn-main" onclick="showGallery('strawberry')" style="background:var(--accent);"><i class="fa-solid fa-image"></i> Photos</button>
       </div>
     </div>
 
-    <!-- 5. MIND GAME DETAILS -->
+    <!-- 5. MIND GAME DETAILS (1,000 TO 5,000 SQ.FT. COMPLETE RANGE) -->
     <div id="mindgame_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Mind Game Plots</h2>
@@ -689,8 +736,14 @@
           <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-02 (2,000 sq.ft. - ₹28 Lakh)')">
             <strong>M-02</strong><span>2,000 sqft</span><span>🟢 Available</span>
           </div>
-          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-03 Prime Commercial (5,000 sq.ft. - ₹70 Lakh)')">
-            <strong>M-03</strong><span>5,000 sqft</span><span>🟢 Commercial</span>
+          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-03 (3,000 sq.ft. - ₹42 Lakh)')">
+            <strong>M-03</strong><span>3,000 sqft</span><span>🟢 Available</span>
+          </div>
+          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-04 (4,000 sq.ft. - ₹56 Lakh)')">
+            <strong>M-04</strong><span>4,000 sqft</span><span>🟢 Available</span>
+          </div>
+          <div class="plot-box Available" onclick="selectPlot('Mind Game Plots', 'Plot M-05 Prime Commercial (5,000 sq.ft. - ₹70 Lakh)')">
+            <strong>M-05</strong><span>5,000 sqft</span><span>🟢 Commercial</span>
           </div>
         </div>
       </div>
@@ -709,20 +762,53 @@
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>1,000 Sq.ft. Plot</h3><div class="plot-price">₹14,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong><br>Usage: <strong>Residential / Office Space</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹52,500 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
           <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-01 (1,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 1,000 sq.ft. - ₹14,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
 
-      <div class="plot-item" style="border-left-color: #F9A825;">
-        <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Prime Commercial</span>
-        <div class="plot-header"><h3>5,000 Sq.ft. Prime Commercial</h3><div class="plot-price">₹70,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong><br>Usage: <strong>Highway Frontage Prime Commercial Zone</strong></div>
-        <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> High Return Commercial Asset | 0% EMI</div>
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>2,000 Sq.ft. Plot</h3><div class="plot-price">₹28,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong><br>Usage: <strong>Semi-Commercial / Dream Home</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,05,000 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
-          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-03 Prime Commercial (5,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-02 (2,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 2,000 sq.ft. - ₹28,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
+      </div>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹42,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong><br>Usage: <strong>Commercial Shops / Showroom / Offices</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,57,500 / Month (24 Months @ 0% Interest)</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-03 (3,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 3,000 sq.ft. - ₹42,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
+      </div>
+
+      <div class="plot-item">
+        <span class="badge-status">● Available</span>
+        <div class="plot-header"><h3>4,000 Sq.ft. Plot</h3><div class="plot-price">₹56,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹5,60,000</strong><br>Usage: <strong>Commercial Complex / Highway Hub</strong></div>
+        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹2,10,000 / Month (24 Months @ 0% Interest)</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-04 (4,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 4,000 sq.ft. - ₹56,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
+      </div>
+
+      <div class="plot-item" style="border-left-color: #F9A825;">
+        <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Prime Commercial Frontage</span>
+        <div class="plot-header"><h3>5,000 Sq.ft. Prime Commercial</h3><div class="plot-price">₹70,00,000</div></div>
+        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong><br>Usage: <strong>Direct Highway Frontage Prime Commercial Zone</strong></div>
+        <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹2,62,500 / Month (24 Months @ 0% Interest)</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-05 Prime Commercial (5,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Mind Game Plots', '5,000 Sq.ft. Prime Commercial - ₹70,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
         </div>
       </div>
@@ -771,7 +857,7 @@
       </form>
     </div>
 
-    <!-- 11. MASTER ADMIN DASHBOARD (CRM + LIVE PLOT MANAGEMENT + HOLD PAYMENTS) -->
+    <!-- 11. MASTER ADMIN DASHBOARD -->
     <div id="admin_dashboard" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <h3 style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Master Admin Control</h3>
@@ -880,15 +966,25 @@
     let selectedHorizonYears = 5;
     let currentBaseAmount = 1400000;
 
+    // --- EXACT PLOT SPECIFICATION DATABASE FOR AI & VASTU ---
     const plotVastuData = {
-      "degma_3000": { price: 1300000, facing: "East Facing (Purva Disha)", sunlight: "Direct Sunrise from 6:30 AM | Naturally Daylit till 3:00 PM", grade: "⭐⭐⭐⭐⭐ Ideal Vastu for Health & Living", entrance: "East Gate (Indra Sthan) brings prosperity", needleAngle: 90 },
+      // Degma Plots
+      "degma_3000": { price: 1350000, facing: "East Facing (Purva Disha)", sunlight: "Direct Sunrise from 6:30 AM | Naturally Daylit till 3:00 PM", grade: "⭐⭐⭐⭐⭐ Ideal Vastu for Health & Living", entrance: "East Gate (Indra Sthan) brings prosperity", needleAngle: 90 },
       "degma_6000": { price: 2700000, facing: "North-East Facing (Ishanya Kona)", sunlight: "Lush Corner plot with full day soothing sunlight & cool breeze", grade: "⭐⭐⭐⭐⭐ Supreme Vastu Alignment", entrance: "North-East Gate recommended for Spiritual peace", needleAngle: 45 },
-      "degma_11000": { price: 4900000, facing: "North Facing (Kuber Sthan)", sunlight: "Forest-touch panoramic natural daylight throughout the day", grade: "⭐⭐⭐⭐⭐ Best for Luxury Farmhouse & Water Bodies", entrance: "North Main Entrance for Wealth & Abundance", needleAngle: 0 },
+      "degma_11000": { price: 4950000, facing: "North Facing (Kuber Sthan)", sunlight: "Forest-touch panoramic natural daylight throughout the day", grade: "⭐⭐⭐⭐⭐ Best for Luxury Farmhouse & Water Bodies", entrance: "North Main Entrance for Wealth & Abundance", needleAngle: 0 },
       "degma_22000": { price: 9900000, facing: "Four-Side Open (All Direction Access)", sunlight: "360° Unrestricted Sunlight & Sunset View", grade: "⭐⭐⭐⭐⭐ Master Estate Layout", entrance: "Grand East-North Double Arch Gate", needleAngle: 30 },
+      
+      // Strawberry Resort Plots & Cottages (Only 1,000 to 3,000 sq.ft. + Cottages)
       "resort_cottage": { price: 2400000, facing: "North-East Pool & Garden Facing", sunlight: "Morning Sunlight directly across wooden deck & balcony", grade: "⭐⭐⭐⭐⭐ Holiday Resort Vastu", entrance: "North Gate facing manicured lawn & pool", needleAngle: 50 },
-      "resort_plot": { price: 1400000, facing: "East Facing (Resort Inner Avenue)", sunlight: "Morning Golden Hour light, shaded in hot afternoons", grade: "⭐⭐⭐⭐⭐ Peaceful Weekend Retreat Vastu", entrance: "East Facing Porch Entry", needleAngle: 90 },
+      "resort_1000": { price: 1400000, facing: "East Facing (Resort Inner Avenue)", sunlight: "Morning Golden Hour light, shaded in hot afternoons", grade: "⭐⭐⭐⭐⭐ Peaceful Weekend Retreat Vastu", entrance: "East Facing Porch Entry", needleAngle: 90 },
+      "resort_2000": { price: 2800000, facing: "North-East Garden View", sunlight: "Pleasant sunrise with continuous breeze", grade: "⭐⭐⭐⭐⭐ Ideal Family Farmhouse Vastu", entrance: "North-East Porch Entry", needleAngle: 45 },
+      "resort_3000": { price: 4200000, facing: "North Facing Pool View", sunlight: "Full daytime bright illumination", grade: "⭐⭐⭐⭐⭐ High Prosperity Vastu", entrance: "North Main Gate", needleAngle: 0 },
+
+      // Mind Game Highway Plots
       "mind_1000": { price: 1400000, facing: "Highway Touch S.H 262 Facing (North-East)", sunlight: "High visibility daylit commercial frontage", grade: "⭐⭐⭐⭐⭐ Commercial High-Growth Vastu", entrance: "Direct Highway Main Frontage", needleAngle: 45 },
       "mind_2000": { price: 2800000, facing: "North-West Dual Road Corner", sunlight: "Dual Frontage with bright natural visibility for showrooms", grade: "⭐⭐⭐⭐ Commercial & Office Vastu", entrance: "Corner Grand Double Entrance", needleAngle: 315 },
+      "mind_3000": { price: 4200000, facing: "North Facing Commercial Highway Touch", sunlight: "Direct daylight on wide commercial road", grade: "⭐⭐⭐⭐⭐ Retail & Showroom Vastu", entrance: "Wide Highway Glass Frontage", needleAngle: 0 },
+      "mind_4000": { price: 5600000, facing: "North-East Commercial Zone", sunlight: "High-footfall morning and afternoon sunlight", grade: "⭐⭐⭐⭐⭐ Commercial Hub Vastu", entrance: "Multi-Storey Commercial Entrance", needleAngle: 45 },
       "mind_5000": { price: 7000000, facing: "Prime S.H 262 Highway Frontage (East Facing)", sunlight: "Unblocked High Visibility Sunlight from sunrise to sunset", grade: "⭐⭐⭐⭐⭐ Top Tier Commercial Asset Vastu", entrance: "Wide 60ft Highway Front Commercial Entry", needleAngle: 90 }
     };
 
@@ -902,7 +998,6 @@
     let homeTapCount = 0;
     let homeTapTimer = null;
 
-    // --- STRICT AUTH GATE: CHECK LOGIN ON START ---
     window.addEventListener('DOMContentLoaded', () => {
       if (loggedInUser && userSessionToken) {
         renderHeaderAuth();
@@ -997,7 +1092,6 @@
         closeHoldModal();
         renderPaymentSlip({ id: data.id || Date.now().toString().slice(-4), project: proj, plot, name, phone, email, txn, timestamp: data.timestamp || new Date().toLocaleString() });
 
-        // Forward hold notification on WhatsApp
         const waText = encodeURIComponent(
           `⚡ *PRIORITY PLOT HOLD SUBMITTED (₹4,999)*\n\n` +
           `🏡 *Project:* ${proj}\n` +
@@ -1481,7 +1575,7 @@
       } catch (err) { alert('Status update failed'); }
     }
 
-    // --- ADMIN PANEL: LEAD CRM PIPELINE WITH CANCEL / REFUND OPTIONS ---
+    // --- ADMIN PANEL: LEAD CRM PIPELINE ---
     async function loadAdminEnquiries() {
       try {
         const res = await fetch(`${API_BASE}/admin/enquiries`, {

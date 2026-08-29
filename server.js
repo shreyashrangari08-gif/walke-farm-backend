@@ -10,8 +10,6 @@ const JWT_SECRET = process.env.JWT_SECRET || 'walke_farm_secret_jwt_key_2026';
 
 app.use(cors());
 app.use(express.json());
-
-// Serve static frontend if hosted together
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Database Initialization
@@ -20,9 +18,8 @@ const db = new sqlite3.Database('./walke_farm.db', (err) => {
   else console.log('Connected to SQLite Database.');
 });
 
-// Create Required Tables
+// Setup Tables & Exact Plots
 db.serialize(() => {
-  // 1. Users Table
   db.run(`CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT UNIQUE,
@@ -30,7 +27,6 @@ db.serialize(() => {
     role TEXT DEFAULT 'user'
   )`);
 
-  // 2. Enquiries / Leads Table
   db.run(`CREATE TABLE IF NOT EXISTS enquiries (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     project_name TEXT,
@@ -43,7 +39,6 @@ db.serialize(() => {
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
 
-  // 3. Plots Management Table
   db.run(`CREATE TABLE IF NOT EXISTS plots (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     project_slug TEXT,
@@ -53,7 +48,6 @@ db.serialize(() => {
     status TEXT DEFAULT 'Available'
   )`);
 
-  // 4. NEW: Priority Plot Hold Payments Table (₹4,999 Non-Refundable)
   db.run(`CREATE TABLE IF NOT EXISTS plot_holds (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     plot_no TEXT,
@@ -67,29 +61,36 @@ db.serialize(() => {
     created_at TEXT
   )`);
 
-  // Seed Default Admin if not exists
   db.get("SELECT COUNT(*) as count FROM users WHERE email = 'admin@walkefarm.com'", (err, row) => {
     if (row && row.count === 0) {
       db.run("INSERT INTO users (email, password, role) VALUES ('admin@walkefarm.com', 'admin123', 'admin')");
     }
   });
 
-  // Seed Default Plots
   db.get("SELECT COUNT(*) as count FROM plots", (err, row) => {
     if (row && row.count === 0) {
       const defaultPlots = [
-        ['degma', 'P-01', '3,000 sq.ft.', '₹13,00,000', 'Available'],
-        ['degma', 'P-02', '3,000 sq.ft.', '₹13,00,000', 'Booked'],
+        // Degma Farmland (All Plots Included)
+        ['degma', 'P-01', '3,000 sq.ft.', '₹13,50,000', 'Available'],
+        ['degma', 'P-02', '3,000 sq.ft.', '₹13,50,000', 'Booked'],
         ['degma', 'P-03', '6,000 sq.ft.', '₹27,00,000', 'Available'],
         ['degma', 'P-04', '6,000 sq.ft.', '₹27,00,000', 'On Hold'],
-        ['degma', 'P-05', '11,000 sq.ft.', '₹49,00,000', 'Available'],
-        ['degma', 'P-06', '22,000 sq.ft.', '₹99,00,000', 'Available'],
-        ['strawberry', 'C-01', 'Furnished Cottage', '₹24,00,000', 'Available'],
-        ['strawberry', 'C-02', 'Furnished Cottage', '₹24,00,000', 'Booked'],
-        ['strawberry', 'P-01', '1,000 sq.ft.', '₹14,00,000', 'Available'],
-        ['mindgame', 'M-01', '1,000 sq.ft.', '₹14,00,000', 'Available'],
-        ['mindgame', 'M-02', '2,000 sq.ft.', '₹28,00,000', 'Available'],
-        ['mindgame', 'M-03', '5,000 sq.ft. Commercial', '₹70,00,000', 'Available']
+        ['degma', 'P-05', '11,000 sq.ft.', '₹49,50,000', 'Available'],
+        ['degma', 'P-06', '22,000 sq.ft. (Half Acre)', '₹99,00,000', 'Available'],
+        
+        // Strawberry Resort (Only 1,000 to 3,000 sq.ft. + Cottages)
+        ['strawberry', 'C-01', 'Luxury Furnished Cottage', '₹24,00,000', 'Available'],
+        ['strawberry', 'C-02', 'Luxury Furnished Cottage', '₹24,00,000', 'Booked'],
+        ['strawberry', 'P-01', '1,000 sq.ft. Farm Plot', '₹14,00,000', 'Available'],
+        ['strawberry', 'P-02', '2,000 sq.ft. Farm Plot', '₹28,00,000', 'Available'],
+        ['strawberry', 'P-03', '3,000 sq.ft. Farm Plot', '₹42,00,000', 'Available'],
+
+        // Mind Game (1,000 to 5,000 sq.ft. Highway Touch)
+        ['mindgame', 'M-01', '1,000 sq.ft. Highway Plot', '₹14,00,000', 'Available'],
+        ['mindgame', 'M-02', '2,000 sq.ft. Highway Plot', '₹28,00,000', 'Available'],
+        ['mindgame', 'M-03', '3,000 sq.ft. Commercial Plot', '₹42,00,000', 'Available'],
+        ['mindgame', 'M-04', '4,000 sq.ft. Commercial Plot', '₹56,00,000', 'Available'],
+        ['mindgame', 'M-05', '5,000 sq.ft. Prime Commercial Frontage', '₹70,00,000', 'Available']
       ];
       const stmt = db.prepare("INSERT INTO plots (project_slug, plot_no, size, total_price, status) VALUES (?, ?, ?, ?, ?)");
       defaultPlots.forEach(p => stmt.run(p));
@@ -98,7 +99,6 @@ db.serialize(() => {
   });
 });
 
-// Middleware for Admin Auth
 function authenticateAdmin(req, res, next) {
   const authHeader = req.headers['authorization'];
   if (!authHeader) return res.status(401).json({ message: 'Token missing' });
@@ -112,7 +112,6 @@ function authenticateAdmin(req, res, next) {
 
 // ---------------- ROUTES ----------------
 
-// 1. Auth Routes
 app.post('/api/signup', (req, res) => {
   const { email, password } = req.body;
   db.run("INSERT INTO users (email, password, role) VALUES (?, ?, 'user')", [email, password], function(err) {
@@ -130,7 +129,6 @@ app.post('/api/login', (req, res) => {
   });
 });
 
-// 2. Enquiry Lead Route
 app.post('/api/enquiry', (req, res) => {
   const { project_name, name, phone, plot_size, visit_date, message } = req.body;
   db.run(
@@ -143,7 +141,6 @@ app.post('/api/enquiry', (req, res) => {
   );
 });
 
-// 3. Priority Plot Hold Registration Route (₹4,999)
 app.post('/api/plot-hold', (req, res) => {
   const { plot_no, project_name, name, phone, email, txn_id } = req.body;
   const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
@@ -158,7 +155,6 @@ app.post('/api/plot-hold', (req, res) => {
   );
 });
 
-// 4. Admin Get Hold Payments List
 app.get('/api/admin/plot-holds', authenticateAdmin, (req, res) => {
   db.all("SELECT * FROM plot_holds ORDER BY id DESC", [], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -166,7 +162,6 @@ app.get('/api/admin/plot-holds', authenticateAdmin, (req, res) => {
   });
 });
 
-// 5. Admin Download Hold Payments as Excel (CSV)
 app.get('/api/admin/export-holds-excel', (req, res) => {
   db.all("SELECT * FROM plot_holds ORDER BY id DESC", [], (err, rows) => {
     if (err) return res.status(500).send("Error generating file.");
@@ -182,7 +177,6 @@ app.get('/api/admin/export-holds-excel', (req, res) => {
   });
 });
 
-// 6. Admin Get Enquiries
 app.get('/api/admin/enquiries', authenticateAdmin, (req, res) => {
   db.all("SELECT * FROM enquiries ORDER BY id DESC", [], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -190,7 +184,6 @@ app.get('/api/admin/enquiries', authenticateAdmin, (req, res) => {
   });
 });
 
-// 7. Admin Update Lead Status
 app.post('/api/admin/update-lead-status', authenticateAdmin, (req, res) => {
   const { id, status } = req.body;
   db.run("UPDATE enquiries SET status = ? WHERE id = ?", [status, id], function(err) {
@@ -199,7 +192,6 @@ app.post('/api/admin/update-lead-status', authenticateAdmin, (req, res) => {
   });
 });
 
-// 8. Admin Export Enquiries CSV
 app.get('/api/admin/export-csv', (req, res) => {
   db.all("SELECT * FROM enquiries ORDER BY id DESC", [], (err, rows) => {
     if (err) return res.status(500).send("Error generating file.");
@@ -215,7 +207,6 @@ app.get('/api/admin/export-csv', (req, res) => {
   });
 });
 
-// 9. Admin Get Plots Grid
 app.get('/api/admin/plots', authenticateAdmin, (req, res) => {
   db.all("SELECT * FROM plots ORDER BY id ASC", [], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -223,7 +214,6 @@ app.get('/api/admin/plots', authenticateAdmin, (req, res) => {
   });
 });
 
-// 10. Admin Update Plot Status
 app.post('/api/admin/update-plot-status', authenticateAdmin, (req, res) => {
   const { id, status } = req.body;
   db.run("UPDATE plots SET status = ? WHERE id = ?", [status, id], function(err) {
