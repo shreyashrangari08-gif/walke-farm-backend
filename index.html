@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- Pannellum 360 Panorama Library -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
@@ -131,6 +132,22 @@
       background: #dcfce7; color: #15803d;
     }
 
+    /* IN-APP MARKETING & VIRAL SHARE WIDGETS */
+    .viral-card {
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      border-radius: 12px; padding: 14px; color: white; margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+    }
+    .refer-card {
+      background: linear-gradient(135deg, #78350f, #d97706);
+      border-radius: 12px; padding: 14px; color: white; margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+    }
+    .live-ticker {
+      background: #fef08a; color: #854d0e; font-size: 11px; font-weight: 700;
+      padding: 6px 12px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 10px;
+    }
+
     /* ADVANCED PER-PLOT AI ROI & VASTU WIDGETS */
     .ai-widget-card {
       background: linear-gradient(135deg, #0f172a, #1e293b);
@@ -140,9 +157,7 @@
       flex: 1; padding: 6px; font-size: 11px; font-weight: 700; border-radius: 6px; border: 1px solid #475569;
       background: #334155; color: white; cursor: pointer; transition: all 0.2s;
     }
-    .time-toggle-btn.active {
-      background: #22c55e; border-color: #22c55e; color: #0f172a;
-    }
+    .time-toggle-btn.active { background: #22c55e; border-color: #22c55e; color: #0f172a; }
 
     .roi-bar-bg { background: #334155; border-radius: 6px; height: 10px; width: 100%; margin: 8px 0; overflow: hidden; }
     .roi-bar-fill { background: linear-gradient(90deg, #22c55e, #eab308); height: 100%; width: 0%; transition: width 0.6s ease; }
@@ -203,6 +218,7 @@
 <body>
 
   <div class="mobile-frame">
+    <!-- Header with Triple Tap Secret Admin Trigger -->
     <div class="app-header">
       <button onclick="handleHomeClick()" style="border:none; background:none; cursor:pointer; font-size:18px; color:var(--primary); padding: 4px;">
         <i class="fa-solid fa-house"></i>
@@ -215,6 +231,7 @@
       </div>
     </div>
 
+    <!-- 0. USER SIGNUP GATE (DEFAULT SCREEN FOR NEW USERS) -->
     <div id="signup" class="screen">
       <div class="welcome-card" style="margin-top: 10px;">
         <div class="welcome-avatar"><i class="fa-solid fa-user-plus"></i></div>
@@ -239,6 +256,7 @@
       </p>
     </div>
 
+    <!-- 0.1. USER LOGIN SCREEN -->
     <div id="login" class="screen">
       <div class="welcome-card" style="margin-top: 10px;">
         <div class="welcome-avatar"><i class="fa-solid fa-right-to-bracket"></i></div>
@@ -263,11 +281,35 @@
       </p>
     </div>
 
+    <!-- 1. WELCOME DASHBOARD SCREEN -->
     <div id="welcome_dashboard" class="screen">
       <div class="welcome-card">
         <div class="welcome-avatar"><i class="fa-solid fa-user-check"></i></div>
         <h2 id="welcomeUserName">Welcome, User!</h2>
         <p>Your complete property portal & investment hub.</p>
+      </div>
+
+      <!-- IN-APP SOCIAL PROOF TICKER -->
+      <div style="text-align:center;">
+        <div class="live-ticker">
+          <span style="width:8px; height:8px; background:#eab308; border-radius:50%; display:inline-block;"></span>
+          <span id="liveCounterText">🔥 18 Active Buyers Exploring Plots Today</span>
+        </div>
+      </div>
+
+      <!-- IN-APP VIRAL MARKETING FEATURE 1: SHARE & UNLOCK VOUCHER -->
+      <div class="viral-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <h4 style="font-size:13px; font-weight:700;"><i class="fa-solid fa-gift"></i> Unlock ₹25,000 Booking Voucher</h4>
+          <span style="background:#22c55e; color:#0f172a; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">VIP REWARD</span>
+        </div>
+        <p style="font-size:11px; opacity:0.9; margin-bottom:10px;">Share Walke Farm World 360° Portal on WhatsApp to instantly claim ₹25,000 discount on token booking!</p>
+        <button onclick="shareOnWhatsAppForVoucher()" style="width:100%; background:#22c55e; color:#0f172a; border:none; padding:9px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+          <i class="fa-brands fa-whatsapp"></i> Share on WhatsApp to Unlock Code
+        </button>
+        <div id="voucherCodeUnlocked" style="display:none; background:rgba(0,0,0,0.3); padding:8px; border-radius:6px; margin-top:8px; text-align:center; font-size:12px; font-weight:700; color:#facc15; border:1px dashed #facc15;">
+          🎉 CODE: <span style="letter-spacing:2px;">WALKE25K-VIP</span> (Applied for your visit!)
+        </div>
       </div>
 
       <div class="slider-container">
@@ -279,6 +321,18 @@
         <div class="slider-tag" id="welcomeSlideTag">🌿 Featured Property Highlights</div>
       </div>
 
+      <!-- IN-APP MARKETING FEATURE 2: REFER & EARN BROKER / CLIENT REWARD -->
+      <div class="refer-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <h4 style="font-size:13px; font-weight:700;"><i class="fa-solid fa-handshake"></i> Refer & Earn Direct ₹25,000 Cash</h4>
+        </div>
+        <p style="font-size:11px; opacity:0.9; margin-bottom:10px;">Refer friends, colleagues or investors to buy plots in Degma or Mind Game and get direct referral payout on registry!</p>
+        <button onclick="shareReferralLink()" style="width:100%; background:#facc15; color:#78350f; border:none; padding:9px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+          <i class="fa-solid fa-share-nodes"></i> Share My Invite Link to Earn
+        </button>
+      </div>
+
+      <!-- LIVE EMI CALCULATOR -->
       <div class="calc-card">
         <h4 style="font-size:13px; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-calculator"></i> Live EMI Calculator</h4>
         <div style="font-size:11px; color:var(--text-muted); display:flex; justify-content:space-between;">
@@ -292,6 +346,7 @@
         </div>
       </div>
 
+      <!-- MASTER PER-PLOT SELECTOR (CONTROLS BOTH AI ROI & VASTU EXACTLY) -->
       <div class="ai-widget-card" style="border: 2px solid #22c55e;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
           <h4 style="font-size:13px; color:#4ade80;"><i class="fa-solid fa-cubes"></i> Select Exact Plot for AI & Vastu Analysis:</h4>
@@ -316,6 +371,7 @@
         </div>
       </div>
 
+      <!-- EXACT AI ROI PREDICTOR (3 YEARS / 5 YEARS) -->
       <div class="ai-widget-card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <h4 style="font-size:13px; color:#4ade80;"><i class="fa-solid fa-chart-line"></i> AI Price Valuation (2026 - <span id="targetYearTitle">2031</span>)</h4>
@@ -338,6 +394,7 @@
         </div>
       </div>
 
+      <!-- EXACT LIVE VASTU & SUNLIGHT ANALYZER (PER PLOT) -->
       <div class="ai-widget-card" style="text-align:center;">
         <h4 style="font-size:13px; color:#facc15; margin-bottom:2px;"><i class="fa-solid fa-compass"></i> Exact Plot Vastu & Direction Analyzer</h4>
         <p style="font-size:11px; opacity:0.85;">Precise road facing, sunlight trajectory & Vastu alignment</p>
@@ -377,9 +434,11 @@
       </div>
     </div>
 
+    <!-- 2. HOME SCREEN -->
     <div id="home" class="screen">
       <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--text-main);">Available Projects (3)</h3>
 
+      <!-- DEGMA CARD -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="farm1.jpg" class="slide-degma active" alt="Degma 1">
@@ -402,6 +461,7 @@
         </div>
       </div>
 
+      <!-- STRAWBERRY CARD -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="resort1.jpg" class="slide-strawberry active" alt="Resort 1">
@@ -423,6 +483,7 @@
         </div>
       </div>
 
+      <!-- MIND GAME CARD -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
           <img src="mind1.jpg" class="slide-mindgame active" alt="Mind 1">
@@ -445,6 +506,7 @@
       </div>
     </div>
 
+    <!-- 3. DEGMA DETAILS -->
     <div id="degma_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Degma Farmland</h2>
@@ -494,32 +556,37 @@
 
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">📐 Available Plot Sizes & Detailed 0% EMI Plans</h4>
 
-      <div class="plot-item" onclick="selectPlot('Degma Farmland', 'Plot 3,000 sq.ft. - ₹13,00,000')">
+      <div class="plot-item">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹13,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹1,00,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹50,000 / Month (24 Months @ 0% Interest)</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Degma Farmland', 'Plot P-01 (3,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 3,000 sq.ft. - ₹13,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
       </div>
 
-      <div class="plot-item" onclick="selectPlot('Degma Farmland', 'Plot 6,000 sq.ft. - ₹27,00,000')">
+      <div class="plot-item">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>6,000 Sq.ft. Plot</h3><div class="plot-price">₹27,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹3,00,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,00,000 / Month (24 Months @ 0% Interest)</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Degma Farmland', 'Plot P-03 (6,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 6,000 sq.ft. - ₹27,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
       </div>
 
-      <div class="plot-item" onclick="selectPlot('Degma Farmland', 'Plot 11,000 sq.ft. - ₹49,00,000')">
+      <div class="plot-item">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>11,000 Sq.ft. Plot</h3><div class="plot-price">₹49,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹5,00,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹1,83,333 / Month (24 Months @ 0% Interest)</div>
-      </div>
-
-      <div class="plot-item" onclick="selectPlot('Degma Farmland', 'Plot 22,000 sq.ft. - ₹99,00,000')">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>22,000 Sq.ft. Plot</h3><div class="plot-price">₹99,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹450 / sq.ft.</strong> | Down Payment: <strong>₹9,00,000</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹3,75,000 / Month (24 Months @ 0% Interest)</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Degma Farmland', 'Plot P-05 (11,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Degma Farmland', 'Plot 11,000 sq.ft. - ₹49,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
       </div>
 
       <div style="display:flex; gap:8px; margin-top:14px;">
@@ -528,6 +595,7 @@
       </div>
     </div>
 
+    <!-- 4. STRAWBERRY DETAILS -->
     <div id="strawberry_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Strawberry Resort</h2>
@@ -567,7 +635,7 @@
 
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">🏡 Available Cottages & Plots</h4>
 
-      <div class="plot-item" style="border-left-color: #E91E63;" onclick="selectPlot('Strawberry Resort', 'Full Furnished Luxury Cottage - ₹24,00,000')">
+      <div class="plot-item" style="border-left-color: #E91E63;">
         <span class="badge-status" style="background:#fce7f3; color:#be185d;">● 2 Units Available</span>
         <div class="plot-header"><h3>Full Furnished Luxury Cottage</h3><div class="plot-price">₹24,00,000</div></div>
         <div class="plot-meta">
@@ -575,27 +643,21 @@
           Features: <strong>AC, TV, Bed, Curtains, Sofa & Lights Included</strong>
         </div>
         <div class="plot-emi-highlight" style="color:#E91E63;"><i class="fa-solid fa-building-columns"></i> 90% Bank Finance Available / Company Finance @ 0%</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Strawberry Resort', 'Furnished Cottage C-01')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Full Furnished Luxury Cottage - ₹24,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
       </div>
 
-      <div class="plot-item" onclick="selectPlot('Strawberry Resort', 'Plot 1,000 sq.ft. - ₹14,00,000')">
+      <div class="plot-item">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>1,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹14,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
-      </div>
-
-      <div class="plot-item" onclick="selectPlot('Strawberry Resort', 'Plot 3,000 sq.ft. - ₹42,00,000')">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>3,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹42,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: Bank Finance EMI (12 Months @ 0%)</div>
-      </div>
-
-      <div class="plot-item" onclick="selectPlot('Strawberry Resort', 'Plot 5,000 sq.ft. - ₹70,00,000')">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>5,000 Sq.ft. Farm Plot</h3><div class="plot-price">₹70,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Payment Mode: 90% Bank Loan / 12M EMI</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Strawberry Resort', 'Farm Plot 1,000 sq.ft.')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Strawberry Resort', 'Plot 1,000 sq.ft. - ₹14,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
       </div>
 
       <div style="display:flex; gap:8px; margin-top:14px;">
@@ -604,6 +666,7 @@
       </div>
     </div>
 
+    <!-- 5. MIND GAME DETAILS -->
     <div id="mindgame_detail" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <h2 style="color:var(--primary); font-size:18px;">Mind Game Plots</h2>
@@ -642,32 +705,26 @@
 
       <h4 style="font-size: 13px; color: var(--primary); margin: 14px 0 8px 0;">📐 Available Plot Sizes & 0% EMI Plans</h4>
 
-      <div class="plot-item" onclick="selectPlot('Mind Game Plots', 'Plot 1,000 sq.ft. - ₹14,00,000')">
+      <div class="plot-item">
         <span class="badge-status">● Available</span>
         <div class="plot-header"><h3>1,000 Sq.ft. Plot</h3><div class="plot-price">₹14,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹1,40,000</strong><br>Usage: <strong>Residential / Office Space</strong></div>
         <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-01 (1,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Mind Game Plots', 'Plot 1,000 sq.ft. - ₹14,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
       </div>
 
-      <div class="plot-item" onclick="selectPlot('Mind Game Plots', 'Plot 2,000 sq.ft. - ₹28,00,000')">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>2,000 Sq.ft. Plot</h3><div class="plot-price">₹28,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹2,80,000</strong><br>Usage: <strong>Semi-Commercial / Dream Home</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
-      </div>
-
-      <div class="plot-item" onclick="selectPlot('Mind Game Plots', 'Plot 3,000 sq.ft. - ₹42,00,000')">
-        <span class="badge-status">● Available</span>
-        <div class="plot-header"><h3>3,000 Sq.ft. Plot</h3><div class="plot-price">₹42,00,000</div></div>
-        <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹4,20,000</strong><br>Usage: <strong>Commercial Shops / Showroom / Offices</strong></div>
-        <div class="plot-emi-highlight"><i class="fa-solid fa-credit-card"></i> Easy EMI Plan with 0% Interest</div>
-      </div>
-
-      <div class="plot-item" style="border-left-color: #F9A825;" onclick="selectPlot('Mind Game Plots', '5,000 Sq.ft. Prime Commercial - ₹70,00,000')">
+      <div class="plot-item" style="border-left-color: #F9A825;">
         <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Prime Commercial</span>
         <div class="plot-header"><h3>5,000 Sq.ft. Prime Commercial</h3><div class="plot-price">₹70,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong><br>Usage: <strong>Highway Frontage Prime Commercial Zone</strong></div>
         <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> High Return Commercial Asset | 0% EMI</div>
+        <div style="display:flex; gap:6px; margin-top:8px;">
+          <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-03 Prime Commercial (5,000 sq.ft.)')" style="background:#f59e0b; padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
+          <button class="btn-main" onclick="selectPlot('Mind Game Plots', '5,000 Sq.ft. Prime Commercial - ₹70,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
+        </div>
       </div>
 
       <div style="display:flex; gap:8px; margin-top:14px;">
@@ -676,6 +733,7 @@
       </div>
     </div>
 
+    <!-- 6. 360° VIRTUAL TOUR SCREEN -->
     <div id="tour_360_screen" class="screen">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
         <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
@@ -691,6 +749,7 @@
       </div>
     </div>
 
+    <!-- 7. GALLERY SCREEN -->
     <div id="gallery" class="screen">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
         <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
@@ -699,6 +758,7 @@
       <div class="gallery-grid" id="galleryContainer"></div>
     </div>
 
+    <!-- 10. HIDDEN ADMIN LOGIN SCREEN -->
     <div id="admin_secret_login" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
         <h3 style="color: #b91c1c;"><i class="fa-solid fa-lock"></i> Restricted Admin Access</h3>
@@ -711,6 +771,7 @@
       </form>
     </div>
 
+    <!-- 11. MASTER ADMIN DASHBOARD (CRM + LIVE PLOT MANAGEMENT + HOLD PAYMENTS) -->
     <div id="admin_dashboard" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <h3 style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Master Admin Control</h3>
@@ -718,14 +779,15 @@
       </div>
 
       <div style="display:flex; gap:6px; margin-bottom:14px;">
-        <button class="btn-main" onclick="loadAdminPlots()" style="padding:6px; font-size:11px; flex:1;">Manage Plot Grid</button>
-        <button class="btn-main" onclick="loadAdminEnquiries()" style="padding:6px; font-size:11px; flex:1; background:var(--accent);">Lead Pipeline</button>
-        <button class="btn-main" onclick="downloadExcel()" style="padding:6px; font-size:11px; flex:1; background:#059669;"><i class="fa-solid fa-file-excel"></i> Excel</button>
+        <button class="btn-main" onclick="loadAdminHolds()" style="padding:6px; font-size:10px; flex:1; background:#f59e0b;"><i class="fa-solid fa-receipt"></i> Holds (₹4,999)</button>
+        <button class="btn-main" onclick="loadAdminPlots()" style="padding:6px; font-size:10px; flex:1;"><i class="fa-solid fa-cubes"></i> Plot Grid</button>
+        <button class="btn-main" onclick="loadAdminEnquiries()" style="padding:6px; font-size:10px; flex:1; background:var(--primary);"><i class="fa-solid fa-users"></i> Leads</button>
       </div>
 
       <div id="adminContentPanel">Loading admin data...</div>
     </div>
 
+    <!-- 12. INSTANT BOOKING PASS SCREEN -->
     <div id="enquiry" class="screen">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
         <button onclick="showScreen('home')" style="border:none; background:none; cursor:pointer; color:var(--primary); font-size:16px;"><i class="fa-solid fa-arrow-left"></i></button>
@@ -749,6 +811,55 @@
     </div>
   </div>
 
+  <!-- PRIORITY HOLD MODAL (₹4,999 NON-REFUNDABLE) -->
+  <div id="holdModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+    <div style="background:#fff; width:92%; max-width:390px; padding:18px; border-radius:12px; max-height:90vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <h3 style="color:#0f172a; font-size:15px;"><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> Priority Plot Lock (48 Hrs)</h3>
+        <span onclick="closeHoldModal()" style="font-size:20px; font-weight:bold; cursor:pointer; color:#64748b;">×</span>
+      </div>
+
+      <div style="background:#fef3c7; color:#92400e; padding:8px 10px; border-radius:6px; font-size:11px; margin-bottom:12px; line-height:1.4; border-left:3px solid #f59e0b;">
+        ⚠️ <strong>Important Policy:</strong> ₹4,999 is a Non-Refundable Priority Lock Fee. Agar plot booking cancel hoti hai ya 48 hrs me complete nahi hoti, toh yeh amount <strong>Refund Nahi Hoga</strong>.
+      </div>
+
+      <div style="background:#f8fafc; border:1px dashed #cbd5e1; padding:10px; border-radius:8px; text-align:center; margin-bottom:12px;">
+        <p style="margin:0; font-size:11px; color:#475569;">GPay / PhonePe / Paytm Number:</p>
+        <h2 style="margin:2px 0; color:#0f172a; font-size:18px; letter-spacing:1px;">8551929486</h2>
+        <p style="margin:0; font-size:11px; color:#16a34a; font-weight:bold;">Lock Amount: ₹4,999/-</p>
+      </div>
+
+      <form id="plotHoldForm" onsubmit="handleHoldSubmit(event)">
+        <input type="hidden" id="modalHoldProject">
+        <input type="hidden" id="modalHoldPlot">
+
+        <div class="form-group" style="margin-bottom:8px;">
+          <label style="font-size:11px;">Selected Unit</label>
+          <input type="text" id="modalDisplayPlot" readonly style="background:#f1f5f9; font-weight:bold; font-size:12px; padding:8px;" />
+        </div>
+        <div class="form-group" style="margin-bottom:8px;">
+          <label style="font-size:11px;">Full Name</label>
+          <input type="text" id="holdCustName" required placeholder="Enter full name" style="font-size:12px; padding:8px;" />
+        </div>
+        <div class="form-group" style="margin-bottom:8px;">
+          <label style="font-size:11px;">WhatsApp Contact</label>
+          <input type="tel" id="holdCustPhone" required placeholder="10-digit phone" style="font-size:12px; padding:8px;" />
+        </div>
+        <div class="form-group" style="margin-bottom:8px;">
+          <label style="font-size:11px;">Email Address</label>
+          <input type="email" id="holdCustEmail" required placeholder="name@email.com" style="font-size:12px; padding:8px;" />
+        </div>
+        <div class="form-group" style="margin-bottom:12px;">
+          <label style="font-size:11px;">Payment Transaction / UTR ID</label>
+          <input type="text" id="holdCustTxn" required placeholder="12-digit UTR from payment app" style="font-size:12px; padding:8px;" />
+        </div>
+
+        <button type="submit" class="btn-main" style="background:#16a34a;"><i class="fa-solid fa-file-invoice"></i> Submit & Generate Official Slip</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
   <div id="imageModal" class="image-modal">
     <span class="close-modal" onclick="closeLightbox()">×</span>
     <img id="lightboxImg" src="" alt="Enlarged View">
@@ -769,80 +880,16 @@
     let selectedHorizonYears = 5;
     let currentBaseAmount = 1400000;
 
-    // --- EXACT PLOT SPECIFICATION DATABASE FOR AI & VASTU ---
     const plotVastuData = {
-      "degma_3000": {
-        price: 1300000,
-        facing: "East Facing (Purva Disha)",
-        sunlight: "Direct Sunrise from 6:30 AM | Naturally Daylit till 3:00 PM",
-        grade: "⭐⭐⭐⭐⭐ Ideal Vastu for Health & Living",
-        entrance: "East Gate (Indra Sthan) brings prosperity",
-        needleAngle: 90
-      },
-      "degma_6000": {
-        price: 2700000,
-        facing: "North-East Facing (Ishanya Kona)",
-        sunlight: "Lush Corner plot with full day soothing sunlight & cool breeze",
-        grade: "⭐⭐⭐⭐⭐ Supreme Vastu Alignment",
-        entrance: "North-East Gate recommended for Spiritual peace",
-        needleAngle: 45
-      },
-      "degma_11000": {
-        price: 4900000,
-        facing: "North Facing (Kuber Sthan)",
-        sunlight: "Forest-touch panoramic natural daylight throughout the day",
-        grade: "⭐⭐⭐⭐⭐ Best for Luxury Farmhouse & Water Bodies",
-        entrance: "North Main Entrance for Wealth & Abundance",
-        needleAngle: 0
-      },
-      "degma_22000": {
-        price: 9900000,
-        facing: "Four-Side Open (All Direction Access)",
-        sunlight: "360° Unrestricted Sunlight & Sunset View",
-        grade: "⭐⭐⭐⭐⭐ Master Estate Layout",
-        entrance: "Grand East-North Double Arch Gate",
-        needleAngle: 30
-      },
-      "resort_cottage": {
-        price: 2400000,
-        facing: "North-East Pool & Garden Facing",
-        sunlight: "Morning Sunlight directly across wooden deck & balcony",
-        grade: "⭐⭐⭐⭐⭐ Holiday Resort Vastu",
-        entrance: "North Gate facing manicured lawn & pool",
-        needleAngle: 50
-      },
-      "resort_plot": {
-        price: 1400000,
-        facing: "East Facing (Resort Inner Avenue)",
-        sunlight: "Morning Golden Hour light, shaded in hot afternoons",
-        grade: "⭐⭐⭐⭐⭐ Peaceful Weekend Retreat Vastu",
-        entrance: "East Facing Porch Entry",
-        needleAngle: 90
-      },
-      "mind_1000": {
-        price: 1400000,
-        facing: "Highway Touch S.H 262 Facing (North-East)",
-        sunlight: "High visibility daylit commercial frontage",
-        grade: "⭐⭐⭐⭐⭐ Commercial High-Growth Vastu",
-        entrance: "Direct Highway Main Frontage",
-        needleAngle: 45
-      },
-      "mind_2000": {
-        price: 2800000,
-        facing: "North-West Dual Road Corner",
-        sunlight: "Dual Frontage with bright natural visibility for showrooms",
-        grade: "⭐⭐⭐⭐ Commercial & Office Vastu",
-        entrance: "Corner Grand Double Entrance",
-        needleAngle: 315
-      },
-      "mind_5000": {
-        price: 7000000,
-        facing: "Prime S.H 262 Highway Frontage (East Facing)",
-        sunlight: "Unblocked High Visibility Sunlight from sunrise to sunset",
-        grade: "⭐⭐⭐⭐⭐ Top Tier Commercial Asset Vastu",
-        entrance: "Wide 60ft Highway Front Commercial Entry",
-        needleAngle: 90
-      }
+      "degma_3000": { price: 1300000, facing: "East Facing (Purva Disha)", sunlight: "Direct Sunrise from 6:30 AM | Naturally Daylit till 3:00 PM", grade: "⭐⭐⭐⭐⭐ Ideal Vastu for Health & Living", entrance: "East Gate (Indra Sthan) brings prosperity", needleAngle: 90 },
+      "degma_6000": { price: 2700000, facing: "North-East Facing (Ishanya Kona)", sunlight: "Lush Corner plot with full day soothing sunlight & cool breeze", grade: "⭐⭐⭐⭐⭐ Supreme Vastu Alignment", entrance: "North-East Gate recommended for Spiritual peace", needleAngle: 45 },
+      "degma_11000": { price: 4900000, facing: "North Facing (Kuber Sthan)", sunlight: "Forest-touch panoramic natural daylight throughout the day", grade: "⭐⭐⭐⭐⭐ Best for Luxury Farmhouse & Water Bodies", entrance: "North Main Entrance for Wealth & Abundance", needleAngle: 0 },
+      "degma_22000": { price: 9900000, facing: "Four-Side Open (All Direction Access)", sunlight: "360° Unrestricted Sunlight & Sunset View", grade: "⭐⭐⭐⭐⭐ Master Estate Layout", entrance: "Grand East-North Double Arch Gate", needleAngle: 30 },
+      "resort_cottage": { price: 2400000, facing: "North-East Pool & Garden Facing", sunlight: "Morning Sunlight directly across wooden deck & balcony", grade: "⭐⭐⭐⭐⭐ Holiday Resort Vastu", entrance: "North Gate facing manicured lawn & pool", needleAngle: 50 },
+      "resort_plot": { price: 1400000, facing: "East Facing (Resort Inner Avenue)", sunlight: "Morning Golden Hour light, shaded in hot afternoons", grade: "⭐⭐⭐⭐⭐ Peaceful Weekend Retreat Vastu", entrance: "East Facing Porch Entry", needleAngle: 90 },
+      "mind_1000": { price: 1400000, facing: "Highway Touch S.H 262 Facing (North-East)", sunlight: "High visibility daylit commercial frontage", grade: "⭐⭐⭐⭐⭐ Commercial High-Growth Vastu", entrance: "Direct Highway Main Frontage", needleAngle: 45 },
+      "mind_2000": { price: 2800000, facing: "North-West Dual Road Corner", sunlight: "Dual Frontage with bright natural visibility for showrooms", grade: "⭐⭐⭐⭐ Commercial & Office Vastu", entrance: "Corner Grand Double Entrance", needleAngle: 315 },
+      "mind_5000": { price: 7000000, facing: "Prime S.H 262 Highway Frontage (East Facing)", sunlight: "Unblocked High Visibility Sunlight from sunrise to sunset", grade: "⭐⭐⭐⭐⭐ Top Tier Commercial Asset Vastu", entrance: "Wide 60ft Highway Front Commercial Entry", needleAngle: 90 }
     };
 
     const degmaImages = ['farm1.jpg', 'farm2.jpg', 'farm3.jpg', 'farm4.jpg', 'farm5.jpg', 'farm6.jpg', 'farm7.jpg', 'farm8.jpg', 'farm9.jpg', 'farm10.jpg'];
@@ -860,7 +907,7 @@
       if (loggedInUser && userSessionToken) {
         renderHeaderAuth();
         if (loggedInUser.role === 'admin') {
-          loadAdminPlots();
+          loadAdminHolds();
           showScreenDirect('admin_dashboard');
         } else {
           document.getElementById('welcomeUserName').innerText = `Welcome, ${loggedInUser.email.split('@')[0]}!`;
@@ -915,6 +962,118 @@
       showScreen('enquiry');
     }
 
+    // --- PRIORITY PLOT HOLD MODAL & PAYMENT SLIP GENERATOR ---
+    function openHoldModal(project, plot) {
+      document.getElementById('modalHoldProject').value = project;
+      document.getElementById('modalHoldPlot').value = plot;
+      document.getElementById('modalDisplayPlot').value = `${project} - ${plot}`;
+      if (loggedInUser) {
+        document.getElementById('holdCustEmail').value = loggedInUser.email;
+      }
+      document.getElementById('holdModal').style.display = 'flex';
+    }
+
+    function closeHoldModal() {
+      document.getElementById('holdModal').style.display = 'none';
+    }
+
+    async function handleHoldSubmit(e) {
+      e.preventDefault();
+      const proj = document.getElementById('modalHoldProject').value;
+      const plot = document.getElementById('modalHoldPlot').value;
+      const name = document.getElementById('holdCustName').value;
+      const phone = document.getElementById('holdCustPhone').value;
+      const email = document.getElementById('holdCustEmail').value;
+      const txn = document.getElementById('holdCustTxn').value;
+
+      try {
+        const res = await fetch(`${API_BASE}/plot-hold`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ project_name: proj, plot_no: plot, name, phone, email, txn_id: txn })
+        });
+        const data = await res.json();
+        
+        closeHoldModal();
+        renderPaymentSlip({ id: data.id || Date.now().toString().slice(-4), project: proj, plot, name, phone, email, txn, timestamp: data.timestamp || new Date().toLocaleString() });
+
+        // Forward hold notification on WhatsApp
+        const waText = encodeURIComponent(
+          `⚡ *PRIORITY PLOT HOLD SUBMITTED (₹4,999)*\n\n` +
+          `🏡 *Project:* ${proj}\n` +
+          `📐 *Plot:* ${plot}\n` +
+          `👤 *Name:* ${name}\n` +
+          `📞 *Phone:* ${phone}\n` +
+          `💳 *UTR ID:* ${txn}\n` +
+          `💰 *Amount:* ₹4,999 (Non-Refundable Hold Fee)\n\n` +
+          `_Please verify payment slip and lock unit in CRM._`
+        );
+        window.open(`https://wa.me/91${MAM_PHONE}?text=${waText}`, '_blank');
+      } catch (err) {
+        alert('Payment hold recorded & generating slip.');
+      }
+    }
+
+    function renderPaymentSlip(data) {
+      const slipHTML = `
+        <div id="paymentSlipOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; display:flex; justify-content:center; align-items:center; padding:14px;">
+          <div style="background:#fff; width:100%; max-width:380px; padding:20px; border-radius:12px; border:2px solid #0f172a; font-family:sans-serif; box-shadow:0 10px 25px rgba(0,0,0,0.5);">
+            <div style="text-align:center; border-bottom:2px dashed #cbd5e1; padding-bottom:10px;">
+              <h2 style="margin:0; color:#1b5e20; font-size:18px;">WALKE FARM WORLD</h2>
+              <span style="font-size:10px; background:#16a34a; color:#fff; padding:2px 8px; border-radius:12px; font-weight:bold;">OFFICIAL PLOT HOLD RECEIPT</span>
+            </div>
+
+            <div style="margin:14px 0; font-size:12px; line-height:1.6; color:#334155;">
+              <p style="margin:3px 0;"><b>Receipt No:</b> WFW-HOLD-${data.id}</p>
+              <p style="margin:3px 0;"><b>Date & Time:</b> ${data.timestamp}</p>
+              <hr style="border:none; border-top:1px solid #f1f5f9; margin:6px 0;">
+              <p style="margin:3px 0;"><b>Customer Name:</b> ${data.name}</p>
+              <p style="margin:3px 0;"><b>Contact Phone:</b> ${data.phone}</p>
+              <p style="margin:3px 0;"><b>Email Address:</b> ${data.email}</p>
+              <p style="margin:3px 0;"><b>Locked Unit:</b> <strong style="color:#0284c7;">${data.project} - ${data.plot}</strong></p>
+              <p style="margin:3px 0;"><b>Lock Period:</b> 48 Hours Priority</p>
+              <p style="margin:3px 0;"><b>UTR / Txn ID:</b> <code style="background:#f1f5f9; padding:2px 4px; border-radius:4px;">${data.txn}</code></p>
+              <p style="margin:4px 0; font-size:13px; color:#16a34a;"><b>Amount Paid: ₹4,999/-</b> (Non-Refundable)</p>
+            </div>
+
+            <div style="background:#fef2f2; color:#991b1b; padding:6px 8px; border-radius:6px; font-size:10px; text-align:center; margin-bottom:12px;">
+              Note: This priority hold is subject to final UTR payment clearance by management.
+            </div>
+
+            <button onclick="document.getElementById('paymentSlipOverlay').remove()" class="btn-main" style="background:#0f172a;">Done & Close Receipt</button>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', slipHTML);
+    }
+
+    // --- IN-APP VIRAL MARKETING HANDLERS ---
+    function shareOnWhatsAppForVoucher() {
+      const shareUrl = window.location.origin;
+      const viralText = encodeURIComponent(
+        `🌿 *Discover Luxury Farmhouses & 0% EMI Plots in Nagpur!*\n\n` +
+        `🏡 *Walke Farm World* - Explore 122 Acres Degma Waterfall Farmland & Strawberry Resort Cottages in *Interactive 360° Virtual Tours*.\n\n` +
+        `👉 Tap to view live plot map & rates: ${shareUrl}\n\n` +
+        `🎁 _Use VIP code WALKE25K-VIP for ₹25,000 token discount!_`
+      );
+      window.open(`https://api.whatsapp.com/send?text=${viralText}`, '_blank');
+      
+      setTimeout(() => {
+        document.getElementById('voucherCodeUnlocked').style.display = 'block';
+      }, 1000);
+    }
+
+    function shareReferralLink() {
+      const userRefCode = loggedInUser ? loggedInUser.email.split('@')[0].toUpperCase() : 'VIP2026';
+      const shareUrl = `${window.location.origin}/?ref=${userRefCode}`;
+      const referText = encodeURIComponent(
+        `🤝 *Property Partner Invite from ${userRefCode}*\n\n` +
+        `Check out prime verified farm plots & resort cottages near Nagpur with 0% interest EMI & 90% bank loan!\n\n` +
+        `🌟 Explore 360° Virtual Tour & Rates here:\n${shareUrl}`
+      );
+      window.open(`https://api.whatsapp.com/send?text=${referText}`, '_blank');
+    }
+
     // --- SECRET TRIPLE-TAP ADMIN ---
     function handleHomeClick() {
       if (!loggedInUser) return;
@@ -924,7 +1083,7 @@
       if (homeTapCount === 3) {
         homeTapCount = 0;
         if (loggedInUser && loggedInUser.role === 'admin') {
-          loadAdminPlots();
+          loadAdminHolds();
           showScreen('admin_dashboard');
         } else {
           showScreen('admin_secret_login');
@@ -964,7 +1123,6 @@
       document.getElementById('calcEmiResult').innerText = `₹${monthly.toLocaleString('en-IN')} / mo`;
     }
 
-    // --- EXACT PLOT SELECTION (UPDATES BOTH AI ROI & VASTU PRECISELY) ---
     function handlePlotSelectionChange() {
       const selectedKey = document.getElementById('masterPlotSelector').value;
       const customDiv = document.getElementById('customPriceDiv');
@@ -1163,7 +1321,7 @@
           localStorage.setItem('user', JSON.stringify(data));
           renderHeaderAuth();
           if (data.role === 'admin') {
-            loadAdminPlots();
+            loadAdminHolds();
             showScreenDirect('admin_dashboard');
           } else {
             document.getElementById('welcomeUserName').innerText = `Welcome, ${data.email.split('@')[0]}!`;
@@ -1191,7 +1349,7 @@
           localStorage.setItem('user', JSON.stringify(data));
           renderHeaderAuth();
           alert('Admin Authenticated.');
-          loadAdminPlots();
+          loadAdminHolds();
           showScreenDirect('admin_dashboard');
         } else { alert('Unauthorized Admin ID.'); }
       } catch (err) { alert('Server error'); }
@@ -1237,6 +1395,49 @@
         document.getElementById('enquiryForm').reset();
         showScreen('home');
       } catch (err) { alert('Booking forwarded.'); }
+    }
+
+    // --- ADMIN PANEL: PRIORITY HOLD PAYMENTS VIEW & EXCEL EXPORT ---
+    async function loadAdminHolds() {
+      try {
+        const res = await fetch(`${API_BASE}/admin/plot-holds`, {
+          headers: { 'Authorization': `Bearer ${userSessionToken}` }
+        });
+        const holds = await res.json();
+        let html = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <h4 style="font-size:13px; color:#f59e0b; margin:0;"><i class="fa-solid fa-receipt"></i> Priority Holds (₹4,999 Record)</h4>
+            <a href="${API_BASE}/admin/export-holds-excel" target="_blank" style="background:#059669; color:white; padding:4px 8px; border-radius:4px; font-size:10px; text-decoration:none; font-weight:bold;"><i class="fa-solid fa-file-excel"></i> Export Holds</a>
+          </div>
+        `;
+        
+        if (!holds || holds.length === 0) {
+          html += '<p style="font-size:12px; color:gray;">No priority plot holds recorded yet.</p>';
+        } else {
+          holds.forEach(h => {
+            html += `
+              <div class="crm-card" style="border-left:4px solid #f59e0b;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <div>
+                    <strong style="color:#0f172a; font-size:13px;">${h.name}</strong>
+                    <div style="font-size:11px; color:#0284c7; font-weight:bold;">${h.project_name} | ${h.plot_no}</div>
+                  </div>
+                  <span style="background:#16a34a; color:white; font-size:10px; font-weight:bold; padding:2px 6px; border-radius:4px;">₹${h.amount} Paid</span>
+                </div>
+                <div style="font-size:11px; color:#475569; margin:4px 0;">
+                  📞 Phone: <a href="tel:${h.phone}" style="color:#0f172a; font-weight:bold;">${h.phone}</a> | ✉️ ${h.email}
+                </div>
+                <div style="font-size:10px; background:#f1f5f9; padding:4px 6px; border-radius:4px; font-family:monospace;">
+                  UTR / Txn ID: <strong>${h.txn_id}</strong> | ${h.created_at}
+                </div>
+              </div>
+            `;
+          });
+        }
+        document.getElementById('adminContentPanel').innerHTML = html;
+      } catch (err) {
+        document.getElementById('adminContentPanel').innerHTML = '<p style="color:red;">Error loading hold payments.</p>';
+      }
     }
 
     // --- ADMIN PANEL: PLOT STATUS MANAGEMENT ---
@@ -1287,7 +1488,12 @@
           headers: { 'Authorization': `Bearer ${userSessionToken}` }
         });
         const list = await res.json();
-        let html = '<h4 style="font-size:13px; margin-bottom:8px;">Live CRM Pipeline:</h4>';
+        let html = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <h4 style="font-size:13px; margin:0;">Live CRM Pipeline:</h4>
+            <a href="${API_BASE}/admin/export-csv" target="_blank" style="background:#059669; color:white; padding:4px 8px; border-radius:4px; font-size:10px; text-decoration:none; font-weight:bold;"><i class="fa-solid fa-file-excel"></i> Export Leads</a>
+          </div>
+        `;
         if (list.length === 0) html += '<p style="font-size:12px; color:gray;">No leads yet.</p>';
         
         list.forEach(e => {
@@ -1331,13 +1537,9 @@
         });
         alert(`Lead status updated to: ${newStatus}`);
         if (newStatus === 'Booking Cancelled' || newStatus === 'Refund Processed') {
-          alert('💡 Reminder: Agar plot ko dubara sale ke liye kholna hai, toh "Manage Plot Grid" tab me jaakar plot ko 🟢 Available par set kar dein.');
+          alert('💡 Reminder: Plot Grid tab me jaakar plot ko 🟢 Available par set kar dein.');
         }
       } catch (err) { alert('Status update failed'); }
-    }
-
-    function downloadExcel() {
-      window.open(`${API_BASE}/admin/export-csv`, '_blank');
     }
   </script>
 </body>
