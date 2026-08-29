@@ -18,7 +18,7 @@ const db = new sqlite3.Database('./walke_farm.db', (err) => {
   else console.log('Connected to SQLite Database.');
 });
 
-// Setup Tables
+// Setup Tables & Seed Data
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -61,18 +61,18 @@ db.serialize(() => {
     created_at TEXT
   )`);
 
-  // Seed Default Admin
+  // Default Admin Credentials (Mam's Office Access)
   db.get("SELECT COUNT(*) as count FROM users WHERE email = 'admin@walkefarm.com'", (err, row) => {
     if (row && row.count === 0) {
       db.run("INSERT INTO users (email, password, role) VALUES ('admin@walkefarm.com', 'admin123', 'admin')");
     }
   });
 
-  // Seed Default Plots
+  // Seed Default Exact Plots
   db.get("SELECT COUNT(*) as count FROM plots", (err, row) => {
     if (row && row.count === 0) {
       const defaultPlots = [
-        // Degma Farmland
+        // Degma Farmland (Full Range)
         ['degma', 'P-01', '3,000 sq.ft.', '₹13,50,000', 'Available'],
         ['degma', 'P-02', '3,000 sq.ft.', '₹13,50,000', 'Booked'],
         ['degma', 'P-03', '6,000 sq.ft.', '₹27,00,000', 'Available'],
@@ -80,14 +80,14 @@ db.serialize(() => {
         ['degma', 'P-05', '11,000 sq.ft.', '₹49,50,000', 'Available'],
         ['degma', 'P-06', '22,000 sq.ft. (Half Acre)', '₹99,00,000', 'Available'],
         
-        // Strawberry Resort
+        // Strawberry Resort (1,000 to 3,000 sq.ft. + Luxury Cottages)
         ['strawberry', 'C-01', 'Luxury Furnished Cottage', '₹24,00,000', 'Available'],
         ['strawberry', 'C-02', 'Luxury Furnished Cottage', '₹24,00,000', 'Booked'],
         ['strawberry', 'P-01', '1,000 sq.ft. Farm Plot', '₹14,00,000', 'Available'],
         ['strawberry', 'P-02', '2,000 sq.ft. Farm Plot', '₹28,00,000', 'Available'],
         ['strawberry', 'P-03', '3,000 sq.ft. Farm Plot', '₹42,00,000', 'Available'],
 
-        // Mind Game Highway
+        // Mind Game (1,000 to 5,000 sq.ft. Highway Touch)
         ['mindgame', 'M-01', '1,000 sq.ft. Highway Plot', '₹14,00,000', 'Available'],
         ['mindgame', 'M-02', '2,000 sq.ft. Highway Plot', '₹28,00,000', 'Available'],
         ['mindgame', 'M-03', '3,000 sq.ft. Commercial Plot', '₹42,00,000', 'Available'],
@@ -112,7 +112,7 @@ function authenticateAdmin(req, res, next) {
   });
 }
 
-// ---------------- API ROUTES ----------------
+// ---------------- API ENDPOINTS ----------------
 
 app.post('/api/signup', (req, res) => {
   const { email, password } = req.body;
