@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Walke Farm World - Properties & Ecosystem</title>
   
+  <!-- PWA & Web App Manifest Links -->
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#064e3b">
   <meta name="mobile-web-app-capable" content="yes">
@@ -14,12 +15,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- Pannellum 360 Panorama Library -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
+  <!-- HTML2PDF Library for Instant Official Receipts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <style>
-    /* Default Dark Theme Variables */
     :root {
       --primary: #22c55e;
       --primary-dark: #15803d;
@@ -35,7 +38,6 @@
       --input-bg: #0b2218;
     }
 
-    /* Light Theme Variables */
     [data-theme="light"] {
       --primary: #15803d;
       --primary-dark: #064e3b;
@@ -60,11 +62,13 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
 
+    /* Offline Toast Banner */
     #offlineBanner {
       display: none; background: #dc2626; color: white; text-align: center;
       padding: 6px; font-size: 11px; font-weight: 600; position: sticky; top: 0; z-index: 1000;
     }
 
+    /* Custom Fullscreen Offline Overlay */
     #customOfflineScreen {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(6, 26, 18, 0.98); backdrop-filter: blur(8px); color: white;
@@ -83,9 +87,11 @@
       background: linear-gradient(135deg, #15803d, #22c55e); color: white; border: none;
       padding: 12px 28px; border-radius: 25px; font-weight: 700; cursor: pointer;
       font-size: 13px; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3); display: flex;
-      align-items: center; gap: 8px;
+      align-items: center; gap: 8px; transition: transform 0.2s;
     }
+    #customOfflineScreen .btn-retry:active { transform: scale(0.96); }
 
+    /* Header */
     .app-header {
       background: var(--header-bg); backdrop-filter: blur(10px); padding: 12px 16px;
       display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--card-border);
@@ -93,9 +99,11 @@
     }
     .brand-title { color: var(--primary); font-size: 15px; font-weight: 700; user-select: none; letter-spacing: 0.5px; }
 
+    /* Screens */
     .screen { display: none; padding: 14px; padding-bottom: 90px; }
     .screen.active { display: block !important; }
 
+    /* Welcome Hero Header */
     .welcome-card {
       background: linear-gradient(135deg, #064e3b, #047857);
       border-radius: 14px; padding: 18px 14px; color: white; text-align: center;
@@ -109,6 +117,7 @@
     .welcome-card h2 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
     .welcome-card p { font-size: 11px; opacity: 0.9; }
 
+    /* Auto Rotating Sliders */
     .slider-container { position: relative; width: 100%; height: 200px; overflow: hidden; border-radius: 14px; background: #111; margin-bottom: 14px; border: 1px solid var(--card-border); }
     .slide-degma, .slide-strawberry, .slide-mindgame, .slide-welcome {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -121,6 +130,7 @@
       border: 1px solid var(--card-border);
     }
 
+    /* Fast Launch Buttons */
     .launch-btn {
       background: var(--card-bg); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px;
       display: flex; align-items: center; justify-content: space-between;
@@ -132,6 +142,7 @@
     .launch-info span { font-size: 11px; color: var(--text-muted); }
     .launch-icon { width: 34px; height: 34px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 13px; border: 1px solid rgba(34, 197, 94, 0.2); }
 
+    /* Project Cards */
     .project-card { background: var(--card-bg); border-radius: 14px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.15); margin-bottom: 18px; border: 1px solid var(--card-border); }
     .project-body { padding: 14px; }
     .project-body h2 { font-size: 17px; color: var(--primary); margin-bottom: 2px; }
@@ -148,11 +159,13 @@
       box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
     }
 
+    /* 360 VIEWER & THUMBNAILS */
     #panorama-360 { width: 100%; height: 260px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--card-border); }
     .thumb-360-row { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 12px 0; }
     .thumb-360-row img { width: 65px; height: 45px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; flex-shrink: 0; }
     .thumb-360-row img.active { border-color: var(--primary); }
 
+    /* INTERACTIVE PLOT MAP */
     .map-box { background: var(--card-bg); border-radius: 12px; padding: 14px; margin: 12px 0 16px 0; color: var(--text-main); border: 1px solid var(--card-border); }
     .map-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; font-weight: 600; }
     .plot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -168,6 +181,7 @@
     
     .timer-badge { font-size: 8px; background: #dc2626; color: white; padding: 1px 4px; border-radius: 4px; font-weight: bold; margin-top: 2px; display: inline-block; }
 
+    /* DETAILED PLOT CARDS */
     .plot-item {
       background: var(--card-bg); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px;
       border-left: 4px solid var(--primary); border-top: 1px solid var(--card-border); border-right: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border);
@@ -958,11 +972,11 @@
         </div>
       </div>
 
-      <div class="plot-item" style="border-left-color: #f59e0b;">
-        <span class="badge-status" style="background:rgba(245, 158, 11, 0.2); color:#f59e0b; border-color:rgba(245, 158, 11, 0.3);">● Prime Commercial Frontage</span>
+      <div class="plot-item" style="border-left-color: #F9A825;">
+        <span class="badge-status" style="background:#fef3c7; color:#b45309;">● Prime Commercial Frontage</span>
         <div class="plot-header"><h3>5,000 Sq.ft. Prime Commercial</h3><div class="plot-price">₹70,00,000</div></div>
         <div class="plot-meta">Rate: <strong>₹1,400 / sq.ft.</strong> | Down Payment: <strong>₹7,00,000</strong><br>Usage: <strong>Direct Highway Frontage Prime Commercial Zone</strong></div>
-        <div class="plot-emi-highlight" style="color:#f59e0b;"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹2,62,500 / Month (24 Months @ 0% Interest)</div>
+        <div class="plot-emi-highlight" style="color:#d97706;"><i class="fa-solid fa-credit-card"></i> Easy EMI: ₹2,62,500 / Month (24 Months @ 0% Interest)</div>
         <div style="display:flex; gap:6px; margin-top:8px;">
           <button class="btn-main" onclick="openHoldModal('Mind Game Plots', 'Plot M-05 Prime Commercial (5,000 sq.ft.)')" style="background:#d97706; padding:6px; font-size:11px; flex:1; box-shadow:0 4px 10px rgba(217, 119, 6, 0.3);"><i class="fa-solid fa-lock"></i> Hold for ₹4,999</button>
           <button class="btn-main" onclick="selectPlot('Mind Game Plots', '5,000 Sq.ft. Prime Commercial - ₹70,00,000')" style="padding:6px; font-size:11px; flex:1;"><i class="fa-solid fa-calendar-check"></i> Free Visit</button>
@@ -971,7 +985,7 @@
 
       <div style="display:flex; gap:8px; margin-top:14px;">
         <button class="btn-main" onclick="open360Tour('mindgame', 'Mind Game Highway 360° View')" style="background:#0284c7; box-shadow:0 4px 12px rgba(2, 132, 199, 0.25);"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
-        <button class="btn-main" onclick="showGallery('mindgame')" style="background:#d97706; box-shadow:0 4px 12px rgba(217, 119, 6, 0.25);"><i class="fa-solid fa-image"></i> Photos</button>
+        <button class="btn-main" onclick="showGallery('mindgame')" style="background:var(--accent); box-shadow:0 4px 12px rgba(245, 158, 11, 0.25);"><i class="fa-solid fa-image"></i> Photos</button>
       </div>
     </div>
 
@@ -1259,11 +1273,31 @@
       }
     }
 
-    // Load saved theme on startup
     window.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('wfw_theme') || 'dark';
       document.body.setAttribute('data-theme', savedTheme);
       document.getElementById('themeIcon').className = savedTheme === 'light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+
+      if (!navigator.onLine) {
+        document.getElementById('offlineBanner').style.display = 'block';
+        document.getElementById('customOfflineScreen').style.display = 'flex';
+      }
+
+      if (loggedInUser && userSessionToken) {
+        renderHeaderAuth();
+        if (loggedInUser.role === 'admin') {
+          loadAdminHolds();
+          showScreenDirect('admin_dashboard');
+        } else {
+          document.getElementById('welcomeUserName').innerText = `Welcome, ${loggedInUser.email.split('@')[0]}!`;
+          showScreenDirect('welcome_dashboard');
+        }
+      } else {
+        showScreenDirect('signup');
+        renderHeaderAuth();
+      }
+      handlePlotSelectionChange();
+      renderExploredPlotsList();
     });
 
     // --- EXACT PLOT SPECIFICATION DATABASE FOR AI & VASTU ---
@@ -1321,29 +1355,6 @@
       location.reload();
     });
 
-    window.addEventListener('DOMContentLoaded', () => {
-      if (!navigator.onLine) {
-        document.getElementById('offlineBanner').style.display = 'block';
-        document.getElementById('customOfflineScreen').style.display = 'flex';
-      }
-
-      if (loggedInUser && userSessionToken) {
-        renderHeaderAuth();
-        if (loggedInUser.role === 'admin') {
-          loadAdminHolds();
-          showScreenDirect('admin_dashboard');
-        } else {
-          document.getElementById('welcomeUserName').innerText = `Welcome, ${loggedInUser.email.split('@')[0]}!`;
-          showScreenDirect('welcome_dashboard');
-        }
-      } else {
-        showScreenDirect('signup');
-        renderHeaderAuth();
-      }
-      handlePlotSelectionChange();
-      renderExploredPlotsList();
-    });
-
     window.addEventListener('popstate', (event) => {
       if (!loggedInUser || !userSessionToken) {
         showScreenDirect('signup');
@@ -1374,7 +1385,6 @@
       window.scrollTo(0, 0);
     }
 
-    // --- PLAY STORE PRIVACY & ACCOUNT DELETION ---
     function openPrivacyModal() {
       document.getElementById('privacyModal').style.display = 'flex';
     }
@@ -1390,7 +1400,6 @@
       }
     }
 
-    // --- RECENTLY EXPLORED TRACKER ---
     function recordPlotInterest(projectName, plotInfo) {
       try {
         let explored = JSON.parse(localStorage.getItem('wfw_explored_plots') || '[]');
@@ -1408,7 +1417,7 @@
       if (!container) return;
       const explored = JSON.parse(localStorage.getItem('wfw_explored_plots') || '[]');
       if (explored.length === 0) {
-        container.innerHTML = '<p style="color:#94a3b8; font-size:11px;">Browse properties to see your viewed plots here.</p>';
+        container.innerHTML = '<p style="color:var(--text-muted); font-size:11px;">Browse properties to see your viewed plots here.</p>';
         return;
       }
       let html = '';
@@ -1436,7 +1445,6 @@
       showScreen('enquiry');
     }
 
-    // --- CUSTOMER DRAWER CONTROLLER ---
     function openCustomerDrawer() {
       if (!loggedInUser) {
         showScreen('login');
@@ -1459,10 +1467,9 @@
         const res = await fetch(`${API_BASE}/customer/activity?email=${encodeURIComponent(loggedInUser.email)}`);
         const data = await res.json();
 
-        // 1. Render Holds
         const holdsEl = document.getElementById('drawerHoldsList');
         if (!data.holds || data.holds.length === 0) {
-          holdsEl.innerHTML = '<p style="color:#94a3b8; font-size:11px;">No active priority plot holds found.</p>';
+          holdsEl.innerHTML = '<p style="color:var(--text-muted); font-size:11px;">No active priority plot holds found.</p>';
         } else {
           let html = '';
           data.holds.forEach(h => {
@@ -1480,10 +1487,9 @@
           holdsEl.innerHTML = html;
         }
 
-        // 2. Render Visits
         const visitsEl = document.getElementById('drawerVisitsList');
         if (!data.enquiries || data.enquiries.length === 0) {
-          visitsEl.innerHTML = '<p style="color:#94a3b8; font-size:11px;">No site visits scheduled yet.</p>';
+          visitsEl.innerHTML = '<p style="color:var(--text-muted); font-size:11px;">No site visits scheduled yet.</p>';
         } else {
           let html = '';
           data.enquiries.forEach(v => {
@@ -1507,7 +1513,6 @@
       }
     }
 
-    // --- AI SMART PLOT MATCHER LOGIC ---
     function openAiMatcher() {
       document.getElementById('aiMatcherModal').style.display = 'flex';
     }
@@ -1534,7 +1539,6 @@
       }
     }
 
-    // --- CINEMATIC VIDEO / DRONE WALKTHROUGH CONTROLLER ---
     function openCinematicTour(project) {
       document.getElementById('videoModal').style.display = 'flex';
       let frameIdx = 0;
@@ -1552,7 +1556,6 @@
       document.getElementById('videoModal').style.display = 'none';
     }
 
-    // --- PRIORITY PLOT HOLD MODAL & PAYMENT SLIP GENERATOR ---
     function openHoldModal(project, plot) {
       recordPlotInterest(project, plot);
       document.getElementById('modalHoldProject').value = project;
@@ -1621,13 +1624,13 @@
     function renderPaymentSlip(data) {
       const slipHTML = `
         <div id="paymentSlipOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; display:flex; justify-content:center; align-items:center; padding:14px;">
-          <div id="printableReceiptCard" style="background:#091f16; color:white; width:100%; max-width:380px; padding:20px; border-radius:12px; border:2px solid var(--card-border); font-family:sans-serif; box-shadow:0 10px 25px rgba(0,0,0,0.5);">
+          <div id="printableReceiptCard" style="background:var(--card-bg); color:var(--text-main); width:100%; max-width:380px; padding:20px; border-radius:12px; border:2px solid var(--card-border); font-family:sans-serif; box-shadow:0 10px 25px rgba(0,0,0,0.5);">
             <div style="text-align:center; border-bottom:2px dashed var(--card-border); padding-bottom:10px;">
               <h2 style="margin:0; color:#4ade80; font-size:18px;">WALKE FARM WORLD</h2>
               <span style="font-size:10px; background:#16a34a; color:#fff; padding:2px 8px; border-radius:12px; font-weight:bold;">OFFICIAL PLOT HOLD RECEIPT</span>
             </div>
 
-            <div style="margin:14px 0; font-size:12px; line-height:1.6; color:#e2e8f0;">
+            <div style="margin:14px 0; font-size:12px; line-height:1.6; color:var(--text-main);">
               <p style="margin:3px 0;"><b>Receipt No:</b> WFW-HOLD-${data.id}</p>
               <p style="margin:3px 0;"><b>Date & Time:</b> ${data.timestamp}</p>
               <hr style="border:none; border-top:1px solid var(--card-border); margin:6px 0;">
@@ -1636,7 +1639,7 @@
               <p style="margin:3px 0;"><b>Email Address:</b> ${data.email}</p>
               <p style="margin:3px 0;"><b>Locked Unit:</b> <strong style="color:#38bdf8;">${data.project} - ${data.plot}</strong></p>
               <p style="margin:3px 0;"><b>Lock Period:</b> 48 Hours Priority</p>
-              <p style="margin:3px 0;"><b>UTR / Txn ID:</b> <code style="background:#04130d; padding:2px 4px; border-radius:4px;">${data.txn}</code></p>
+              <p style="margin:3px 0;"><b>UTR / Txn ID:</b> <code style="background:var(--input-bg); padding:2px 4px; border-radius:4px;">${data.txn}</code></p>
               <p style="margin:4px 0; font-size:13px; color:#4ade80;"><b>Amount Paid: ₹4,999/-</b> (Non-Refundable)</p>
             </div>
 
@@ -1654,7 +1657,6 @@
       document.body.insertAdjacentHTML('beforeend', slipHTML);
     }
 
-    // --- INSTANT PDF DOWNLOAD ENGINE ---
     function downloadSlipPDF(elementId, filename) {
       const element = document.getElementById(elementId);
       const opt = {
@@ -1667,7 +1669,6 @@
       html2pdf().set(opt).from(element).save();
     }
 
-    // --- IN-APP VIRAL MARKETING HANDLERS ---
     function shareOnWhatsAppForVoucher() {
       const shareUrl = window.location.origin;
       const viralText = encodeURIComponent(
@@ -1694,7 +1695,6 @@
       window.open(`https://api.whatsapp.com/send?text=${referText}`, '_blank');
     }
 
-    // --- SECRET TRIPLE-TAP ADMIN ---
     function handleHomeClick() {
       if (!loggedInUser) return;
       homeTapCount++;
@@ -1797,7 +1797,6 @@
       document.getElementById('roiFill').style.width = (selectedHorizonYears === 3) ? '55%' : '95%';
     }
 
-    // --- CAROUSEL ---
     function startCarousel(className, isWelcome = false) {
       let idx = 0;
       const slides = document.querySelectorAll('.' + className);
@@ -1818,7 +1817,6 @@
     startCarousel('slide-mindgame');
     startCarousel('slide-welcome', true);
 
-    // --- 360° TOUR ---
     function open360Tour(projectType, title) {
       document.getElementById('tour360Title').innerText = title;
       showScreen('tour_360_screen');
@@ -1860,7 +1858,6 @@
       } catch(e){}
     }
 
-    // --- GALLERY ---
     function showGallery(type) {
       const container = document.getElementById('galleryContainer');
       const title = document.getElementById('galleryTitle');
@@ -1901,7 +1898,6 @@
       document.getElementById('lightboxImg').src = currentActiveGallery[currentLightboxIdx];
     }
 
-    // --- AUTHENTICATION ---
     async function handleSignup(e) {
       e.preventDefault();
       const email = document.getElementById('signup_email').value;
@@ -1983,7 +1979,6 @@
       showScreenDirect('signup');
     }
 
-    // --- FORM SUBMISSION ---
     async function submitForm(e) {
       e.preventDefault();
       const proj = document.getElementById('project_name').value;
@@ -2017,7 +2012,6 @@
       } catch (err) { alert('Booking forwarded.'); }
     }
 
-    // --- ADMIN PANEL: PRIORITY HOLD PAYMENTS VIEW & EXCEL EXPORT ---
     async function loadAdminHolds() {
       try {
         const res = await fetch(`${API_BASE}/admin/plot-holds`, {
@@ -2060,7 +2054,6 @@
       }
     }
 
-    // --- ADMIN PANEL: PLOT STATUS MANAGEMENT ---
     async function loadAdminPlots() {
       try {
         const res = await fetch(`${API_BASE}/admin/plots`, {
@@ -2101,7 +2094,6 @@
       } catch (err) { alert('Status update failed'); }
     }
 
-    // --- ADMIN PANEL: LEAD CRM PIPELINE ---
     async function loadAdminEnquiries() {
       try {
         const res = await fetch(`${API_BASE}/admin/enquiries`, {
