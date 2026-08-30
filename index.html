@@ -40,7 +40,7 @@
       display: flex; flex-direction: column; box-shadow: 0 0 25px rgba(0,0,0,0.15); position: relative;
     }
 
-    /* Top Offline Alert Banner */
+    /* Offline Toast Banner */
     #offlineBanner {
       display: none; background: #dc2626; color: white; text-align: center;
       padding: 6px; font-size: 11px; font-weight: 600; position: sticky; top: 0; z-index: 1000;
@@ -296,7 +296,7 @@
   </div>
 
   <div class="mobile-frame">
-    <!-- Offline Toast Alert -->
+    <!-- Offline Alert -->
     <div id="offlineBanner">⚠️ You are offline. Please check your internet connection.</div>
 
     <!-- Header with Triple Tap Secret Admin Trigger & Profile Drawer -->
@@ -1253,7 +1253,7 @@
     let homeTapCount = 0;
     let homeTapTimer = null;
 
-    // Online/Offline detection for Play Store reliability & Custom UI screen
+    // Smart Network Event Listeners & Auto-Reconnect
     function checkNetworkAndRetry() {
       if (navigator.onLine) {
         document.getElementById('customOfflineScreen').style.display = 'none';
@@ -1261,10 +1261,10 @@
         location.reload();
       } else {
         const btn = document.querySelector('#customOfflineScreen .btn-retry');
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking...';
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking Connection...';
         setTimeout(() => {
-          btn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Still Offline (Try Again)';
-        }, 1000);
+          btn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Try Again';
+        }, 1200);
       }
     }
 
@@ -1272,9 +1272,11 @@
       document.getElementById('offlineBanner').style.display = 'block';
       document.getElementById('customOfflineScreen').style.display = 'flex';
     });
+
     window.addEventListener('online', () => {
       document.getElementById('offlineBanner').style.display = 'none';
       document.getElementById('customOfflineScreen').style.display = 'none';
+      location.reload();
     });
 
     window.addEventListener('DOMContentLoaded', () => {
