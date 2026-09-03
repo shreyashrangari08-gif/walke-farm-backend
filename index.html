@@ -159,13 +159,11 @@
       box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
     }
 
-    /* 360 VIEWER & THUMBNAILS */
     #panorama-360 { width: 100%; height: 260px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--card-border); }
     .thumb-360-row { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 12px 0; }
     .thumb-360-row img { width: 65px; height: 45px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; flex-shrink: 0; }
     .thumb-360-row img.active { border-color: var(--primary); }
 
-    /* INTERACTIVE PLOT MAP */
     .map-box { background: var(--card-bg); border-radius: 12px; padding: 14px; margin: 12px 0 16px 0; color: var(--text-main); border: 1px solid var(--card-border); }
     .map-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; font-weight: 600; }
     .plot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -181,7 +179,6 @@
     
     .timer-badge { font-size: 8px; background: #dc2626; color: white; padding: 1px 4px; border-radius: 4px; font-weight: bold; margin-top: 2px; display: inline-block; }
 
-    /* DETAILED PLOT CARDS */
     .plot-item {
       background: var(--card-bg); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px;
       border-left: 4px solid var(--primary); border-top: 1px solid var(--card-border); border-right: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border);
@@ -264,7 +261,6 @@
 
     .user-pill { display: flex; align-items: center; gap: 6px; background: var(--primary-light); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; color: var(--primary); cursor: pointer; border: 1px solid rgba(34, 197, 94, 0.3); }
     
-    /* THEME SWITCHER BUTTON */
     .theme-toggle-pill {
       background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main);
       width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -272,7 +268,6 @@
     }
     .theme-toggle-pill:active { transform: scale(0.9); }
 
-    /* CUSTOMER ACTIVITY SLIDE BAR DRAWER */
     .customer-drawer-backdrop {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.75); z-index: 3000; backdrop-filter: blur(4px);
@@ -297,12 +292,10 @@
       border: 1px solid var(--card-border); font-size: 11px; color: var(--text-main);
     }
 
-    /* Admin Cards */
     .admin-plot-item { background: var(--card-bg); border-radius: 8px; padding: 10px; margin-bottom: 8px; border: 1px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
     .crm-card { background: var(--card-bg); border-radius: 10px; padding: 12px; margin-bottom: 10px; border: 1px solid var(--card-border); color: var(--text-main); }
     .crm-stage-select { width: 100%; padding: 7px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid var(--card-border); margin-top: 8px; outline: none; background: var(--input-bg); color: var(--text-main); }
 
-    /* Bottom Bar */
     .bottom-bar {
       position: fixed; bottom: 0; width: 100%; max-width: 420px; background: var(--header-bg);
       backdrop-filter: blur(10px); padding: 10px 14px; display: flex; gap: 10px; box-shadow: 0 -4px 15px rgba(0,0,0,0.3); z-index: 100; border-top: 1px solid var(--card-border);
@@ -465,11 +458,11 @@
       </div>
 
       <div class="slider-container">
-        <img src="farm1.jpg" class="slide-welcome active" alt="Degma Farmland">
-        <img src="resort1.jpg" class="slide-welcome" alt="Strawberry Resort Entrance">
-        <img src="mind1.jpg" class="slide-welcome" alt="Mind Game Highway Touch">
-        <img src="resort2.jpg" class="slide-welcome" alt="Resort Pool View">
-        <img src="farm10.jpg" class="slide-welcome" alt="Degma Gazebo">
+        <img src="images/farm1.jpg" class="slide-welcome active" alt="Degma Farmland">
+        <img src="images/resort1.jpg" class="slide-welcome" alt="Strawberry Resort Entrance">
+        <img src="images/mind1.jpg" class="slide-welcome" alt="Mind Game Highway Touch">
+        <img src="images/resort2.jpg" class="slide-welcome" alt="Resort Pool View">
+        <img src="images/farm10.jpg" class="slide-welcome" alt="Degma Gazebo">
         <div class="slider-tag" id="welcomeSlideTag">🌿 Featured Property Highlights</div>
       </div>
 
@@ -610,9 +603,9 @@
       <!-- DEGMA CARD -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
-          <img src="farm1.jpg" class="slide-degma active" alt="Degma 1">
-          <img src="farm2.jpg" class="slide-degma" alt="Degma 2">
-          <img src="farm3.jpg" class="slide-degma" alt="Degma 3">
+          <img src="images/farm1.jpg" class="slide-degma active" alt="Degma 1">
+          <img src="images/farm2.jpg" class="slide-degma" alt="Degma 2">
+          <img src="images/farm3.jpg" class="slide-degma" alt="Degma 3">
         </div>
         <div class="project-body">
           <h2>Degma Farmland</h2>
@@ -633,8 +626,8 @@
       <!-- STRAWBERRY CARD -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
-          <img src="resort1.jpg" class="slide-strawberry active" alt="Resort 1">
-          <img src="resort2.jpg" class="slide-strawberry" alt="Resort 2">
+          <img src="images/resort1.jpg" class="slide-strawberry active" alt="Resort 1">
+          <img src="images/resort2.jpg" class="slide-strawberry" alt="Resort 2">
         </div>
         <div class="project-body">
           <h2>Strawberry Resort (Muniya Farm)</h2>
@@ -655,8 +648,8 @@
       <!-- MIND GAME CARD -->
       <div class="project-card">
         <div class="slider-container" style="border-radius: 14px 14px 0 0; margin-bottom: 0;">
-          <img src="mind1.jpg" class="slide-mindgame active" alt="Mind 1">
-          <img src="mind3.jpg" class="slide-mindgame" alt="Mind 3">
+          <img src="images/mind1.jpg" class="slide-mindgame active" alt="Mind 1">
+          <img src="images/mind3.jpg" class="slide-mindgame" alt="Mind 3">
         </div>
         <div class="project-body">
           <h2>Mind Game (Highway Touch)</h2>
@@ -984,8 +977,8 @@
       </div>
 
       <div style="display:flex; gap:8px; margin-top:14px;">
-        <button class="btn-main" onclick="open360Tour('mindgame', 'Mind Game Highway 360° View')" style="background:#0284c7; box-shadow:0 4px 12px rgba(2, 132, 199, 0.25);"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
-        <button class="btn-main" onclick="showGallery('mindgame')" style="background:var(--accent); box-shadow:0 4px 12px rgba(245, 158, 11, 0.25);"><i class="fa-solid fa-image"></i> Photos</button>
+        <button class="btn-main" onclick="open360Tour('mindgame', 'Mind Game Highway 360° View')" style="background:#0284c7;"><i class="fa-solid fa-vr-cardboard"></i> 360° Tour</button>
+        <button class="btn-main" onclick="showGallery('mindgame')" style="background:var(--accent);"><i class="fa-solid fa-image"></i> Photos</button>
       </div>
     </div>
 
@@ -1017,13 +1010,13 @@
     <!-- 10. HIDDEN ADMIN LOGIN SCREEN -->
     <div id="admin_secret_login" class="screen">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-        <h3 style="color: #ef4444;"><i class="fa-solid fa-lock"></i> Restricted Admin Access</h3>
+        <h3 style="color: #b91c1c;"><i class="fa-solid fa-lock"></i> Restricted Admin Access</h3>
         <button onclick="showScreen('home')" style="border:none; background:none; color:gray; font-size:16px; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <form onsubmit="handleAdminLogin(event)">
         <div class="form-group"><label>Admin Email</label><input type="text" id="admin_email" required /></div>
         <div class="form-group"><label>Security Key</label><input type="password" id="admin_password" required /></div>
-        <button type="submit" class="btn-main" style="background:#dc2626; box-shadow:0 4px 12px rgba(220, 38, 38, 0.3);">Verify & Authenticate</button>
+        <button type="submit" class="btn-main" style="background:#b91c1c;">Verify & Authenticate</button>
       </form>
     </div>
 
@@ -1035,9 +1028,9 @@
       </div>
 
       <div style="display:flex; gap:6px; margin-bottom:14px;">
-        <button class="btn-main" onclick="loadAdminHolds()" style="padding:6px; font-size:10px; flex:1; background:#d97706; box-shadow:none;"><i class="fa-solid fa-receipt"></i> Holds (₹4,999)</button>
-        <button class="btn-main" onclick="loadAdminPlots()" style="padding:6px; font-size:10px; flex:1; background:#0284c7; box-shadow:none;"><i class="fa-solid fa-cubes"></i> Plot Grid</button>
-        <button class="btn-main" onclick="loadAdminEnquiries()" style="padding:6px; font-size:10px; flex:1; background:var(--primary); box-shadow:none;"><i class="fa-solid fa-users"></i> Leads</button>
+        <button class="btn-main" onclick="loadAdminHolds()" style="padding:6px; font-size:10px; flex:1; background:#f59e0b;"><i class="fa-solid fa-receipt"></i> Holds (₹4,999)</button>
+        <button class="btn-main" onclick="loadAdminPlots()" style="padding:6px; font-size:10px; flex:1;"><i class="fa-solid fa-cubes"></i> Plot Grid</button>
+        <button class="btn-main" onclick="loadAdminEnquiries()" style="padding:6px; font-size:10px; flex:1; background:var(--primary);"><i class="fa-solid fa-users"></i> Leads</button>
       </div>
 
       <div id="adminContentPanel">Loading admin data...</div>
@@ -1052,10 +1045,10 @@
       <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px; margin-left: 24px;">Direct WhatsApp Dispatch: +91 7972306925</p>
 
       <form id="enquiryForm" onsubmit="submitForm(event)">
-        <div class="form-group"><label>Selected Project</label><input type="text" id="project_name" readonly style="background:var(--input-bg); font-weight:600;" /></div>
+        <div class="form-group"><label>Selected Project</label><input type="text" id="project_name" readonly style="background:#e5e7eb; font-weight:600;" /></div>
         <div class="form-group"><label>Full Name</label><input type="text" id="name" required placeholder="Enter your full name" /></div>
         <div class="form-group"><label>WhatsApp Phone Number</label><input type="tel" id="phone" required placeholder="10-digit mobile number" /></div>
-        <div class="form-group"><label>Selected Plot / Unit Details</label><input type="text" id="plot_size" required readonly style="background:var(--input-bg); font-weight:600;" /></div>
+        <div class="form-group"><label>Selected Plot / Unit Details</label><input type="text" id="plot_size" required readonly style="background:#f3f4f6; font-weight:600;" /></div>
         <div class="form-group"><label>Preferred Visit Date</label><input type="date" id="visit_date" required /></div>
         <button type="submit" class="btn-main"><i class="fa-brands fa-whatsapp"></i> Confirm & Forward to Booking</button>
       </form>
@@ -1094,10 +1087,10 @@
       <!-- ACCOUNT & PLAY STORE SETTINGS -->
       <div class="drawer-section-title"><i class="fa-solid fa-shield-halved" style="color:#64748b;"></i> Legal & Settings</div>
       <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:12px;">
-        <button onclick="openPrivacyModal()" style="background:var(--card-bg); border:1px solid var(--card-border); padding:8px; border-radius:6px; font-size:11px; text-align:left; cursor:pointer; color:var(--text-main);">
+        <button onclick="openPrivacyModal()" style="background:#f1f5f9; border:1px solid #cbd5e1; padding:8px; border-radius:6px; font-size:11px; text-align:left; cursor:pointer; color:#334155;">
           📄 Privacy Policy & Terms
         </button>
-        <button onclick="handleDeleteAccount()" style="background:rgba(239, 68, 68, 0.15); border:1px solid rgba(239, 68, 68, 0.3); padding:8px; border-radius:6px; font-size:11px; text-align:left; cursor:pointer; color:#fca5a5;">
+        <button onclick="handleDeleteAccount()" style="background:#fef2f2; border:1px solid #fecaca; padding:8px; border-radius:6px; font-size:11px; text-align:left; cursor:pointer; color:#dc2626;">
           🗑️ Delete My Account Data
         </button>
       </div>
@@ -1107,7 +1100,7 @@
         <a href="https://wa.me/917972306925?text=Hello%20Mam%2C%20I%20need%20help%20with%20my%20plot%20inquiry." target="_blank" class="btn-main" style="background: #25D366; margin-bottom: 8px; font-size: 11px;">
           <i class="fa-brands fa-whatsapp"></i> Chat with Mam on WhatsApp
         </a>
-        <button onclick="logout()" class="btn-main" style="background: #ef4444; font-size: 11px; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);">
+        <button onclick="logout()" class="btn-main" style="background: #ef4444; font-size: 11px;">
           <i class="fa-solid fa-right-from-bracket"></i> Log Out
         </button>
       </div>
@@ -1115,11 +1108,11 @@
   </div>
 
   <!-- PRIVACY POLICY MODAL (PLAY STORE MANDATORY) -->
-  <div id="privacyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(2, 13, 8, 0.9); z-index:4000; justify-content:center; align-items:center; padding:14px;">
-    <div style="background:var(--card-bg); width:100%; max-width:390px; padding:18px; border-radius:12px; border:1px solid var(--card-border); max-height:85vh; overflow-y:auto; font-size:12px; color:var(--text-main); line-height:1.6;">
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--card-border); padding-bottom:8px; margin-bottom:10px;">
+  <div id="privacyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:4000; justify-content:center; align-items:center; padding:14px;">
+    <div style="background:#fff; width:100%; max-width:390px; padding:18px; border-radius:12px; max-height:85vh; overflow-y:auto; font-size:12px; color:#334155; line-height:1.6;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:8px; margin-bottom:10px;">
         <h3 style="color:var(--primary); font-size:14px; margin:0;">Privacy Policy & Terms</h3>
-        <span onclick="closePrivacyModal()" style="font-size:20px; font-weight:bold; cursor:pointer; color:var(--text-muted);">&times;</span>
+        <span onclick="closePrivacyModal()" style="font-size:20px; font-weight:bold; cursor:pointer; color:#64748b;">&times;</span>
       </div>
       <p><b>Walke Farm World</b> is committed to protecting your privacy. We collect basic contact details (Name, Phone number, Email) only to provide property assistance, schedule site visits, and coordinate priority bookings.</p>
       <br>
@@ -1133,13 +1126,13 @@
   </div>
 
   <!-- AI SMART PLOT MATCHER QUIZ MODAL -->
-  <div id="aiMatcherModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(2, 13, 8, 0.9); z-index:1100; justify-content:center; align-items:center;">
-    <div style="background:var(--card-bg); width:92%; max-width:390px; padding:18px; border-radius:12px; border:1px solid var(--card-border); color:var(--text-main);">
+  <div id="aiMatcherModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1100; justify-content:center; align-items:center;">
+    <div style="background:#fff; width:92%; max-width:390px; padding:18px; border-radius:12px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <h3 style="color:#4ade80; font-size:15px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Plot Matcher Quiz</h3>
-        <span onclick="closeAiMatcher()" style="font-size:20px; font-weight:bold; cursor:pointer; color:var(--text-muted);">&times;</span>
+        <h3 style="color:#1b5e20; font-size:15px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Plot Matcher Quiz</h3>
+        <span onclick="closeAiMatcher()" style="font-size:20px; font-weight:bold; cursor:pointer; color:#64748b;">&times;</span>
       </div>
-      <p style="font-size:11px; color:var(--text-muted); margin-bottom:12px;">Answer 2 simple questions to find the 100% matched property:</p>
+      <p style="font-size:11px; color:#64748b; margin-bottom:12px;">Answer 2 simple questions to find the 100% matched property:</p>
       
       <div class="form-group">
         <label style="font-size:11px;">1. What is your approximate budget?</label>
@@ -1166,42 +1159,42 @@
   </div>
 
   <!-- CINEMATIC VIDEO WALKTHROUGH MODAL -->
-  <div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(2, 13, 8, 0.95); z-index:1200; justify-content:center; align-items:center; flex-direction:column;">
-    <div style="width:92%; max-width:390px; background:var(--card-bg); border-radius:12px; overflow:hidden; border:1px solid var(--card-border);">
-      <div style="padding:10px 14px; display:flex; justify-content:space-between; align-items:center; background:var(--input-bg);">
-        <h4 id="videoTitle" style="color:var(--text-main); font-size:13px; margin:0;"><i class="fa-solid fa-film"></i> Cinematic Drone Walkthrough</h4>
-        <span onclick="closeCinematicTour()" style="color:var(--text-main); font-size:20px; cursor:pointer;">&times;</span>
+  <div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1200; justify-content:center; align-items:center; flex-direction:column;">
+    <div style="width:92%; max-width:390px; background:#0f172a; border-radius:12px; overflow:hidden; border:1px solid #334155;">
+      <div style="padding:10px 14px; display:flex; justify-content:space-between; align-items:center; background:#1e293b;">
+        <h4 id="videoTitle" style="color:white; font-size:13px; margin:0;"><i class="fa-solid fa-film"></i> Cinematic Drone Walkthrough</h4>
+        <span onclick="closeCinematicTour()" style="color:white; font-size:20px; cursor:pointer;">&times;</span>
       </div>
       <div style="position:relative; width:100%; height:260px; background:#000; display:flex; justify-content:center; align-items:center;">
-        <img id="videoReelFrame" src="farm1.jpg" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.9);" />
+        <img id="videoReelFrame" src="images/farm1.jpg" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.9);" />
         <div style="position:absolute; bottom:10px; left:10px; right:10px; background:rgba(0,0,0,0.7); backdrop-filter:blur(5px); color:white; padding:6px 10px; border-radius:6px; font-size:11px; display:flex; justify-content:space-between;">
           <span id="videoLocationTag">📍 Degma Waterfall Entrance</span>
           <span style="color:#22c55e;">● Live Walkthrough</span>
         </div>
       </div>
-      <div style="padding:10px 14px; text-align:center; background:var(--card-bg);">
-        <button onclick="openHoldModal('Degma Farmland', 'Plot P-01 (3,000 sq.ft.)'); closeCinematicTour();" class="btn-main" style="background:#d97706; font-size:12px; box-shadow:0 4px 10px rgba(217, 119, 6, 0.3);"><i class="fa-solid fa-lock"></i> Hold This Plot for ₹4,999</button>
+      <div style="padding:10px 14px; text-align:center;">
+        <button onclick="openHoldModal('Degma Farmland', 'Plot P-01 (3,000 sq.ft.)'); closeCinematicTour();" class="btn-main" style="background:#f59e0b; font-size:12px;"><i class="fa-solid fa-lock"></i> Hold This Plot for ₹4,999</button>
       </div>
     </div>
   </div>
 
   <!-- PRIORITY HOLD MODAL -->
-  <div id="holdModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(2, 13, 8, 0.9); z-index:1000; justify-content:center; align-items:center;">
-    <div style="background:var(--card-bg); width:92%; max-width:390px; padding:18px; border-radius:12px; border:1px solid var(--card-border); max-height:90vh; overflow-y:auto; color:var(--text-main);">
+  <div id="holdModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+    <div style="background:#fff; width:92%; max-width:390px; padding:18px; border-radius:12px; max-height:90vh; overflow-y:auto;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-        <h3 style="color:#f59e0b; font-size:15px;"><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> Priority Plot Lock (48 Hrs)</h3>
-        <span onclick="closeHoldModal()" style="font-size:20px; font-weight:bold; cursor:pointer; color:var(--text-muted);">&times;</span>
+        <h3 style="color:#0f172a; font-size:15px;"><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> Priority Plot Lock (48 Hrs)</h3>
+        <span onclick="closeHoldModal()" style="font-size:20px; font-weight:bold; cursor:pointer; color:#64748b;">&times;</span>
       </div>
 
-      <div style="background:rgba(245, 158, 11, 0.15); color:#fde047; padding:8px 10px; border-radius:6px; font-size:11px; margin-bottom:12px; line-height:1.4; border-left:3px solid #f59e0b;">
+      <div style="background:#fef3c7; color:#92400e; padding:8px 10px; border-radius:6px; font-size:11px; margin-bottom:12px; line-height:1.4; border-left:3px solid #f59e0b;">
         ⚠️ <strong>Important Policy:</strong> ₹4,999 is a Non-Refundable Priority Lock Fee. Agar plot booking cancel hoti hai ya 48 hrs me complete nahi hoti, toh yeh amount <strong>Refund Nahi Hoga</strong>.
       </div>
 
       <!-- DIRECT UPI DETAILS BOX -->
-      <div style="background:var(--input-bg); border:1px dashed var(--card-border); padding:10px; border-radius:8px; text-align:center; margin-bottom:12px;">
-        <p style="margin:0; font-size:11px; color:var(--text-muted);">GPay / PhonePe / Paytm Number:</p>
-        <h2 style="margin:2px 0; color:var(--text-main); font-size:18px; letter-spacing:1px;">7972306925</h2>
-        <p style="margin:0; font-size:11px; color:#4ade80; font-weight:bold;">Lock Amount: ₹4,999/-</p>
+      <div style="background:#f8fafc; border:1px dashed #cbd5e1; padding:10px; border-radius:8px; text-align:center; margin-bottom:12px;">
+        <p style="margin:0; font-size:11px; color:#475569;">GPay / PhonePe / Paytm Number:</p>
+        <h2 style="margin:2px 0; color:#0f172a; font-size:18px; letter-spacing:1px;">7972306925</h2>
+        <p style="margin:0; font-size:11px; color:#16a34a; font-weight:bold;">Lock Amount: ₹4,999/-</p>
       </div>
 
       <form id="plotHoldForm" onsubmit="handleHoldSubmit(event)">
@@ -1210,7 +1203,7 @@
 
         <div class="form-group" style="margin-bottom:8px;">
           <label style="font-size:11px;">Selected Unit</label>
-          <input type="text" id="modalDisplayPlot" readonly style="background:var(--input-bg); font-weight:bold; font-size:12px; padding:8px;" />
+          <input type="text" id="modalDisplayPlot" readonly style="background:#f1f5f9; font-weight:bold; font-size:12px; padding:8px;" />
         </div>
         <div class="form-group" style="margin-bottom:8px;">
           <label style="font-size:11px;">Full Name *</label>
@@ -1256,50 +1249,6 @@
     let currentBaseAmount = 1400000;
     let videoTourInterval = null;
 
-    // --- THEME TOGGLE CONTROLLER ---
-    function toggleTheme() {
-      const body = document.body;
-      const themeIcon = document.getElementById('themeIcon');
-      const currentTheme = body.getAttribute('data-theme');
-      
-      if (currentTheme === 'dark') {
-        body.setAttribute('data-theme', 'light');
-        themeIcon.className = 'fa-solid fa-moon';
-        localStorage.setItem('wfw_theme', 'light');
-      } else {
-        body.setAttribute('data-theme', 'dark');
-        themeIcon.className = 'fa-solid fa-sun';
-        localStorage.setItem('wfw_theme', 'dark');
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('wfw_theme') || 'dark';
-      document.body.setAttribute('data-theme', savedTheme);
-      document.getElementById('themeIcon').className = savedTheme === 'light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
-
-      if (!navigator.onLine) {
-        document.getElementById('offlineBanner').style.display = 'block';
-        document.getElementById('customOfflineScreen').style.display = 'flex';
-      }
-
-      if (loggedInUser && userSessionToken) {
-        renderHeaderAuth();
-        if (loggedInUser.role === 'admin') {
-          loadAdminHolds();
-          showScreenDirect('admin_dashboard');
-        } else {
-          document.getElementById('welcomeUserName').innerText = `Welcome, ${loggedInUser.email.split('@')[0]}!`;
-          showScreenDirect('welcome_dashboard');
-        }
-      } else {
-        showScreenDirect('signup');
-        renderHeaderAuth();
-      }
-      handlePlotSelectionChange();
-      renderExploredPlotsList();
-    });
-
     // --- EXACT PLOT SPECIFICATION DATABASE FOR AI & VASTU ---
     const plotVastuData = {
       "degma_3000": { price: 1350000, facing: "East Facing (Purva Disha)", sunlight: "Direct Sunrise from 6:30 AM | Naturally Daylit till 3:00 PM", grade: "⭐⭐⭐⭐⭐ Ideal Vastu for Health & Living", entrance: "East Gate (Indra Sthan) brings prosperity", needleAngle: 90 },
@@ -1319,9 +1268,9 @@
       "mind_5000": { price: 7000000, facing: "Prime S.H 262 Highway Frontage (East Facing)", sunlight: "Unblocked High Visibility Sunlight from sunrise to sunset", grade: "⭐⭐⭐⭐⭐ Top Tier Commercial Asset Vastu", entrance: "Wide 60ft Highway Front Commercial Entry", needleAngle: 90 }
     };
 
-    const degmaImages = ['farm1.jpg', 'farm2.jpg', 'farm3.jpg', 'farm4.jpg', 'farm5.jpg', 'farm6.jpg', 'farm7.jpg', 'farm8.jpg', 'farm9.jpg', 'farm10.jpg'];
-    const strawberryImages = ['resort1.jpg', 'resort2.jpg', 'resort3.jpg', 'resort4.jpg', 'resort5.jpg', 'resort6.jpg', 'resort7.jpg', 'resort8.jpg', 'resort9.jpg'];
-    const mindgameImages = ['mind1.jpg', 'mind2.jpg', 'mind3.jpg', 'mind4.jpg', 'mind5.jpg', 'mind6.jpg', 'mind7.jpg'];
+    const degmaImages = ['images/farm1.jpg', 'images/farm2.jpg', 'images/farm3.jpg', 'images/farm4.jpg', 'images/farm5.jpg', 'images/farm6.jpg', 'images/farm7.jpg', 'images/farm8.jpg', 'images/farm9.jpg', 'images/farm10.jpg'];
+    const strawberryImages = ['images/resort1.jpg', 'images/resort2.jpg', 'images/resort3.jpg', 'images/resort4.jpg', 'images/resort5.jpg', 'images/resort6.jpg', 'images/resort7.jpg', 'images/resort8.jpg', 'images/resort9.jpg'];
+    const mindgameImages = ['images/mind1.jpg', 'images/mind2.jpg', 'images/mind3.jpg', 'images/mind4.jpg', 'images/mind5.jpg', 'images/mind6.jpg', 'images/mind7.jpg'];
     const welcomeTags = ['🌿 Degma Farmland: 122 Acres Nature Living', '🌸 Strawberry Resort: Luxury Cottages & Pool', '🌟 Mind Game: SH 262 Highway Touch Plots', '🏊 Luxury Amenities & Restaurant', '🏕️ Peaceful Farm Life'];
 
     let currentActiveGallery = [];
@@ -1355,6 +1304,29 @@
       location.reload();
     });
 
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!navigator.onLine) {
+        document.getElementById('offlineBanner').style.display = 'block';
+        document.getElementById('customOfflineScreen').style.display = 'flex';
+      }
+
+      if (loggedInUser && userSessionToken) {
+        renderHeaderAuth();
+        if (loggedInUser.role === 'admin') {
+          loadAdminHolds();
+          showScreenDirect('admin_dashboard');
+        } else {
+          document.getElementById('welcomeUserName').innerText = `Welcome, ${loggedInUser.email.split('@')[0]}!`;
+          showScreenDirect('welcome_dashboard');
+        }
+      } else {
+        showScreenDirect('signup');
+        renderHeaderAuth();
+      }
+      handlePlotSelectionChange();
+      renderExploredPlotsList();
+    });
+
     window.addEventListener('popstate', (event) => {
       if (!loggedInUser || !userSessionToken) {
         showScreenDirect('signup');
@@ -1385,12 +1357,8 @@
       window.scrollTo(0, 0);
     }
 
-    function openPrivacyModal() {
-      document.getElementById('privacyModal').style.display = 'flex';
-    }
-    function closePrivacyModal() {
-      document.getElementById('privacyModal').style.display = 'none';
-    }
+    function openPrivacyModal() { document.getElementById('privacyModal').style.display = 'flex'; }
+    function closePrivacyModal() { document.getElementById('privacyModal').style.display = 'none'; }
 
     function handleDeleteAccount() {
       if (confirm("Are you sure you want to delete your account and clear all saved plot preferences?")) {
@@ -1417,7 +1385,7 @@
       if (!container) return;
       const explored = JSON.parse(localStorage.getItem('wfw_explored_plots') || '[]');
       if (explored.length === 0) {
-        container.innerHTML = '<p style="color:var(--text-muted); font-size:11px;">Browse properties to see your viewed plots here.</p>';
+        container.innerHTML = '<p style="color:#94a3b8; font-size:11px;">Browse properties to see your viewed plots here.</p>';
         return;
       }
       let html = '';
@@ -1446,10 +1414,7 @@
     }
 
     function openCustomerDrawer() {
-      if (!loggedInUser) {
-        showScreen('login');
-        return;
-      }
+      if (!loggedInUser) { showScreen('login'); return; }
       document.getElementById('drawerUserEmail').innerText = loggedInUser.email;
       document.getElementById('customerDrawerBackdrop').style.display = 'block';
       document.getElementById('customerDrawer').classList.add('open');
@@ -1466,10 +1431,9 @@
       try {
         const res = await fetch(`${API_BASE}/customer/activity?email=${encodeURIComponent(loggedInUser.email)}`);
         const data = await res.json();
-
         const holdsEl = document.getElementById('drawerHoldsList');
         if (!data.holds || data.holds.length === 0) {
-          holdsEl.innerHTML = '<p style="color:var(--text-muted); font-size:11px;">No active priority plot holds found.</p>';
+          holdsEl.innerHTML = '<p style="color:#94a3b8; font-size:11px;">No active priority plot holds found.</p>';
         } else {
           let html = '';
           data.holds.forEach(h => {
@@ -1489,7 +1453,7 @@
 
         const visitsEl = document.getElementById('drawerVisitsList');
         if (!data.enquiries || data.enquiries.length === 0) {
-          visitsEl.innerHTML = '<p style="color:var(--text-muted); font-size:11px;">No site visits scheduled yet.</p>';
+          visitsEl.innerHTML = '<p style="color:#94a3b8; font-size:11px;">No site visits scheduled yet.</p>';
         } else {
           let html = '';
           data.enquiries.forEach(v => {
@@ -1506,37 +1470,19 @@
           });
           visitsEl.innerHTML = html;
         }
-
         renderExploredPlotsList();
-      } catch (err) {
-        console.error('Error fetching customer activity:', err);
-      }
+      } catch (err) { console.error('Error fetching activity:', err); }
     }
 
-    function openAiMatcher() {
-      document.getElementById('aiMatcherModal').style.display = 'flex';
-    }
-    function closeAiMatcher() {
-      document.getElementById('aiMatcherModal').style.display = 'none';
-    }
+    function openAiMatcher() { document.getElementById('aiMatcherModal').style.display = 'flex'; }
+    function closeAiMatcher() { document.getElementById('aiMatcherModal').style.display = 'none'; }
     function executeAiMatch() {
       const budget = document.getElementById('quizBudget').value;
       const goal = document.getElementById('quizGoal').value;
       closeAiMatcher();
-
-      if (goal === 'resort' || budget === '30') {
-        alert('🎯 AI Match Found: 🌸 Strawberry Resort - Luxury Furnished Cottage (₹24 Lakh). Redirecting...');
-        showScreen('strawberry_detail');
-      } else if (goal === 'commercial' || budget === '100') {
-        alert('🎯 AI Match Found: 🌟 Mind Game - Prime Commercial Highway Frontage (₹70 Lakh). Redirecting...');
-        showScreen('mindgame_detail');
-      } else if (goal === 'estate') {
-        alert('🎯 AI Match Found: 🌿 Degma Farmland - 22,000 sq.ft. (Half Acre Estate). Redirecting...');
-        showScreen('degma_detail');
-      } else {
-        alert('🎯 AI Match Found: 🌿 Degma Farmland - 3,000 sq.ft. Plot (₹13.5 Lakh / 0% EMI). Redirecting...');
-        showScreen('degma_detail');
-      }
+      if (goal === 'resort' || budget === '30') { showScreen('strawberry_detail'); }
+      else if (goal === 'commercial' || budget === '100') { showScreen('mindgame_detail'); }
+      else { showScreen('degma_detail'); }
     }
 
     function openCinematicTour(project) {
@@ -1544,32 +1490,23 @@
       let frameIdx = 0;
       const frameList = (project === 'strawberry') ? strawberryImages : degmaImages;
       const frameImg = document.getElementById('videoReelFrame');
-      
       clearInterval(videoTourInterval);
       videoTourInterval = setInterval(() => {
         frameIdx = (frameIdx + 1) % frameList.length;
         frameImg.src = frameList[frameIdx];
       }, 1200);
     }
-    function closeCinematicTour() {
-      clearInterval(videoTourInterval);
-      document.getElementById('videoModal').style.display = 'none';
-    }
+    function closeCinematicTour() { clearInterval(videoTourInterval); document.getElementById('videoModal').style.display = 'none'; }
 
     function openHoldModal(project, plot) {
       recordPlotInterest(project, plot);
       document.getElementById('modalHoldProject').value = project;
       document.getElementById('modalHoldPlot').value = plot;
       document.getElementById('modalDisplayPlot').value = `${project} - ${plot}`;
-      if (loggedInUser) {
-        document.getElementById('holdCustEmail').value = loggedInUser.email;
-      }
+      if (loggedInUser) document.getElementById('holdCustEmail').value = loggedInUser.email;
       document.getElementById('holdModal').style.display = 'flex';
     }
-
-    function closeHoldModal() {
-      document.getElementById('holdModal').style.display = 'none';
-    }
+    function closeHoldModal() { document.getElementById('holdModal').style.display = 'none'; }
 
     async function handleHoldSubmit(e) {
       e.preventDefault();
@@ -1579,11 +1516,7 @@
       const phone = document.getElementById('holdCustPhone').value.trim();
       const email = document.getElementById('holdCustEmail').value.trim();
       const txn = document.getElementById('holdCustTxn').value.trim();
-
-      if (!txn) {
-        alert("Please enter the UTR / Transaction ID from your payment app.");
-        return;
-      }
+      if (!txn) { alert("Please enter UTR ID."); return; }
 
       try {
         const res = await fetch(`${API_BASE}/plot-hold`, {
@@ -1592,168 +1525,70 @@
           body: JSON.stringify({ project_name: proj, plot_no: plot, name, phone, email, txn_id: txn })
         });
         const data = await res.json();
-        
         closeHoldModal();
-        renderPaymentSlip({ 
-          id: data.id || Date.now().toString().slice(-4), 
-          project: proj, 
-          plot, 
-          name, 
-          phone, 
-          email, 
-          txn, 
-          timestamp: data.timestamp || new Date().toLocaleString() 
-        });
-
-        const waText = encodeURIComponent(
-          `⚡ *PRIORITY PLOT HOLD SUBMITTED (₹4,999)*\n\n` +
-          `🏡 *Project:* ${proj}\n` +
-          `📐 *Plot:* ${plot}\n` +
-          `👤 *Name:* ${name}\n` +
-          `📞 *Phone:* ${phone}\n` +
-          `💳 *UTR ID:* ${txn}\n` +
-          `💰 *Amount:* ₹4,999 (Non-Refundable Hold Fee)\n\n` +
-          `_Please verify payment slip and lock unit in CRM._`
-        );
-        window.open(`https://wa.me/91${MAM_PHONE}?text=${waText}`, '_blank');
-      } catch (err) {
-        alert('Payment hold recorded & generating slip.');
-      }
+        renderPaymentSlip({ id: data.id || '9921', project: proj, plot, name, phone, email, txn, timestamp: data.timestamp || new Date().toLocaleString() });
+        window.open(`https://wa.me/91${MAM_PHONE}?text=` + encodeURIComponent(`⚡ HOLD: ${proj} - ${plot} | UTR: ${txn}`), '_blank');
+      } catch (err) { alert('Hold recorded.'); }
     }
 
     function renderPaymentSlip(data) {
       const slipHTML = `
         <div id="paymentSlipOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; display:flex; justify-content:center; align-items:center; padding:14px;">
-          <div id="printableReceiptCard" style="background:var(--card-bg); color:var(--text-main); width:100%; max-width:380px; padding:20px; border-radius:12px; border:2px solid var(--card-border); font-family:sans-serif; box-shadow:0 10px 25px rgba(0,0,0,0.5);">
-            <div style="text-align:center; border-bottom:2px dashed var(--card-border); padding-bottom:10px;">
-              <h2 style="margin:0; color:#4ade80; font-size:18px;">WALKE FARM WORLD</h2>
-              <span style="font-size:10px; background:#16a34a; color:#fff; padding:2px 8px; border-radius:12px; font-weight:bold;">OFFICIAL PLOT HOLD RECEIPT</span>
+          <div id="printableReceiptCard" style="background:#fff; width:100%; max-width:380px; padding:20px; border-radius:12px; border:2px solid #0f172a; font-family:sans-serif;">
+            <div style="text-align:center; border-bottom:2px dashed #cbd5e1; padding-bottom:10px;">
+              <h2 style="margin:0; color:#1b5e20; font-size:18px;">WALKE FARM WORLD</h2>
+              <span style="font-size:10px; background:#16a34a; color:#fff; padding:2px 8px; border-radius:12px; font-weight:bold;">OFFICIAL RECEIPT</span>
             </div>
-
-            <div style="margin:14px 0; font-size:12px; line-height:1.6; color:var(--text-main);">
-              <p style="margin:3px 0;"><b>Receipt No:</b> WFW-HOLD-${data.id}</p>
-              <p style="margin:3px 0;"><b>Date & Time:</b> ${data.timestamp}</p>
-              <hr style="border:none; border-top:1px solid var(--card-border); margin:6px 0;">
-              <p style="margin:3px 0;"><b>Customer Name:</b> ${data.name}</p>
-              <p style="margin:3px 0;"><b>Contact Phone:</b> ${data.phone}</p>
-              <p style="margin:3px 0;"><b>Email Address:</b> ${data.email}</p>
-              <p style="margin:3px 0;"><b>Locked Unit:</b> <strong style="color:#38bdf8;">${data.project} - ${data.plot}</strong></p>
-              <p style="margin:3px 0;"><b>Lock Period:</b> 48 Hours Priority</p>
-              <p style="margin:3px 0;"><b>UTR / Txn ID:</b> <code style="background:var(--input-bg); padding:2px 4px; border-radius:4px;">${data.txn}</code></p>
-              <p style="margin:4px 0; font-size:13px; color:#4ade80;"><b>Amount Paid: ₹4,999/-</b> (Non-Refundable)</p>
+            <div style="margin:14px 0; font-size:12px; line-height:1.6; color:#334155;">
+              <p><b>Name:</b> ${data.name}</p>
+              <p><b>Unit:</b> ${data.project} - ${data.plot}</p>
+              <p><b>UTR:</b> ${data.txn}</p>
+              <p style="color:#16a34a;"><b>Amount: ₹4,999/- Paid</b></p>
             </div>
-
-            <div style="background:rgba(239, 68, 68, 0.15); color:#fca5a5; padding:6px 8px; border-radius:6px; font-size:10px; text-align:center; margin-bottom:12px; border:1px solid rgba(239, 68, 68, 0.3);">
-              Note: This priority hold is subject to final UTR payment clearance by management.
-            </div>
-
-            <div style="display:flex; gap:8px;">
-              <button onclick="downloadSlipPDF('printableReceiptCard', 'WalkeFarm_Receipt_${data.id}.pdf')" class="btn-main" style="background:#2563eb; flex:1;"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
-              <button onclick="document.getElementById('paymentSlipOverlay').remove()" class="btn-main" style="background:#0f172a; flex:1;">Close</button>
-            </div>
+            <button onclick="document.getElementById('paymentSlipOverlay').remove()" class="btn-main" style="background:#0f172a;">Close</button>
           </div>
         </div>
       `;
       document.body.insertAdjacentHTML('beforeend', slipHTML);
     }
 
-    function downloadSlipPDF(elementId, filename) {
-      const element = document.getElementById(elementId);
-      const opt = {
-        margin: 10,
-        filename: filename,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
-      };
-      html2pdf().set(opt).from(element).save();
-    }
-
-    function shareOnWhatsAppForVoucher() {
-      const shareUrl = window.location.origin;
-      const viralText = encodeURIComponent(
-        `🌿 *Discover Luxury Farmhouses & 0% EMI Plots in Nagpur!*\n\n` +
-        `🏡 *Walke Farm World* - Explore 122 Acres Degma Waterfall Farmland & Strawberry Resort Cottages in *Interactive 360° Virtual Tours*.\n\n` +
-        `👉 Tap to view live plot map & rates: ${shareUrl}\n\n` +
-        `🎁 _Use VIP code WALKE25K-VIP for ₹25,000 token discount!_`
-      );
-      window.open(`https://api.whatsapp.com/send?text=${viralText}`, '_blank');
-      
-      setTimeout(() => {
-        document.getElementById('voucherCodeUnlocked').style.display = 'block';
-      }, 1000);
-    }
-
-    function shareReferralLink() {
-      const userRefCode = loggedInUser ? loggedInUser.email.split('@')[0].toUpperCase() : 'VIP2026';
-      const shareUrl = `${window.location.origin}/?ref=${userRefCode}`;
-      const referText = encodeURIComponent(
-        `🤝 *Property Partner Invite from ${userRefCode}*\n\n` +
-        `Check out prime verified farm plots & resort cottages near Nagpur with 0% interest EMI & 90% bank loan!\n\n` +
-        `🌟 Explore 360° Virtual Tour & Rates here:\n${shareUrl}`
-      );
-      window.open(`https://api.whatsapp.com/send?text=${referText}`, '_blank');
-    }
-
     function handleHomeClick() {
       if (!loggedInUser) return;
       homeTapCount++;
       clearTimeout(homeTapTimer);
-
       if (homeTapCount === 3) {
         homeTapCount = 0;
-        if (loggedInUser && loggedInUser.role === 'admin') {
-          loadAdminHolds();
-          showScreen('admin_dashboard');
-        } else {
-          showScreen('admin_secret_login');
-        }
+        if (loggedInUser.role === 'admin') { loadAdminHolds(); showScreen('admin_dashboard'); }
+        else { showScreen('admin_secret_login'); }
       } else {
-        homeTapTimer = setTimeout(() => {
-          homeTapCount = 0;
-          showScreen('home');
-        }, 400);
+        homeTapTimer = setTimeout(() => { homeTapCount = 0; showScreen('home'); }, 400);
       }
     }
 
     function renderHeaderAuth() {
       const authContainer = document.getElementById('authHeaderBtn');
       if (loggedInUser && userSessionToken) {
-        authContainer.innerHTML = `
-          <div class="user-pill" onclick="openCustomerDrawer()">
-            <span>${loggedInUser.role === 'admin' ? '🛡️ Admin' : '👤 ' + loggedInUser.email.split('@')[0]}</span>
-            <i class="fa-solid fa-bars" style="font-size:10px; margin-left:2px;"></i>
-          </div>
-        `;
+        authContainer.innerHTML = `<div class="user-pill" onclick="openCustomerDrawer()"><span>👤 ${loggedInUser.email.split('@')[0]}</span></div>`;
       } else {
-        authContainer.innerHTML = `
-          <button onclick="showScreen('login')" style="border:none; background:none; cursor:pointer; font-size:16px; color:var(--primary);">
-            <i class="fa-regular fa-circle-user"></i>
-          </button>
-        `;
+        authContainer.innerHTML = `<button onclick="showScreen('login')" style="border:none; background:none; cursor:pointer; font-size:16px; color:var(--primary);"><i class="fa-regular fa-circle-user"></i></button>`;
       }
     }
 
     function updateCalculator() {
       const val = parseInt(document.getElementById('calcSlider').value);
       document.getElementById('calcPriceLabel').innerText = `₹${(val / 100000).toFixed(1)} Lakh`;
-      const monthly = Math.round(val / 24);
-      document.getElementById('calcEmiResult').innerText = `₹${monthly.toLocaleString('en-IN')} / mo`;
+      document.getElementById('calcEmiResult').innerText = `₹${Math.round(val / 24).toLocaleString('en-IN')} / mo`;
     }
 
     function handlePlotSelectionChange() {
       const selectedKey = document.getElementById('masterPlotSelector').value;
       const customDiv = document.getElementById('customPriceDiv');
-
       if (selectedKey === 'custom') {
         customDiv.style.display = 'block';
         currentBaseAmount = parseInt(document.getElementById('customPlotInput').value) || 1500000;
-        updateVastuDetails("Custom Plot Orientation", "Sunlight depends on layout facing", "⭐⭐⭐⭐ Standard Residential Vastu", "North or East entry advised", 45);
       } else {
         customDiv.style.display = 'none';
-        const data = plotVastuData[selectedKey];
-        currentBaseAmount = data.price;
-        updateVastuDetails(data.facing, data.sunlight, data.grade, data.entrance, data.needleAngle);
+        currentBaseAmount = plotVastuData[selectedKey].price;
       }
       recalculateAiFuture();
     }
@@ -1761,18 +1596,6 @@
     function handleCustomInputChange() {
       currentBaseAmount = parseInt(document.getElementById('customPlotInput').value) || 1000000;
       recalculateAiFuture();
-    }
-
-    function updateVastuDetails(facing, sunlight, grade, entrance, needleAngle) {
-      document.getElementById('vastuFacing').innerText = facing;
-      document.getElementById('vastuSunlight').innerText = sunlight;
-      document.getElementById('vastuGrade').innerText = grade;
-      document.getElementById('vastuEntrance').innerText = entrance;
-      
-      const needle = document.getElementById('compassNeedle');
-      if (needle) {
-        needle.style.transform = `rotate(${needleAngle}deg)`;
-      }
     }
 
     function setTimeHorizon(years) {
@@ -1787,14 +1610,9 @@
     function recalculateAiFuture() {
       const multiplier = (selectedHorizonYears === 3) ? 1.501 : 1.968;
       const futureVal = currentBaseAmount * multiplier;
-      const profit = futureVal - currentBaseAmount;
-      const percentGain = (selectedHorizonYears === 3) ? '+50.1%' : '+96.8%';
-
       document.getElementById('roiBaseVal').innerText = `₹${(currentBaseAmount / 100000).toFixed(2)} Lakh`;
       document.getElementById('roiFutureVal').innerText = `₹${(futureVal / 100000).toFixed(2)} Lakh`;
-      document.getElementById('roiProfit').innerText = `+₹${(profit / 100000).toFixed(2)} Lakh`;
-      document.getElementById('roiPercent').innerText = percentGain;
-      document.getElementById('roiFill').style.width = (selectedHorizonYears === 3) ? '55%' : '95%';
+      document.getElementById('roiProfit').innerText = `+₹${((futureVal - currentBaseAmount) / 100000).toFixed(2)} Lakh`;
     }
 
     function startCarousel(className, isWelcome = false) {
@@ -1820,18 +1638,13 @@
     function open360Tour(projectType, title) {
       document.getElementById('tour360Title').innerText = title;
       showScreen('tour_360_screen');
-
-      let imagesList = degmaImages;
-      if (projectType === 'strawberry') imagesList = strawberryImages;
-      if (projectType === 'mindgame') imagesList = mindgameImages;
-
+      const list = projectType === 'strawberry' ? strawberryImages : (projectType === 'mindgame' ? mindgameImages : degmaImages);
       const row = document.getElementById('thumb360Row');
       row.innerHTML = '';
-      
-      imagesList.forEach((img, idx) => {
+      list.forEach((img, idx) => {
         const thumb = document.createElement('img');
         thumb.src = img;
-        thumb.className = (idx === 0) ? 'active' : '';
+        thumb.className = idx === 0 ? 'active' : '';
         thumb.onclick = () => {
           document.querySelectorAll('.thumb-360-row img').forEach(i => i.classList.remove('active'));
           thumb.classList.add('active');
@@ -1839,82 +1652,48 @@
         };
         row.appendChild(thumb);
       });
-
-      load360Image(imagesList[0]);
+      load360Image(list[0]);
     }
 
     function load360Image(imageSrc) {
       try {
         if (pannellumViewer) pannellumViewer.destroy();
         setTimeout(() => {
-          pannellumViewer = pannellum.viewer('panorama-360', {
-            type: 'equirectangular',
-            panorama: imageSrc,
-            autoLoad: true,
-            autoRotate: -2,
-            compass: false
-          });
+          pannellumViewer = pannellum.viewer('panorama-360', { type: 'equirectangular', panorama: imageSrc, autoLoad: true, autoRotate: -2 });
         }, 100);
       } catch(e){}
     }
 
     function showGallery(type) {
       const container = document.getElementById('galleryContainer');
-      const title = document.getElementById('galleryTitle');
       container.innerHTML = '';
-
-      if (type === 'degma') {
-        title.innerText = 'Degma Farmland Gallery (10 Photos)';
-        currentActiveGallery = degmaImages;
-      } else if (type === 'strawberry') {
-        title.innerText = 'Strawberry Resort Gallery (9 Photos)';
-        currentActiveGallery = strawberryImages;
-      } else {
-        title.innerText = 'Mind Game Gallery (7 Photos)';
-        currentActiveGallery = mindgameImages;
-      }
-
+      currentActiveGallery = type === 'strawberry' ? strawberryImages : (type === 'mindgame' ? mindgameImages : degmaImages);
       currentActiveGallery.forEach((img, idx) => {
-        const imageElement = document.createElement('img');
-        imageElement.src = img;
-        imageElement.onclick = () => openLightbox(idx);
-        container.appendChild(imageElement);
+        const el = document.createElement('img');
+        el.src = img;
+        el.onclick = () => openLightbox(idx);
+        container.appendChild(el);
       });
       showScreen('gallery');
     }
 
-    function openLightbox(index) {
-      currentLightboxIdx = index;
-      document.getElementById('lightboxImg').src = currentActiveGallery[currentLightboxIdx];
+    function openLightbox(idx) {
+      currentLightboxIdx = idx;
+      document.getElementById('lightboxImg').src = currentActiveGallery[idx];
       document.getElementById('imageModal').style.display = 'flex';
     }
     function closeLightbox() { document.getElementById('imageModal').style.display = 'none'; }
-    function nextLightbox() {
-      currentLightboxIdx = (currentLightboxIdx + 1) % currentActiveGallery.length;
-      document.getElementById('lightboxImg').src = currentActiveGallery[currentLightboxIdx];
-    }
-    function prevLightbox() {
-      currentLightboxIdx = (currentLightboxIdx - 1 + currentActiveGallery.length) % currentActiveGallery.length;
-      document.getElementById('lightboxImg').src = currentActiveGallery[currentLightboxIdx];
-    }
 
     async function handleSignup(e) {
       e.preventDefault();
       const email = document.getElementById('signup_email').value;
       const password = document.getElementById('signup_password').value;
       try {
-        const res = await fetch(`${API_BASE}/signup`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
+        const res = await fetch(`${API_BASE}/signup`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
         const data = await res.json();
-        if (data.status === 'success') {
-          alert('Account created successfully! Please log in.');
-          document.getElementById('login_email').value = email;
-          showScreenDirect('login');
-        } else { alert(data.message); }
-      } catch (err) { alert('Server error. Connecting...'); }
+        if (data.status === 'success') { alert('Account created!'); showScreenDirect('login'); }
+        else { alert(data.message); }
+      } catch (err) { alert('Connection error.'); }
     }
 
     async function handleLogin(e) {
@@ -1922,27 +1701,16 @@
       const email = document.getElementById('login_email').value;
       const password = document.getElementById('login_password').value;
       try {
-        const res = await fetch(`${API_BASE}/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
+        const res = await fetch(`${API_BASE}/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
         const data = await res.json();
         if (data.status === 'success') {
-          userSessionToken = data.token;
-          loggedInUser = data;
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('user', JSON.stringify(data));
+          userSessionToken = data.token; loggedInUser = data;
+          localStorage.setItem('token', data.token); localStorage.setItem('user', JSON.stringify(data));
           renderHeaderAuth();
-          if (data.role === 'admin') {
-            loadAdminHolds();
-            showScreenDirect('admin_dashboard');
-          } else {
-            document.getElementById('welcomeUserName').innerText = `Welcome, ${data.email.split('@')[0]}!`;
-            showScreenDirect('welcome_dashboard');
-          }
+          if (data.role === 'admin') { loadAdminHolds(); showScreenDirect('admin_dashboard'); }
+          else { showScreenDirect('welcome_dashboard'); }
         } else { alert(data.message); }
-      } catch (err) { alert('Server error'); }
+      } catch (err) { alert('Connection error.'); }
     }
 
     async function handleAdminLogin(e) {
@@ -1950,33 +1718,18 @@
       const email = document.getElementById('admin_email').value;
       const password = document.getElementById('admin_password').value;
       try {
-        const res = await fetch(`${API_BASE}/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
+        const res = await fetch(`${API_BASE}/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
         const data = await res.json();
         if (data.status === 'success' && data.role === 'admin') {
-          userSessionToken = data.token;
-          loggedInUser = data;
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('user', JSON.stringify(data));
-          renderHeaderAuth();
-          alert('Admin Authenticated.');
-          loadAdminHolds();
-          showScreenDirect('admin_dashboard');
-        } else { alert('Unauthorized Admin ID.'); }
-      } catch (err) { alert('Server error'); }
+          userSessionToken = data.token; loggedInUser = data;
+          localStorage.setItem('token', data.token); localStorage.setItem('user', JSON.stringify(data));
+          renderHeaderAuth(); loadAdminHolds(); showScreenDirect('admin_dashboard');
+        } else { alert('Unauthorized.'); }
+      } catch (err) { alert('Connection error.'); }
     }
 
     function logout() {
-      userSessionToken = null;
-      loggedInUser = null;
-      localStorage.clear();
-      closeCustomerDrawer();
-      renderHeaderAuth();
-      alert('Logged out successfully.');
-      showScreenDirect('signup');
+      localStorage.clear(); location.reload();
     }
 
     async function submitForm(e) {
@@ -1986,172 +1739,41 @@
       const phone = document.getElementById('phone').value;
       const plot = document.getElementById('plot_size').value;
       const date = document.getElementById('visit_date').value;
-      const userEmail = loggedInUser ? loggedInUser.email : '';
-
       try {
-        await fetch(`${API_BASE}/enquiry`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ project_name: proj, name, phone, plot_size: plot, visit_date: date, user_email: userEmail, message: '' })
-        });
-
-        const managementText = encodeURIComponent(
-          `🚀 *NEW SITE VISIT LEAD CAPTURED*\n\n` +
-          `🏡 *Project:* ${proj}\n` +
-          `📐 *Selected Unit:* ${plot}\n` +
-          `👤 *Client:* ${name}\n` +
-          `📞 *Contact:* ${phone}\n` +
-          `📅 *Visit Date:* ${date}\n\n` +
-          `_CRM Status: New Lead_`
-        );
-
-        window.open(`https://wa.me/91${MAM_PHONE}?text=${managementText}`, '_blank');
-        alert('Booking recorded & forwarded on WhatsApp!');
-        document.getElementById('enquiryForm').reset();
+        await fetch(`${API_BASE}/enquiry`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ project_name: proj, name, phone, plot_size: plot, visit_date: date, user_email: loggedInUser ? loggedInUser.email : '' }) });
+        window.open(`https://wa.me/91${MAM_PHONE}?text=` + encodeURIComponent(`🚀 VISIT: ${proj} | Name: ${name}`), '_blank');
         showScreen('home');
-      } catch (err) { alert('Booking forwarded.'); }
+      } catch (err) { alert('Booking submitted.'); }
     }
 
     async function loadAdminHolds() {
       try {
-        const res = await fetch(`${API_BASE}/admin/plot-holds`, {
-          headers: { 'Authorization': `Bearer ${userSessionToken}` }
-        });
+        const res = await fetch(`${API_BASE}/admin/plot-holds`, { headers: { 'Authorization': `Bearer ${userSessionToken}` } });
         const holds = await res.json();
-        let html = `
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-            <h4 style="font-size:13px; color:#f59e0b; margin:0;"><i class="fa-solid fa-receipt"></i> Priority Holds (₹4,999 Record)</h4>
-            <a href="${API_BASE}/admin/export-holds-excel" target="_blank" style="background:#059669; color:white; padding:4px 8px; border-radius:4px; font-size:10px; text-decoration:none; font-weight:bold;"><i class="fa-solid fa-file-excel"></i> Export Holds</a>
-          </div>
-        `;
-        
-        if (!holds || holds.length === 0) {
-          html += '<p style="font-size:12px; color:gray;">No priority plot holds recorded yet.</p>';
-        } else {
-          holds.forEach(h => {
-            html += `
-              <div class="crm-card" style="border-left:4px solid #f59e0b;">
-                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                  <div>
-                    <strong style="font-size:13px;">${h.name}</strong>
-                    <div style="font-size:11px; color:#38bdf8; font-weight:bold;">${h.project_name} | ${h.plot_no}</div>
-                  </div>
-                  <span style="background:#16a34a; color:white; font-size:10px; font-weight:bold; padding:2px 6px; border-radius:4px;">₹${h.amount} Paid</span>
-                </div>
-                <div style="font-size:11px; color:var(--text-muted); margin:4px 0;">
-                  📞 Phone: <a href="tel:${h.phone}" style="color:var(--text-main); font-weight:bold;">${h.phone}</a> | ✉️ ${h.email}
-                </div>
-                <div style="font-size:10px; background:var(--input-bg); padding:4px 6px; border-radius:4px; font-family:monospace; color:#4ade80;">
-                  UTR / Txn ID: <strong>${h.txn_id}</strong> | ${h.created_at}
-                </div>
-              </div>
-            `;
-          });
-        }
+        let html = `<h4>Priority Holds</h4>`;
+        holds.forEach(h => { html += `<div class="crm-card"><strong>${h.name}</strong> - ${h.plot_no} (₹${h.amount})</div>`; });
         document.getElementById('adminContentPanel').innerHTML = html;
-      } catch (err) {
-        document.getElementById('adminContentPanel').innerHTML = '<p style="color:red;">Error loading hold payments.</p>';
-      }
+      } catch(e) { document.getElementById('adminContentPanel').innerHTML = 'Error loading holds.'; }
     }
 
     async function loadAdminPlots() {
       try {
-        const res = await fetch(`${API_BASE}/admin/plots`, {
-          headers: { 'Authorization': `Bearer ${userSessionToken}` }
-        });
+        const res = await fetch(`${API_BASE}/admin/plots`, { headers: { 'Authorization': `Bearer ${userSessionToken}` } });
         const plots = await res.json();
-        let html = '<h4 style="font-size:13px; margin-bottom:8px; color:#38bdf8;">Live Plot Grid Control:</h4>';
-        
-        plots.forEach(p => {
-          html += `
-            <div class="admin-plot-item">
-              <div>
-                <strong style="font-size:12px;">${p.plot_no} (${p.project_slug.toUpperCase()})</strong>
-                <div style="font-size:10px; color:var(--text-muted);">${p.size} - ${p.total_price}</div>
-              </div>
-              <select onchange="changePlotStatus(${p.id}, this.value)" style="padding:4px 6px; font-size:11px; border-radius:6px; font-weight:600; border:1px solid var(--card-border); background:var(--input-bg); color:var(--text-main);">
-                <option value="Available" ${p.status === 'Available' ? 'selected' : ''}>🟢 Available</option>
-                <option value="Booked" ${p.status === 'Booked' ? 'selected' : ''}>🔴 Booked</option>
-                <option value="On Hold" ${p.status === 'On Hold' ? 'selected' : ''}>🟡 On Hold</option>
-              </select>
-            </div>
-          `;
-        });
+        let html = `<h4>Plot Grid Control</h4>`;
+        plots.forEach(p => { html += `<div class="admin-plot-item"><span>${p.plot_no} (${p.project_slug})</span> <b>${p.status}</b></div>`; });
         document.getElementById('adminContentPanel').innerHTML = html;
-      } catch (err) {
-        document.getElementById('adminContentPanel').innerHTML = '<p style="color:red;">Error loading plots.</p>';
-      }
-    }
-
-    async function changePlotStatus(plotId, newStatus) {
-      try {
-        await fetch(`${API_BASE}/admin/update-plot-status`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${userSessionToken}` },
-          body: JSON.stringify({ id: plotId, status: newStatus })
-        });
-        alert(`Plot updated to: ${newStatus}`);
-      } catch (err) { alert('Status update failed'); }
+      } catch(e) { document.getElementById('adminContentPanel').innerHTML = 'Error loading plots.'; }
     }
 
     async function loadAdminEnquiries() {
       try {
-        const res = await fetch(`${API_BASE}/admin/enquiries`, {
-          headers: { 'Authorization': `Bearer ${userSessionToken}` }
-        });
+        const res = await fetch(`${API_BASE}/admin/enquiries`, { headers: { 'Authorization': `Bearer ${userSessionToken}` } });
         const list = await res.json();
-        let html = `
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-            <h4 style="font-size:13px; margin:0; color:#4ade80;">Live CRM Pipeline:</h4>
-            <a href="${API_BASE}/admin/export-csv" target="_blank" style="background:#059669; color:white; padding:4px 8px; border-radius:4px; font-size:10px; text-decoration:none; font-weight:bold;"><i class="fa-solid fa-file-excel"></i> Export Leads</a>
-          </div>
-        `;
-        if (list.length === 0) html += '<p style="font-size:12px; color:gray;">No leads yet.</p>';
-        
-        list.forEach(e => {
-          html += `
-            <div class="crm-card" style="${e.status.includes('Cancelled') ? 'border-left: 4px solid #ef4444;' : ''}">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                <div>
-                  <strong style="color:var(--primary); font-size:13px;">${e.name}</strong>
-                  <div style="font-size:11px; color:var(--text-muted);">${e.project_name} | ${e.plot_size}</div>
-                </div>
-                <div style="display:flex; gap:6px;">
-                  <a href="tel:${e.phone}" style="background:#15803d; color:white; padding:4px 8px; border-radius:4px; font-size:10px; text-decoration:none;"><i class="fa-solid fa-phone"></i></a>
-                  <a href="https://wa.me/91${e.phone}?text=Hello%20${encodeURIComponent(e.name)}%2C%20thank%20you%20for%20connecting%20with%20Walke%20Farm%20World!" target="_blank" style="background:#22c55e; color:white; padding:4px 8px; border-radius:4px; font-size:10px; text-decoration:none;"><i class="fa-brands fa-whatsapp"></i></a>
-                </div>
-              </div>
-              <div style="font-size:11px; color:var(--text-muted); margin: 4px 0;">📅 Preferred Date: <strong style="color:var(--text-main);">${e.visit_date}</strong></div>
-              <select class="crm-stage-select" onchange="changeLeadStatus(${e.id}, this.value)">
-                <option value="New Lead" ${e.status === 'New Lead' ? 'selected' : ''}>🔵 New Lead</option>
-                <option value="Site Visit Scheduled" ${e.status === 'Site Visit Scheduled' ? 'selected' : ''}>🟡 Site Visit Scheduled</option>
-                <option value="Site Visited" ${e.status === 'Site Visited' ? 'selected' : ''}>🟣 Site Visited</option>
-                <option value="Token Received" ${e.status === 'Token Received' ? 'selected' : ''}>🟢 Token Received</option>
-                <option value="Deal Closed" ${e.status === 'Deal Closed' ? 'selected' : ''}>🏆 Deal Closed / Booked</option>
-                <option value="Booking Cancelled" ${e.status === 'Booking Cancelled' ? 'selected' : ''}>❌ Booking Cancelled / Dropped</option>
-                <option value="Refund Processed" ${e.status === 'Refund Processed' ? 'selected' : ''}>🚫 Token Refunded</option>
-              </select>
-            </div>
-          `;
-        });
+        let html = `<h4>Leads</h4>`;
+        list.forEach(e => { html += `<div class="crm-card"><strong>${e.name}</strong> - ${e.project_name}</div>`; });
         document.getElementById('adminContentPanel').innerHTML = html;
-      } catch (err) {
-        document.getElementById('adminContentPanel').innerHTML = '<p style="color:red;">Error loading CRM.</p>';
-      }
-    }
-
-    async function changeLeadStatus(leadId, newStatus) {
-      try {
-        await fetch(`${API_BASE}/admin/update-lead-status`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${userSessionToken}` },
-          body: JSON.stringify({ id: leadId, status: newStatus })
-        });
-        alert(`Lead status updated to: ${newStatus}`);
-        if (newStatus === 'Booking Cancelled' || newStatus === 'Refund Processed') {
-          alert('💡 Reminder: Plot Grid tab me jaakar plot ko 🟢 Available par set kar dein.');
-        }
-      } catch (err) { alert('Status update failed'); }
+      } catch(e) { document.getElementById('adminContentPanel').innerHTML = 'Error loading leads.'; }
     }
   </script>
 </body>
